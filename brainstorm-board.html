@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>자기소개 앱 기획 보드</title>
+  <style>
+    :root {
+      background: #f6f4ef;
+      color: #232323;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: #666;
+    }
+
+    .roadmap,
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .roadmap {
+      margin: 18px 0 34px;
+    }
+
+    .stage,
+    .choice {
+      padding: 18px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    }
+
+    .stage b {
+      display: block;
+      margin-bottom: 8px;
+      color: #8a5b26;
+    }
+
+    .stage h3,
+    .choice h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .choice {
+      min-height: 174px;
+      cursor: pointer;
+    }
+
+    .choice:hover,
+    .choice:focus {
+      outline: 3px solid #7aa36f;
+    }
+
+    .letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 12px;
+      border-radius: 50%;
+      background: #2f5f50;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .recommend {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-left: 5px solid #4f8a5b;
+      border-radius: 6px;
+      background: #e7f0e5;
+    }
+
+    .profile-preview {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 16px;
+      margin-top: 34px;
+    }
+
+    .panel {
+      padding: 18px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 220px;
+      border-radius: 8px;
+      background: linear-gradient(160deg, #dce8d9, #f4dfba);
+      color: #2f5f50;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eef3ea;
+      color: #2f5f50;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .profile-list li {
+      padding: 12px;
+      border-radius: 8px;
+      background: #f8f7f2;
+    }
+
+    .profile-list b {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .flow-step {
+      padding: 16px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .flow-step span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background: #2f5f50;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .flow-step h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .data-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .data-card {
+      padding: 18px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    }
+
+    .data-card h2 {
+      margin-bottom: 10px;
+    }
+
+    .data-card ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+    }
+
+    .cadence {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .cadence-card {
+      padding: 18px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    }
+
+    .cadence-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #8a5b26;
+    }
+
+    .selected {
+      border-color: #4f8a5b;
+      background: #edf5ea;
+      outline: 3px solid rgba(79, 138, 91, 0.22);
+    }
+
+    .mvp-scope {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .scope-card {
+      padding: 18px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    }
+
+    .scope-card h2 {
+      margin-bottom: 12px;
+    }
+
+    .scope-card ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.8;
+    }
+
+    .screen-flow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .screen {
+      padding: 14px;
+      border: 1px solid #ddd8cc;
+      border-radius: 8px;
+      background: #fff;
+      min-height: 150px;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+    }
+
+    .screen b {
+      display: block;
+      margin-bottom: 8px;
+      color: #8a5b26;
+      font-size: 13px;
+    }
+
+    .screen h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .screen p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .tone {
+      margin-top: 34px;
+      padding: 20px;
+      border: 1px solid #d6dccd;
+      border-radius: 8px;
+      background: #f0f6ed;
+    }
+
+    .tone-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tone-item {
+      padding: 14px;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .tone-item b {
+      display: block;
+      margin-bottom: 6px;
+      color: #2f5f50;
+    }
+
+    .note {
+      margin-top: 22px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 850px) {
+      body {
+        padding: 20px;
+      }
+
+      .roadmap,
+      .choices,
+      .profile-preview,
+      .flow,
+      .data-map,
+      .cadence,
+      .mvp-scope,
+      .screen-flow,
+      .tone-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>자기소개 앱: 비공개 기록에서 공개 캐릭터로</h1>
+    <p class="subtitle">일기는 자기이해를 위한 프라이빗 공간으로 두고, 그 결과로 만들어진 캐릭터와 프로필만 친구에게 보여줄 수 있게 확장합니다.</p>
+
+    <section class="roadmap" aria-label="제품 로드맵">
+      <article class="stage">
+        <b>1단계 MVP</b>
+        <h3>비공개로 나를 기록함</h3>
+        <p>일기 작성, 감정/키워드 추출, 자기이해 리포트, 기본 캐릭터 성장.</p>
+      </article>
+      <article class="stage">
+        <b>2단계 유지</b>
+        <h3>캐릭터가 나를 반영함</h3>
+        <p>연속 기록, 캐릭터 변화, 성향 뱃지, 아이템 해금, 간단한 방 꾸미기.</p>
+      </article>
+      <article class="stage">
+        <b>3단계 확장</b>
+        <h3>프로필처럼 보여줌</h3>
+        <p>공개 캐릭터 페이지, SNS 공유, 명함 생성, 꾸미기 아이템, 고급 분석.</p>
+      </article>
+    </section>
+
+    <h2>공개/비공개 경계</h2>
+    <section class="choices" aria-label="앱 분위기 선택지">
+      <article class="choice" tabindex="0">
+        <div class="letter">A</div>
+        <h3>일기 원문</h3>
+        <p>절대 비공개입니다. 사용자가 직접 공개하지 않는 한 친구, 검색, 공유 화면에 노출되지 않습니다.</p>
+      </article>
+      <article class="choice" tabindex="0">
+        <div class="letter">B</div>
+        <h3>자기이해 분석</h3>
+        <p>기본은 비공개입니다. 다만 사용자가 고른 요약 문장, 취향, 성향 뱃지만 공개 프로필에 보낼 수 있습니다.</p>
+      </article>
+      <article class="choice" tabindex="0">
+        <div class="letter">C</div>
+        <h3>캐릭터/프로필</h3>
+        <p>친구에게 보여주는 공개 결과물입니다. 캐릭터, 방, 뱃지, 한 줄 소개, 공유 링크를 포함합니다.</p>
+      </article>
+    </section>
+
+    <div class="recommend">
+      <strong>정리:</strong> 제품의 핵심은 "속은 프라이빗, 겉은 공유 가능한 프로필"입니다. 이 경계를 명확히 잡으면 기록의 솔직함과 공유의 재미를 둘 다 살릴 수 있습니다.
+    </div>
+
+    <section class="profile-preview" aria-label="풍부한 공개 프로필 미리보기">
+      <article class="panel">
+        <h2>공개 캐릭터 카드</h2>
+        <div class="avatar">나를 닮아가는 캐릭터</div>
+        <div class="chips">
+          <span class="chip">감성 탐색가</span>
+          <span class="chip">카페 취향</span>
+          <span class="chip">느긋한 대화</span>
+          <span class="chip">새로운 음식</span>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>C형 공개 프로필 구성</h2>
+        <ul class="profile-list">
+          <li><b>나를 설명하는 한 문장</b>일기 데이터에서 뽑은 분위기와 요즘 관심사를 섞어 자동 제안합니다.</li>
+          <li><b>성향 요약 카드</b>외향/내향, 계획/즉흥, 감정 표현, 선호 활동 같은 뱃지를 보여줍니다.</li>
+          <li><b>취향 지도</b>좋아하는 메뉴, 장소, 음악, 활동, 대화 주제를 카테고리별로 정리합니다.</li>
+          <li><b>나와 잘 맞는 사람</b>함께하면 좋은 사람의 성향, 피하면 좋은 소통 방식 등을 부드럽게 안내합니다.</li>
+          <li><b>대화 시작 추천</b>친구가 말을 걸기 쉬운 질문이나 주제를 3개 정도 보여줍니다.</li>
+          <li><b>공유 링크/명함</b>공개 범위를 선택한 뒤 SNS나 링크로 공유합니다.</li>
+        </ul>
+      </article>
+    </section>
+    <section class="flow" aria-label="공개 승인 흐름">
+      <article class="flow-step">
+        <span>1</span>
+        <h3>일기 작성</h3>
+        <p>원문은 비공개 저장. 분석과 추천의 재료로만 사용합니다.</p>
+      </article>
+      <article class="flow-step">
+        <span>2</span>
+        <h3>AI 초안 생성</h3>
+        <p>성향, 취향, 캐릭터 변화, 대화 주제를 자동으로 제안합니다.</p>
+      </article>
+      <article class="flow-step">
+        <span>3</span>
+        <h3>사용자 승인</h3>
+        <p>공개할 항목을 체크하고 문구를 직접 수정할 수 있습니다.</p>
+      </article>
+      <article class="flow-step">
+        <span>4</span>
+        <h3>공유</h3>
+        <p>승인된 캐릭터 프로필만 링크, 이미지, 명함 형태로 공유합니다.</p>
+      </article>
+    </section>
+    <section class="data-map" aria-label="일기 데이터 활용 구조">
+      <article class="data-card">
+        <h2>입력</h2>
+        <ul>
+          <li>오늘의 기분</li>
+          <li>기억나는 장면</li>
+          <li>나답다고 느낀 순간</li>
+          <li>좋아했던 것</li>
+          <li>자유 일기</li>
+        </ul>
+      </article>
+      <article class="data-card">
+        <h2>비공개 분석</h2>
+        <ul>
+          <li>반복 감정</li>
+          <li>취향 키워드</li>
+          <li>관심사 변화</li>
+          <li>성향 패턴</li>
+          <li>자기소개 초안</li>
+        </ul>
+      </article>
+      <article class="data-card">
+        <h2>공개 결과물</h2>
+        <ul>
+          <li>캐릭터 외형 변화</li>
+          <li>성향 뱃지</li>
+          <li>취향 지도</li>
+          <li>대화 주제 추천</li>
+          <li>공유 프로필</li>
+        </ul>
+      </article>
+    </section>
+    <section class="cadence" aria-label="캐릭터 업데이트 주기">
+      <article class="cadence-card">
+        <strong>매일</strong>
+        <h2>작은 반응</h2>
+        <p>일기를 쓰면 표정, 말풍선, 기분 색감, 작은 이펙트가 바로 바뀝니다. 핵심 변화보다는 완료 피드백 역할입니다.</p>
+      </article>
+      <article class="cadence-card selected">
+        <strong>매주</strong>
+        <h2>핵심 업데이트</h2>
+        <p>7일치 기록을 묶어 대표 취향, 성향 뱃지, 착용 아이템, 방 소품을 업데이트합니다. 캐릭터 변화의 메인 주기입니다.</p>
+      </article>
+      <article class="cadence-card">
+        <strong>매월</strong>
+        <h2>리포트와 정리</h2>
+        <p>한 달의 패턴을 기반으로 자기이해 리포트, 프로필 요약, 공유 카드가 정리됩니다. 캐릭터 대변신은 선택 이벤트로 둡니다.</p>
+      </article>
+    </section>
+    <section class="mvp-scope" aria-label="발표용 웹앱 MVP 범위">
+      <article class="scope-card selected">
+        <h2>발표용 웹앱에서 실제 구현</h2>
+        <ul>
+          <li>메인 대시보드</li>
+          <li>프롬프트 기반 일기 작성</li>
+          <li>샘플 데이터 기반 자기이해 분석</li>
+          <li>주간 캐릭터 업데이트 화면</li>
+          <li>풍부한 공개 프로필 미리보기</li>
+          <li>공유/명함 화면 UI</li>
+        </ul>
+      </article>
+      <article class="scope-card">
+        <h2>발표용 UI만 제작</h2>
+        <ul>
+          <li>아이템 상점 화면</li>
+          <li>광고 보상 화면</li>
+          <li>결제 안내 화면</li>
+          <li>업적/보상 화면</li>
+          <li>로그인/회원가입 화면</li>
+          <li>앱 확장 로드맵 섹션</li>
+        </ul>
+      </article>
+    </section>
+    <section class="screen-flow" aria-label="웹앱 화면 흐름">
+      <article class="screen selected">
+        <b>01</b>
+        <h3>홈</h3>
+        <p>오늘 기록 상태, 캐릭터 미리보기, 이번 주 변화 예고를 보여줍니다.</p>
+      </article>
+      <article class="screen">
+        <b>02</b>
+        <h3>일기 작성</h3>
+        <p>기분, 기억나는 장면, 나다웠던 순간, 자유 일기를 입력합니다.</p>
+      </article>
+      <article class="screen">
+        <b>03</b>
+        <h3>자기이해 분석</h3>
+        <p>비공개 감정 패턴, 취향 키워드, 성향 요약을 보여줍니다.</p>
+      </article>
+      <article class="screen">
+        <b>04</b>
+        <h3>캐릭터</h3>
+        <p>주간 업데이트, 뱃지, 해금 아이템, 방 꾸미기 미리보기를 제공합니다.</p>
+      </article>
+      <article class="screen">
+        <b>05</b>
+        <h3>공개 프로필</h3>
+        <p>사용자가 승인한 항목만 캐릭터 프로필과 공유 카드로 만듭니다.</p>
+      </article>
+      <article class="screen">
+        <b>06</b>
+        <h3>확장 UI</h3>
+        <p>상점, 광고 보상, 결제, 업적 화면을 발표용 UI로 보여줍니다.</p>
+      </article>
+    </section>
+    <section class="tone" aria-label="디자인 톤">
+      <h2>디자인 톤: 감성 캐릭터 앱</h2>
+      <p>프라이빗한 일기 감성과 캐릭터 성장의 재미를 함께 살리는 방향입니다. 너무 게임처럼 과하지 않고, 발표에서 제품성이 잘 보이도록 부드럽고 생동감 있게 잡습니다.</p>
+      <div class="tone-grid">
+        <div class="tone-item">
+          <b>색감</b>
+          <p>따뜻한 베이스에 그린, 코랄, 옐로 포인트.</p>
+        </div>
+        <div class="tone-item">
+          <b>캐릭터</b>
+          <p>처음엔 단순하고, 기록이 쌓일수록 개성이 생김.</p>
+        </div>
+        <div class="tone-item">
+          <b>UI</b>
+          <p>카드형 정보, 부드러운 상태 변화, 쉬운 공유 버튼.</p>
+        </div>
+        <div class="tone-item">
+          <b>무드</b>
+          <p>혼자 기록할 때는 조용하게, 공유할 때는 밝게.</p>
+        </div>
+      </div>
+    </section>
+    <p class="note">선택지는 눈으로 비교하기 위한 보드입니다. 최종 의견은 채팅으로 알려주세요.</p>
+  </main>
+</body>
+</html>
