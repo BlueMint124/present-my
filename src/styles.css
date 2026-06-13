@@ -65,6 +65,11 @@ button {
   gap: 14px;
   min-height: 100%;
   padding: 18px 14px 20px;
+  overflow-x: hidden;
+}
+
+.app-screen > * {
+  min-width: 0;
 }
 
 .app-header {
@@ -105,6 +110,7 @@ button {
 .soft-card,
 .prompt-card,
 .mood-panel,
+.mini-story-card,
 .insight-grid article,
 .stats-row,
 .badge-section,
@@ -113,7 +119,7 @@ button {
   border: 1px solid #e4d7c0;
   border-radius: 18px;
   background: rgba(255, 253, 248, 0.88);
-  box-shadow: 0 12px 26px rgba(71, 52, 28, 0.07);
+  box-shadow: 0 14px 30px rgba(71, 52, 28, 0.09), inset 0 1px rgba(255, 255, 255, 0.72);
 }
 
 .diary-summary {
@@ -143,6 +149,7 @@ button {
 .summary-copy strong,
 .character-preview strong,
 .ratio-card strong {
+  display: block;
   color: #293326;
   font-size: 13px;
 }
@@ -150,6 +157,7 @@ button {
 .summary-copy small,
 .character-preview small,
 .shop-banner small {
+  display: block;
   color: #7a7368;
   font-size: 11px;
 }
@@ -179,6 +187,7 @@ button {
 .diary-summary button,
 .primary-action {
   grid-column: 1 / -1;
+  width: 100%;
   min-height: 42px;
   border: 0;
   border-radius: 999px;
@@ -190,21 +199,85 @@ button {
 
 .character-preview {
   position: relative;
-  min-height: 170px;
+  min-height: 210px;
   padding: 16px;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 76%, rgba(136, 191, 158, 0.26), transparent 21%),
+    radial-gradient(circle at 82% 18%, rgba(254, 215, 122, 0.3), transparent 22%),
+    linear-gradient(145deg, #f7fbef, #fff7e8);
+}
+
+.scene-sky,
+.picnic-decor,
+.profile-sparkles,
+.coin-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scene-sky span,
+.picnic-decor span,
+.profile-sparkles span,
+.coin-burst span {
+  position: absolute;
+  display: block;
+}
+
+.scene-sky span:nth-child(1) {
+  right: 24px;
+  top: 25px;
+  width: 52px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: -22px 9px 0 rgba(255, 255, 255, 0.56);
+}
+
+.scene-sky span:nth-child(2) {
+  left: 24px;
+  bottom: 20px;
+  width: 92px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(118, 165, 105, 0.18);
+}
+
+.scene-sky span:nth-child(3) {
+  right: 98px;
+  top: 72px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff8f7a;
+  box-shadow: 16px -10px 0 #fed77a;
+}
+
+.character-preview::before,
+.insight-hero::before,
+.profile-card::before,
+.shop-banner::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 42px;
+  background:
+    radial-gradient(ellipse at 20% 100%, rgba(112, 151, 89, 0.18), transparent 58%),
+    radial-gradient(ellipse at 80% 100%, rgba(254, 215, 122, 0.2), transparent 56%);
+  pointer-events: none;
 }
 
 .character-preview .moodby {
   position: absolute;
   left: 18px;
-  bottom: 8px;
+  bottom: 14px;
 }
 
 .character-preview p {
   position: absolute;
   right: 16px;
-  bottom: 54px;
+  bottom: 70px;
   width: 152px;
   margin: 0;
   padding: 13px;
@@ -219,7 +292,7 @@ button {
 .character-preview button {
   position: absolute;
   right: 18px;
-  bottom: 16px;
+  bottom: 24px;
   border: 0;
   background: transparent;
   color: #4f8c5e;
@@ -229,7 +302,29 @@ button {
 
 .mood-panel {
   padding: 14px;
-  background: #fff8e9;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(166, 214, 245, 0.35), transparent 30%),
+    #fff8e9;
+}
+
+.mini-story-card {
+  display: grid;
+  gap: 6px;
+  padding: 15px;
+  background:
+    linear-gradient(135deg, rgba(205, 239, 221, 0.82), rgba(255, 248, 234, 0.95));
+}
+
+.mini-story-card span {
+  color: #5b9064;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.mini-story-card strong {
+  color: #313b2f;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 .mood-panel h2,
@@ -473,8 +568,53 @@ button {
   overflow: hidden;
   border-radius: 0 0 24px 24px;
   background:
+    radial-gradient(circle at 28% 79%, rgba(255, 255, 255, 0.72), transparent 18%),
     radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.92), transparent 16%),
+    radial-gradient(circle at 87% 58%, rgba(136, 191, 158, 0.38), transparent 18%),
     linear-gradient(168deg, #dff2fd 0%, #f9e7b6 56%, #7eac69 100%);
+}
+
+.weekly-hero::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 0;
+  height: 76px;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(180deg, rgba(255, 246, 221, 0.8), rgba(120, 165, 105, 0.4));
+}
+
+.picnic-decor span:nth-child(1) {
+  left: 36px;
+  bottom: 28px;
+  width: 96px;
+  height: 38px;
+  border-radius: 18px;
+  background:
+    linear-gradient(45deg, rgba(151, 86, 54, 0.18) 25%, transparent 25% 50%, rgba(151, 86, 54, 0.18) 50% 75%, transparent 75%),
+    #f4cfa3;
+  background-size: 24px 24px;
+  transform: rotate(-7deg);
+}
+
+.picnic-decor span:nth-child(2) {
+  left: 66px;
+  bottom: 88px;
+  width: 28px;
+  height: 40px;
+  border-radius: 8px 8px 12px 12px;
+  background: linear-gradient(180deg, #6c5739, #9b7c4e);
+}
+
+.picnic-decor span:nth-child(3) {
+  right: 54px;
+  top: 94px;
+  width: 44px;
+  height: 72px;
+  border-radius: 999px 999px 0 0;
+  border-left: 7px solid #789655;
+  transform: rotate(17deg);
 }
 
 .weekly-hero h1,
@@ -503,6 +643,7 @@ button {
   position: absolute;
   right: 24px;
   bottom: 24px;
+  z-index: 1;
 }
 
 .level-card {
@@ -597,12 +738,44 @@ button {
 }
 
 .profile-card {
+  position: relative;
   display: grid;
   grid-template-columns: 92px 1fr;
   gap: 14px;
   align-items: center;
   min-height: 158px;
   padding: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 19% 45%, rgba(205, 239, 221, 0.78), transparent 24%),
+    linear-gradient(145deg, #fffdf8, #fff8ea);
+}
+
+.profile-sparkles span:nth-child(1) {
+  right: 22px;
+  top: 22px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fed77a;
+}
+
+.profile-sparkles span:nth-child(2) {
+  left: 24px;
+  bottom: 22px;
+  width: 48px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(136, 191, 158, 0.22);
+}
+
+.profile-sparkles span:nth-child(3) {
+  right: 78px;
+  bottom: 34px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff8f7a;
 }
 
 .profile-card h2 {
@@ -705,6 +878,47 @@ button {
   background: linear-gradient(130deg, #fff4d9, #f7c979);
 }
 
+.coin-burst span {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fed77a, #e6a94c);
+  box-shadow: inset 0 -2px rgba(132, 87, 22, 0.16);
+}
+
+.coin-burst span:nth-child(1) {
+  right: 98px;
+  top: 18px;
+}
+
+.coin-burst span:nth-child(2) {
+  right: 58px;
+  top: 43px;
+  width: 12px;
+  height: 12px;
+}
+
+.coin-burst span:nth-child(3) {
+  right: 122px;
+  bottom: 22px;
+  width: 10px;
+  height: 10px;
+}
+
+.shop-banner::after {
+  content: "";
+  position: absolute;
+  right: 72px;
+  top: 20px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow:
+    -42px 24px 0 rgba(255, 255, 255, 0.32),
+    28px 44px 0 rgba(255, 255, 255, 0.28);
+}
+
 .shop-banner strong {
   display: block;
   color: #7d5a24;
@@ -752,7 +966,7 @@ button {
 
 .bottom-nav {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   min-height: 66px;
   padding: 7px 8px 9px;
   border-top: 1px solid #eadcc3;
@@ -767,7 +981,7 @@ button {
   border-radius: 14px;
   background: transparent;
   color: #737268;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
 }
 
@@ -789,6 +1003,44 @@ button {
   width: calc(170px * var(--scale));
   height: calc(177px * var(--scale));
   overflow: visible;
+}
+
+.moodby-aura {
+  position: absolute;
+  inset: calc(8px * var(--scale)) calc(2px * var(--scale)) auto;
+  z-index: 0;
+  height: calc(92px * var(--scale));
+  pointer-events: none;
+}
+
+.moodby-aura span {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(254, 215, 122, 0.8);
+  box-shadow: 0 0 calc(12px * var(--scale)) rgba(254, 215, 122, 0.45);
+}
+
+.moodby-aura span:nth-child(1) {
+  left: calc(5px * var(--scale));
+  top: calc(40px * var(--scale));
+  width: calc(9px * var(--scale));
+  height: calc(9px * var(--scale));
+}
+
+.moodby-aura span:nth-child(2) {
+  right: calc(13px * var(--scale));
+  top: calc(26px * var(--scale));
+  width: calc(13px * var(--scale));
+  height: calc(13px * var(--scale));
+  background: rgba(255, 143, 122, 0.7);
+}
+
+.moodby-aura span:nth-child(3) {
+  right: calc(45px * var(--scale));
+  top: calc(2px * var(--scale));
+  width: calc(7px * var(--scale));
+  height: calc(7px * var(--scale));
+  background: rgba(136, 191, 158, 0.75);
 }
 
 .moodby--default {
@@ -841,6 +1093,27 @@ button {
   filter: blur(calc(3px * var(--scale)));
 }
 
+.moodby-leg {
+  position: absolute;
+  bottom: calc(15px * var(--scale));
+  z-index: 1;
+  width: calc(28px * var(--scale));
+  height: calc(24px * var(--scale));
+  border-radius: 48% 48% 54% 54%;
+  background: linear-gradient(180deg, #f8dfb5, #efc98c);
+  box-shadow: inset calc(-3px * var(--scale)) calc(-5px * var(--scale)) calc(6px * var(--scale)) rgba(176, 118, 63, 0.14);
+}
+
+.moodby-leg--left {
+  left: calc(47px * var(--scale));
+  transform: rotate(7deg);
+}
+
+.moodby-leg--right {
+  right: calc(47px * var(--scale));
+  transform: rotate(-7deg);
+}
+
 .moodby-body {
   position: absolute;
   left: calc(15px * var(--scale));
@@ -856,6 +1129,17 @@ button {
     inset calc(-7px * var(--scale)) calc(-15px * var(--scale)) calc(20px * var(--scale)) rgba(207, 155, 89, 0.24),
     inset calc(7px * var(--scale)) calc(9px * var(--scale)) calc(16px * var(--scale)) rgba(255, 255, 255, 0.6),
     0 calc(13px * var(--scale)) calc(21px * var(--scale)) rgba(72, 54, 31, 0.16);
+}
+
+.moodby-texture {
+  position: absolute;
+  inset: calc(10px * var(--scale));
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 20% 26%, rgba(255, 255, 255, 0.55), transparent 9%),
+    radial-gradient(circle at 66% 18%, rgba(255, 255, 255, 0.38), transparent 7%),
+    radial-gradient(circle at 44% 72%, rgba(202, 148, 82, 0.08), transparent 12%);
+  opacity: 0.85;
 }
 
 .moodby-sprout {
@@ -908,6 +1192,17 @@ button {
   border-radius: 999px;
   background: linear-gradient(180deg, #496c3d, #395c32);
   box-shadow: 0 calc(8px * var(--scale)) calc(10px * var(--scale)) rgba(45, 74, 39, 0.22);
+}
+
+.moodby-scarf span {
+  position: absolute;
+  left: calc(74px * var(--scale));
+  bottom: calc(-26px * var(--scale));
+  width: calc(27px * var(--scale));
+  height: calc(42px * var(--scale));
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(180deg, #3f6738, #2f552d);
+  transform: rotate(2deg);
 }
 
 .moodby-eye {
@@ -967,44 +1262,30 @@ button {
   border-radius: 50%;
 }
 
-.moodby-arm,
-.moodby-mug,
-.moodby-book {
-  position: absolute;
-  z-index: 3;
-}
-
-.moodby-arm,
-.moodby-mug,
-.moodby-book {
-  display: none;
-}
-
-.moodby--hero .moodby-arm,
-.moodby--hero .moodby-mug,
-.moodby--hero .moodby-book {
-  display: block;
-}
-
 .moodby-arm {
+  position: absolute;
+  z-index: 1;
   bottom: calc(35px * var(--scale));
   width: calc(24px * var(--scale));
   height: calc(49px * var(--scale));
   border-radius: 999px;
-  background: #f7dfb8;
+  background: linear-gradient(180deg, #f8dfb5, #efc98c);
+  box-shadow: inset calc(-4px * var(--scale)) calc(-6px * var(--scale)) calc(8px * var(--scale)) rgba(176, 118, 63, 0.13);
 }
 
 .moodby-arm--left {
-  left: calc(5px * var(--scale));
-  transform: rotate(-9deg);
+  left: calc(7px * var(--scale));
+  transform: rotate(-18deg);
 }
 
 .moodby-arm--right {
-  right: calc(6px * var(--scale));
-  transform: rotate(6deg);
+  right: calc(8px * var(--scale));
+  transform: rotate(15deg);
 }
 
 .moodby-mug {
+  position: absolute;
+  z-index: 3;
   left: calc(-14px * var(--scale));
   bottom: calc(26px * var(--scale));
   display: grid;
@@ -1030,6 +1311,8 @@ button {
 }
 
 .moodby-book {
+  position: absolute;
+  z-index: 3;
   right: calc(-9px * var(--scale));
   bottom: calc(18px * var(--scale));
   width: calc(53px * var(--scale));
@@ -1037,6 +1320,33 @@ button {
   border-radius: calc(7px * var(--scale));
   background: linear-gradient(90deg, #8e6128, #b07c35);
   transform: rotate(-4deg);
+}
+
+.moodby--phone .moodby-aura,
+.moodby--nav .moodby-aura,
+.moodby--mini .moodby-aura,
+.moodby--profile .moodby-aura {
+  opacity: 0.45;
+}
+
+.moodby--phone .moodby-arm,
+.moodby--profile .moodby-arm {
+  z-index: 2;
+  bottom: calc(37px * var(--scale));
+  width: calc(18px * var(--scale));
+  height: calc(34px * var(--scale));
+}
+
+.moodby--phone .moodby-leg,
+.moodby--profile .moodby-leg,
+.moodby--nav .moodby-leg {
+  bottom: calc(17px * var(--scale));
+}
+
+.moodby--nav .moodby-arm,
+.moodby--nav .moodby-leg,
+.moodby--mini .moodby-arm {
+  display: none;
 }
 
 .moodby-book span {

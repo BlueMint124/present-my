@@ -23,6 +23,7 @@ export function ExpansionScreen() {
       </div>
 
       <article className="shop-banner">
+        <div className="coin-burst"><span /><span /><span /></div>
         <div>
           <strong>기록할수록 더 특별한 보상!</strong>
           <small>아이템은 발표용 UI입니다</small>

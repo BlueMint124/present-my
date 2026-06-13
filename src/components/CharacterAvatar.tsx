@@ -7,14 +7,22 @@ type CharacterAvatarProps = {
 };
 
 export function CharacterAvatar({ character, pose = "front", variant = "default" }: CharacterAvatarProps) {
+  const showProps = variant === "hero" || variant === "picnic";
+
   return (
     <div
       aria-label={`${character.name} 캐릭터`}
       className={`moodby moodby--${variant} moodby--pose-${pose}`}
     >
+      <div className="moodby-aura"><span /><span /><span /></div>
       <div className="moodby-shadow" />
+      <div className="moodby-leg moodby-leg--left" />
+      <div className="moodby-leg moodby-leg--right" />
+      <div className="moodby-arm moodby-arm--left" />
+      <div className="moodby-arm moodby-arm--right" />
       <div className="moodby-sprout"><span /><span /></div>
       <div className="moodby-body">
+        <div className="moodby-texture" />
         <div className="moodby-eye moodby-eye--left" />
         <div className="moodby-eye moodby-eye--right" />
         <div className="moodby-brow moodby-brow--left" />
@@ -23,11 +31,9 @@ export function CharacterAvatar({ character, pose = "front", variant = "default"
         <div className="moodby-cheek moodby-cheek--right" />
         <div className="moodby-mouth" />
       </div>
-      <div className="moodby-scarf" />
-      {variant === "hero" && (
+      <div className="moodby-scarf"><span /></div>
+      {showProps && (
         <>
-          <div className="moodby-arm moodby-arm--left" />
-          <div className="moodby-arm moodby-arm--right" />
           <div className="moodby-mug">♥</div>
           <div className="moodby-book"><span /></div>
         </>

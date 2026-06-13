@@ -26,6 +26,7 @@ export function HomeScreen() {
       </article>
 
       <article className="soft-card character-preview">
+        <div className="scene-sky"><span /><span /><span /></div>
         <div>
           <strong>Weekly Character Preview</strong>
           <small>이번 주 무드비</small>
@@ -45,6 +46,11 @@ export function HomeScreen() {
             </span>
           ))}
         </div>
+      </article>
+
+      <article className="mini-story-card">
+        <span>오늘의 작은 발견</span>
+        <strong>창가 자리에서 마음이 조금 가벼워졌어요.</strong>
       </article>
     </section>
   );

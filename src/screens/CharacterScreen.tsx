@@ -7,6 +7,7 @@ export function CharacterScreen() {
   return (
     <section className="app-screen character-screen">
       <article className="weekly-hero">
+        <div className="picnic-decor"><span /><span /><span /></div>
         <h1>Weekly Update</h1>
         <h2>무드비가 성장했어요!</h2>
         <p>이번 주도 멋지게 기록했어요.</p>

@@ -13,6 +13,7 @@ export function PublicProfileScreen() {
       <div className="approved-badge">⊙ 승인 완료</div>
 
       <article className="soft-card profile-card">
+        <div className="profile-sparkles"><span /><span /><span /></div>
         <CharacterAvatar character={characterState} variant="profile" />
         <div>
           <h2>무드비의 하루</h2>
