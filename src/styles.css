@@ -383,6 +383,82 @@ button {
   font-weight: 800;
 }
 
+.profile-preview {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 16px;
+}
+
+.approval-row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ece6da;
+}
+
+.approval-row span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e9f4e7;
+  color: #2f6b3b;
+  font-weight: 900;
+}
+
+.approval-row p,
+.locked-private p {
+  margin: 4px 0 0;
+  color: #606458;
+}
+
+.locked-private {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #fff2ed;
+  color: #9a4937;
+}
+
+.primary-action,
+.secondary-action {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.primary-action {
+  border: 1px solid #3f7b5b;
+  background: #3f7b5b;
+  color: #fff;
+}
+
+.secondary-action {
+  border: 1px solid #cfd8bf;
+  background: #fff;
+  color: #3f7b5b;
+}
+
+.expansion-card {
+  min-height: 220px;
+}
+
+.expansion-visual {
+  display: grid;
+  place-items: center;
+  height: 92px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #dce9f6, #fff2d7);
+  color: #3f7b5b;
+  font-size: 24px;
+  font-weight: 950;
+}
+
 @media (max-width: 860px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -395,7 +471,8 @@ button {
 
   .page-hero--home,
   .dashboard-grid,
-  .card-grid {
+  .card-grid,
+  .profile-preview {
     grid-template-columns: 1fr;
   }
 
