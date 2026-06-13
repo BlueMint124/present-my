@@ -7,7 +7,9 @@ describe("App navigation", () => {
   it("shows the home dashboard by default", () => {
     render(<App />);
 
-    expect(screen.getByRole("heading", { name: "오늘의 기록이 이번 주 캐릭터를 바꿉니다" })).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { name: "Present My" }).length).toBeGreaterThan(0);
+    expect(screen.getByText("Private Diary")).toBeInTheDocument();
+    expect(screen.getByText("Moodby")).toBeInTheDocument();
   });
 
   it("switches to the public profile screen", async () => {
