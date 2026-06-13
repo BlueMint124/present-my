@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import type { ScreenId } from "../types";
 
-const navItems: Array<{ id: ScreenId; label: string }> = [
-  { id: "home", label: "홈" },
-  { id: "diary", label: "일기" },
-  { id: "insights", label: "분석" },
-  { id: "character", label: "캐릭터" },
-  { id: "profile", label: "공개 프로필" },
-  { id: "expansion", label: "확장 UI" }
+const navItems: Array<{ id: ScreenId; label: string; icon: string }> = [
+  { id: "home", label: "홈", icon: "⌂" },
+  { id: "diary", label: "일기", icon: "□" },
+  { id: "insights", label: "분석", icon: "▥" },
+  { id: "character", label: "캐릭터", icon: "◌" },
+  { id: "profile", label: "프로필", icon: "♙" },
+  { id: "expansion", label: "상점", icon: "▣" }
 ];
 
 type AppShellProps = {
@@ -17,30 +17,25 @@ type AppShellProps = {
 };
 
 export function AppShell({ activeScreen, onNavigate, children }: AppShellProps) {
-  const isHome = activeScreen === "home";
-
   return (
-    <div className={isHome ? "app-shell app-shell--board" : "app-shell"}>
-      {!isHome && <aside className="sidebar">
-        <div>
-          <p className="eyebrow">Presentation MVP</p>
-          <h1>Present My</h1>
-          <p className="sidebar-copy">비공개 일기에서 공개 가능한 캐릭터 프로필로 이어지는 감성 웹앱</p>
-        </div>
-        <nav aria-label="주요 화면">
+    <div className="app-stage">
+      <div className="mobile-app" aria-label="Present My mobile web app">
+        <main className="app-content">{children}</main>
+        <nav className="bottom-nav" aria-label="주요 화면">
           {navItems.map((item) => (
             <button
-              className={item.id === activeScreen ? "nav-button nav-button--active" : "nav-button"}
+              aria-current={item.id === activeScreen ? "page" : undefined}
+              className={item.id === activeScreen ? "bottom-nav__item bottom-nav__item--active" : "bottom-nav__item"}
               key={item.id}
               onClick={() => onNavigate(item.id)}
               type="button"
             >
+              <span aria-hidden="true">{item.icon}</span>
               {item.label}
             </button>
           ))}
         </nav>
-      </aside>}
-      <main className="main-panel">{children}</main>
+      </div>
     </div>
   );
 }

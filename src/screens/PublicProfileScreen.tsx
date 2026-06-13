@@ -1,41 +1,44 @@
 import { CharacterAvatar } from "../components/CharacterAvatar";
-import { StatusPill } from "../components/StatusPill";
-import { characterState, publicProfileItems } from "../data/demoData";
-import { getApprovedProfileItems } from "../lib/profile";
+import { characterState } from "../data/demoData";
 
 export function PublicProfileScreen() {
-  const approvedItems = getApprovedProfileItems(publicProfileItems);
-
   return (
-    <section className="screen-layout">
-      <div className="page-hero">
-        <StatusPill tone="public">사용자 승인 후 공개</StatusPill>
-        <h2>친구에게 보여주는 캐릭터 프로필</h2>
-        <p>AI가 제안한 항목 중 사용자가 승인한 내용만 공유 카드에 포함합니다.</p>
+    <section className="app-screen profile-screen">
+      <header className="app-header app-header--center">
+        <span>‹</span>
+        <h1>공개 프로필</h1>
+        <button type="button">편집</button>
+      </header>
+
+      <div className="approved-badge">⊙ 승인 완료</div>
+
+      <article className="soft-card profile-card">
+        <CharacterAvatar character={characterState} variant="profile" />
+        <div>
+          <h2>무드비의 하루</h2>
+          <small>@moodby.diary</small>
+          <p>따뜻한 마음으로, 오늘을 기록해요.</p>
+        </div>
+      </article>
+
+      <div className="stats-row">
+        <span>기록한 날<b>45</b></span>
+        <span>좋아요<b>128</b></span>
+        <span>응원<b>87</b></span>
       </div>
-      <div className="profile-preview">
-        <article className="panel character-panel">
-          <CharacterAvatar character={characterState} />
-          <button className="primary-action" type="button">공유 링크 복사</button>
-          <button className="secondary-action" type="button">명함 이미지 저장</button>
-        </article>
-        <article className="panel">
-          <h3>공개 항목</h3>
-          {approvedItems.map((item) => (
-            <div className="approval-row" key={item.id}>
-              <span aria-hidden="true">✓</span>
-              <div>
-                <strong>{item.title}</strong>
-                <p>{item.body}</p>
-              </div>
-            </div>
-          ))}
-          <div className="locked-private">
-            <strong>원문 비공개</strong>
-            <p>일기 원문은 공유 카드에 포함하지 않습니다.</p>
-          </div>
-        </article>
-      </div>
+
+      <section className="badge-section">
+        <h2>대표 배지</h2>
+        <div>
+          <span>♥</span>
+          <span>☘</span>
+          <span>★</span>
+          <span>✿</span>
+        </div>
+      </section>
+
+      <button className="primary-action" type="button">프로필 공유하기</button>
+      <button className="text-action" type="button">URL 복사</button>
     </section>
   );
 }
