@@ -17,13 +17,15 @@ type AppShellProps = {
 };
 
 export function AppShell({ activeScreen, onNavigate, children }: AppShellProps) {
+  const isHome = activeScreen === "home";
+
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
+    <div className={isHome ? "app-shell app-shell--board" : "app-shell"}>
+      {!isHome && <aside className="sidebar">
         <div>
           <p className="eyebrow">Presentation MVP</p>
           <h1>Present My</h1>
-          <p className="sidebar-copy">비공개 일기가 공개 가능한 캐릭터 프로필이 되는 웹앱 데모</p>
+          <p className="sidebar-copy">비공개 일기에서 공개 가능한 캐릭터 프로필로 이어지는 감성 웹앱</p>
         </div>
         <nav aria-label="주요 화면">
           {navItems.map((item) => (
@@ -37,7 +39,7 @@ export function AppShell({ activeScreen, onNavigate, children }: AppShellProps) 
             </button>
           ))}
         </nav>
-      </aside>
+      </aside>}
       <main className="main-panel">{children}</main>
     </div>
   );

@@ -2,37 +2,37 @@ import type { CharacterState } from "../types";
 
 type CharacterAvatarProps = {
   character: CharacterState;
-  variant?: "default" | "hero" | "mini" | "phone";
+  pose?: string;
+  variant?: "default" | "hero" | "mini" | "phone" | "nav" | "picnic" | "profile";
 };
 
-export function CharacterAvatar({ character, variant = "default" }: CharacterAvatarProps) {
+export function CharacterAvatar({ character, pose = "front", variant = "default" }: CharacterAvatarProps) {
   return (
-    <div className={`character-avatar character-avatar--${variant}`} aria-label={`${character.name} 캐릭터`}>
-      <div className="character-glow" />
-      <div className="character-head">
-        <div className="character-sprout">
-          <span />
-          <span />
-        </div>
-        <div className="character-ear character-ear--left" />
-        <div className="character-ear character-ear--right" />
-        <div className="character-eye character-eye--left" />
-        <div className="character-eye character-eye--right" />
-        <div className="character-cheek character-cheek--left" />
-        <div className="character-cheek character-cheek--right" />
-        <div className="character-mouth" />
+    <div
+      aria-label={`${character.name} 캐릭터`}
+      className={`moodby moodby--${variant} moodby--pose-${pose}`}
+    >
+      <div className="moodby-shadow" />
+      <div className="moodby-sprout"><span /><span /></div>
+      <div className="moodby-body">
+        <div className="moodby-eye moodby-eye--left" />
+        <div className="moodby-eye moodby-eye--right" />
+        <div className="moodby-brow moodby-brow--left" />
+        <div className="moodby-brow moodby-brow--right" />
+        <div className="moodby-cheek moodby-cheek--left" />
+        <div className="moodby-cheek moodby-cheek--right" />
+        <div className="moodby-mouth" />
       </div>
-      <div className="character-scarf" />
+      <div className="moodby-scarf" />
       {variant === "hero" && (
         <>
-          <div className="character-mug">♡</div>
-          <div className="character-book" />
+          <div className="moodby-arm moodby-arm--left" />
+          <div className="moodby-arm moodby-arm--right" />
+          <div className="moodby-mug">♥</div>
+          <div className="moodby-book"><span /></div>
         </>
       )}
-      <div className="character-label">
-        <strong>{character.name}</strong>
-        <span>{character.weeklyTheme}</span>
-      </div>
+      {variant === "picnic" && <div className="picnic-props" />}
     </div>
   );
 }

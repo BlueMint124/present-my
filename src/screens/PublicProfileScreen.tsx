@@ -11,7 +11,7 @@ export function PublicProfileScreen() {
       <div className="page-hero">
         <StatusPill tone="public">사용자 승인 후 공개</StatusPill>
         <h2>친구에게 보여주는 캐릭터 프로필</h2>
-        <p>AI가 제안한 항목 중 사용자가 승인한 내용만 공유 카드에 포함됩니다.</p>
+        <p>AI가 제안한 항목 중 사용자가 승인한 내용만 공유 카드에 포함합니다.</p>
       </div>
       <div className="profile-preview">
         <article className="panel character-panel">
@@ -32,7 +32,7 @@ export function PublicProfileScreen() {
           ))}
           <div className="locked-private">
             <strong>원문 비공개</strong>
-            <p>일기 원문은 공유 카드에 포함되지 않습니다.</p>
+            <p>일기 원문은 공유 카드에 포함하지 않습니다.</p>
           </div>
         </article>
       </div>
