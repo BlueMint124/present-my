@@ -52,6 +52,25 @@ describe("App navigation", () => {
     expect(document.querySelector(".shop-screen")).toBeInTheDocument();
   });
 
+  it("previews cozy shop items without real payment", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[5]);
+
+    expect(screen.getByRole("heading", { name: "Moodby Cozy Shop" })).toBeInTheDocument();
+    expect(screen.getByText("발표용 UI")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /구름 쿠션/ }));
+
+    expect(screen.getByText("미리보기 중")).toBeInTheDocument();
+    expect(screen.getAllByText("구름 쿠션").length).toBeGreaterThan(0);
+    expect(screen.getByRole("button", { name: "착용하기" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "광고 보고 30 받기" }));
+    expect(screen.getAllByText("광고 보상은 발표용 UI입니다").length).toBeGreaterThan(0);
+  });
+
   it("saves a private diary entry and reflects it on the home progress", async () => {
     const user = userEvent.setup();
     const { container, unmount } = render(<App />);
