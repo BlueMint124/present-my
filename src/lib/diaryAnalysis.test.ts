@@ -45,4 +45,19 @@ describe("diary analysis", () => {
     expect(analysis.keywords).toEqual([]);
     expect(analysis.emotionPattern.primary.percentage).toBe(0);
   });
+
+  it("does not promote generic one-character words as keywords", async () => {
+    const analysis = await analyzeDiaryEntries(
+      [
+        {
+          ...baseEntry,
+          content: "오늘 일기를 쓰면서 내 마음을 천천히 바라봤다."
+        }
+      ],
+      localDiaryAnalysisProvider
+    );
+
+    expect(analysis.keywords).not.toContain("일");
+    expect(analysis.keywordDetails.some((keyword) => keyword.keyword.length < 2)).toBe(false);
+  });
 });

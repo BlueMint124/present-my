@@ -471,16 +471,21 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+  align-self: start;
+  align-items: center;
 }
 
 .segmented-tabs button,
 .shop-tabs button {
-  min-height: 30px;
+  height: 34px;
+  min-height: 34px;
   border: 0;
   border-radius: 999px;
   background: transparent;
   color: #667160;
   font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .segmented-tabs .active {

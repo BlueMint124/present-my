@@ -119,7 +119,7 @@ function normalizeEmotionScores(
 }
 
 function pickKeywords(text: string) {
-  const picked = keywordRules.filter((keyword) => text.includes(keyword));
+  const picked = keywordRules.filter((keyword) => keyword.length >= 2 && text.includes(keyword));
   return [...new Set(picked)].slice(0, 3);
 }
 
