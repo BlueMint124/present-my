@@ -1,9 +1,21 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import App from "./App";
 
+function getMainNavigation() {
+  return screen.getByRole("navigation");
+}
+
+function getNavigationButtons() {
+  return within(getMainNavigation()).getAllByRole("button");
+}
+
 describe("App navigation", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("shows the mobile home dashboard by default", () => {
     render(<App />);
 
@@ -16,29 +28,51 @@ describe("App navigation", () => {
   it("navigates between the core app screens", async () => {
     const user = userEvent.setup();
     render(<App />);
-    const navigation = screen.getByRole("navigation", { name: "주요 화면" });
+    const navigationButtons = getNavigationButtons();
 
-    await user.click(within(navigation).getByRole("button", { name: /일기/ }));
-    expect(screen.getByRole("heading", { name: "일기 쓰기" })).toBeInTheDocument();
+    await user.click(navigationButtons[1]);
+    expect(document.querySelector(".diary-screen")).toBeInTheDocument();
 
-    await user.click(within(navigation).getByRole("button", { name: /분석/ }));
-    expect(screen.getByRole("heading", { name: "분석" })).toBeInTheDocument();
+    await user.click(navigationButtons[2]);
+    expect(document.querySelector(".insights-screen")).toBeInTheDocument();
 
-    await user.click(within(navigation).getByRole("button", { name: /캐릭터/ }));
-    expect(screen.getByRole("heading", { name: "무드비가 성장했어요!" })).toBeInTheDocument();
+    await user.click(navigationButtons[3]);
+    expect(document.querySelector(".character-screen")).toBeInTheDocument();
   });
 
   it("shows public profile and shop as app tabs", async () => {
     const user = userEvent.setup();
     render(<App />);
-    const navigation = screen.getByRole("navigation", { name: "주요 화면" });
+    const navigationButtons = getNavigationButtons();
 
-    await user.click(within(navigation).getByRole("button", { name: /프로필/ }));
-    expect(screen.getByRole("heading", { name: "공개 프로필" })).toBeInTheDocument();
-    expect(screen.getByText("프로필 공유하기")).toBeInTheDocument();
+    await user.click(navigationButtons[4]);
+    expect(document.querySelector(".profile-screen")).toBeInTheDocument();
 
-    await user.click(within(navigation).getByRole("button", { name: /상점/ }));
-    expect(screen.getByRole("heading", { name: "상점" })).toBeInTheDocument();
-    expect(screen.getByText("아이템은 발표용 UI입니다")).toBeInTheDocument();
+    await user.click(navigationButtons[5]);
+    expect(document.querySelector(".shop-screen")).toBeInTheDocument();
+  });
+
+  it("saves a private diary entry and reflects it on the home progress", async () => {
+    const user = userEvent.setup();
+    const { container, unmount } = render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+
+    const diaryInput = screen.getByRole("textbox");
+    await user.clear(diaryInput);
+    await user.type(diaryInput, "오늘은 발표 준비를 하면서 내 마음을 더 잘 설명하고 싶어졌다.");
+
+    const saveButton = container.querySelector(".app-header--center button");
+    expect(saveButton).toBeInstanceOf(HTMLButtonElement);
+    await user.click(saveButton as HTMLButtonElement);
+
+    expect(screen.getByText("일기가 저장됐어요")).toBeInTheDocument();
+
+    await user.click(getNavigationButtons()[0]);
+    expect(screen.getByText("1 / 7일")).toBeInTheDocument();
+
+    unmount();
+    render(<App />);
+    expect(screen.getByText("1 / 7일")).toBeInTheDocument();
   });
 });

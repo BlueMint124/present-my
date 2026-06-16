@@ -6,7 +6,8 @@ import { ExpansionScreen } from "./screens/ExpansionScreen";
 import { HomeScreen } from "./screens/HomeScreen";
 import { InsightsScreen } from "./screens/InsightsScreen";
 import { PublicProfileScreen } from "./screens/PublicProfileScreen";
-import type { ScreenId } from "./types";
+import { appendDiaryEntry, loadDiaryEntries } from "./lib/diaryStorage";
+import type { DiaryEntry, ScreenId } from "./types";
 
 export default function App() {
   return (
@@ -16,11 +17,16 @@ export default function App() {
 
 function AppContent() {
   const [activeScreen, setActiveScreen] = useState<ScreenId>("home");
+  const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(() => loadDiaryEntries());
+
+  function handleSaveDiary(entry: DiaryEntry) {
+    setDiaryEntries(appendDiaryEntry(entry));
+  }
 
   return (
     <AppShell activeScreen={activeScreen} onNavigate={setActiveScreen}>
-      {activeScreen === "home" && <HomeScreen />}
-      {activeScreen === "diary" && <DiaryScreen />}
+      {activeScreen === "home" && <HomeScreen diaryEntries={diaryEntries} />}
+      {activeScreen === "diary" && <DiaryScreen onSaveDiary={handleSaveDiary} />}
       {activeScreen === "insights" && <InsightsScreen />}
       {activeScreen === "character" && <CharacterScreen />}
       {activeScreen === "profile" && <PublicProfileScreen />}

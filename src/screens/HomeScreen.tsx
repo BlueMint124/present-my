@@ -1,9 +1,17 @@
 import { CharacterAvatar } from "../components/CharacterAvatar";
 import { characterState } from "../data/demoData";
+import type { DiaryEntry } from "../types";
 
 const moods = ["월", "화", "수", "목", "금", "토", "일"];
 
-export function HomeScreen() {
+type HomeScreenProps = {
+  diaryEntries?: DiaryEntry[];
+};
+
+export function HomeScreen({ diaryEntries = [] }: HomeScreenProps) {
+  const weeklyDiaryCount = Math.min(diaryEntries.length, 7);
+  const weeklyProgress = `${(weeklyDiaryCount / 7) * 100}%`;
+
   return (
     <section className="app-screen home-screen">
       <header className="app-header">
@@ -19,9 +27,9 @@ export function HomeScreen() {
         <div className="summary-copy">
           <strong>Private Diary</strong>
           <small>이번 주 기록</small>
-          <b>5 / 7일</b>
+          <b>{weeklyDiaryCount} / 7일</b>
         </div>
-        <div className="progress-track"><span /></div>
+        <div className="progress-track"><span style={{ width: weeklyProgress }} /></div>
         <button type="button">일기 쓰러 가기</button>
       </article>
 

@@ -6,6 +6,15 @@ export type DiaryPrompt = {
   answer: string;
 };
 
+export type DiaryEntry = {
+  id: string;
+  createdAt: string;
+  mood: string;
+  prompt: string;
+  content: string;
+  tags: string[];
+};
+
 export type InsightMetric = {
   label: string;
   value: string;

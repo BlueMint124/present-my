@@ -426,6 +426,18 @@ button {
   line-height: 1.65;
 }
 
+.save-feedback {
+  margin: -2px 4px 0;
+  padding: 10px 14px;
+  border: 1px solid rgba(125, 184, 139, 0.38);
+  border-radius: 16px;
+  background: rgba(238, 247, 237, 0.88);
+  color: var(--sage-4);
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+}
+
 .attach-tools {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
