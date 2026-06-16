@@ -31,7 +31,7 @@ export function HomeScreen() {
           <strong>Weekly Character Preview</strong>
           <small>이번 주 무드비</small>
         </div>
-        <CharacterAvatar character={characterState} variant="phone" />
+        <CharacterAvatar animation="wave" character={characterState} variant="phone" />
         <p>따뜻한 하루였어요. 나를 잘 챙긴 한 주예요.</p>
         <button type="button">자세히 보기</button>
       </article>
