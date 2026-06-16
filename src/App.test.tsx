@@ -128,6 +128,32 @@ describe("App navigation", () => {
     expect(screen.getByText("기억나는 장면")).toBeInTheDocument();
   });
 
+  it("summarizes a completed diary session and opens it from the bookshelf", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+
+    for (const answer of ["기분 기록", "장면 기록", "나를 본 시간", "좋았던 것", "자유 기록"]) {
+      await user.type(screen.getByRole("textbox"), answer);
+      await user.click(screen.getByRole("button", { name: /다음 질문|일기 정리하기/ }));
+    }
+
+    expect(screen.getByRole("heading", { name: "오늘의 다이어리" })).toBeInTheDocument();
+    expect(screen.getByText("기분 기록")).toBeInTheDocument();
+    expect(screen.getByText("자유 기록")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "다이어리에 저장하기" }));
+
+    expect(screen.getByRole("heading", { name: "나의 다이어리 책장" })).toBeInTheDocument();
+    expect(screen.getByText("오늘의 다이어리")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /오늘의 다이어리 열기/ }));
+
+    expect(screen.getByRole("heading", { name: "저장된 다이어리" })).toBeInTheDocument();
+    expect(screen.getByText(/장면 기록/)).toBeInTheDocument();
+  });
+
   it("shows local diary analysis on the insights screen", async () => {
     const user = userEvent.setup();
     const { container } = render(<App />);

@@ -42,7 +42,7 @@ function AppContent() {
   return (
     <AppShell activeScreen={activeScreen} onNavigate={setActiveScreen}>
       {activeScreen === "home" && <HomeScreen diaryEntries={diaryEntries} />}
-      {activeScreen === "diary" && <DiaryScreen onSaveDiary={handleSaveDiary} />}
+      {activeScreen === "diary" && <DiaryScreen diaryEntries={diaryEntries} onSaveDiary={handleSaveDiary} />}
       {activeScreen === "insights" && <InsightsScreen analysis={diaryAnalysis} />}
       {activeScreen === "character" && <CharacterScreen />}
       {activeScreen === "profile" && <PublicProfileScreen />}

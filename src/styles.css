@@ -466,6 +466,207 @@ button {
   color: #4e7b5b;
 }
 
+.diary-mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid rgba(218, 204, 178, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 253, 246, 0.78);
+}
+
+.diary-mode-tabs button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: #6f7668;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.diary-mode-tabs .active {
+  background: linear-gradient(145deg, #7fb48b, #5e9671);
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(83, 123, 88, 0.16);
+}
+
+.diary-review-card,
+.diary-detail-card,
+.diary-library {
+  display: grid;
+  gap: 14px;
+}
+
+.diary-review-card,
+.diary-detail-card {
+  padding: 18px;
+  border: 1px solid rgba(218, 204, 178, 0.82);
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(119, 161, 113, 0.12) 0 10px, transparent 10px),
+    linear-gradient(145deg, #fffdf8, #fbf2df);
+  box-shadow: 0 18px 38px rgba(67, 52, 31, 0.09), inset 0 1px rgba(255, 255, 255, 0.92);
+}
+
+.diary-bookmark,
+.diary-library-heading span,
+.diary-detail-card > span {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(121, 171, 132, 0.15);
+  color: var(--sage-4);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.diary-review-card h2,
+.diary-library-heading h2,
+.diary-detail-card h2 {
+  margin: 0;
+  color: #2e3a2c;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.diary-review-card > p,
+.diary-library-heading p,
+.diary-empty-book p,
+.diary-book-card p {
+  margin: 0;
+  color: #746d63;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.diary-review-list {
+  display: grid;
+  gap: 9px;
+}
+
+.diary-review-list section {
+  display: grid;
+  gap: 5px;
+  padding: 11px 12px;
+  border: 1px solid rgba(224, 212, 192, 0.7);
+  border-radius: 16px;
+  background: rgba(255, 254, 251, 0.82);
+}
+
+.diary-review-list strong,
+.diary-detail-card strong {
+  color: var(--sage-4);
+  font-size: 13px;
+}
+
+.diary-review-list p {
+  margin: 0;
+  color: #5f5a52;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.diary-library-heading {
+  display: grid;
+  gap: 7px;
+  padding: 16px 17px;
+  border: 1px solid rgba(218, 204, 178, 0.76);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 86% 20%, rgba(239, 199, 109, 0.18), transparent 38%),
+    linear-gradient(145deg, #fffdf8, #f7f0df);
+}
+
+.diary-empty-book {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px dashed rgba(117, 146, 103, 0.36);
+  border-radius: 20px;
+  background: rgba(248, 252, 242, 0.75);
+}
+
+.diary-empty-book strong {
+  color: #506c4a;
+}
+
+.diary-bookshelf {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, transparent 0 88px, rgba(154, 111, 68, 0.12) 88px 96px, transparent 96px),
+    rgba(255, 251, 242, 0.7);
+}
+
+.diary-book-card {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 6px 12px;
+  padding: 13px 14px;
+  border: 1px solid rgba(213, 196, 165, 0.78);
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, #7da36f 0 9px, transparent 9px),
+    linear-gradient(145deg, #fffaf0, #f2e3c8);
+  color: inherit;
+  text-align: left;
+  box-shadow: 0 10px 22px rgba(73, 55, 31, 0.08);
+}
+
+.diary-book-card span {
+  grid-row: span 3;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 46px;
+  border-radius: 11px;
+  background: rgba(115, 153, 99, 0.16);
+  color: var(--sage-4);
+  font-weight: 900;
+}
+
+.diary-book-card strong {
+  color: #35442f;
+  font-size: 14px;
+}
+
+.diary-book-card small {
+  color: #8a7a61;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.diary-detail-card pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  padding: 14px;
+  border: 1px solid rgba(224, 212, 192, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 254, 251, 0.82);
+  color: #5f5a52;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.diary-back-button {
+  justify-self: start;
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(117, 146, 103, 0.26);
+  border-radius: 999px;
+  background: rgba(246, 251, 241, 0.9);
+  color: var(--sage-4);
+  font-size: 11px;
+  font-weight: 900;
+}
+
 .segmented-tabs,
 .shop-tabs {
   display: grid;
