@@ -1,24 +1,40 @@
 import { useState } from "react";
 import { CharacterAvatar } from "../components/CharacterAvatar";
-import { characterState } from "../data/demoData";
+import { characterState, diaryPrompts } from "../data/demoData";
 import type { DiaryEntry } from "../types";
 
-const diaryPrompt = "오늘 가장 마음을 움직였던 순간은 언제였나요?";
-const defaultDiaryText = "자유롭게 적어보세요...\n마음속 이야기가 모두 소중해요.";
+const emptyDiaryMessage = "일기 내용을 먼저 적어주세요.";
+const savedDiaryMessage = "일기가 저장됐어요";
 
 type DiaryScreenProps = {
   onSaveDiary?: (entry: DiaryEntry) => void;
 };
 
 export function DiaryScreen({ onSaveDiary }: DiaryScreenProps) {
-  const [content, setContent] = useState(defaultDiaryText);
+  const [promptIndex, setPromptIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [saveMessage, setSaveMessage] = useState("");
+  const currentPrompt = diaryPrompts[promptIndex];
+  const content = answers[currentPrompt.id] ?? "";
+
+  function updateCurrentAnswer(value: string) {
+    setAnswers((currentAnswers) => ({
+      ...currentAnswers,
+      [currentPrompt.id]: value
+    }));
+    setSaveMessage("");
+  }
+
+  function handleNextPrompt() {
+    setPromptIndex((currentIndex) => (currentIndex + 1) % diaryPrompts.length);
+    setSaveMessage("");
+  }
 
   function handleSave() {
     const trimmedContent = content.trim();
 
     if (!trimmedContent) {
-      setSaveMessage("일기 내용을 먼저 적어주세요");
+      setSaveMessage(emptyDiaryMessage);
       return;
     }
 
@@ -26,11 +42,11 @@ export function DiaryScreen({ onSaveDiary }: DiaryScreenProps) {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       mood: "차분",
-      prompt: diaryPrompt,
+      prompt: currentPrompt.label,
       content: trimmedContent,
       tags: ["private", "self-understanding"]
     });
-    setSaveMessage("일기가 저장됐어요");
+    setSaveMessage(savedDiaryMessage);
   }
 
   return (
@@ -44,13 +60,14 @@ export function DiaryScreen({ onSaveDiary }: DiaryScreenProps) {
       <article className="prompt-card">
         <div className="prompt-meta">
           <span>오늘의 질문</span>
-          <b>1 / 3</b>
+          <b>{promptIndex + 1} / {diaryPrompts.length}</b>
         </div>
-        <h2>{diaryPrompt}</h2>
+        <h2>{currentPrompt.label}</h2>
         <CharacterAvatar character={characterState} variant="phone" />
         <textarea
           value={content}
-          onChange={(event) => setContent(event.target.value)}
+          onChange={(event) => updateCurrentAnswer(event.target.value)}
+          placeholder={currentPrompt.answer}
           aria-label="일기 입력"
         />
       </article>
@@ -64,7 +81,7 @@ export function DiaryScreen({ onSaveDiary }: DiaryScreenProps) {
         <button type="button"><span>♩</span>음성</button>
       </div>
 
-      <button className="primary-action" type="button">다음 질문</button>
+      <button className="primary-action" type="button" onClick={handleNextPrompt}>다음 질문</button>
     </section>
   );
 }

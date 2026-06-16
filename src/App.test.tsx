@@ -113,6 +113,21 @@ describe("App navigation", () => {
     expect(screen.getByText("1 / 7일")).toBeInTheDocument();
   });
 
+  it("moves through diary prompts with the next question button", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+
+    expect(screen.getByText("1 / 5")).toBeInTheDocument();
+    expect(screen.getByText("오늘의 기분")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "다음 질문" }));
+
+    expect(screen.getByText("2 / 5")).toBeInTheDocument();
+    expect(screen.getByText("기억나는 장면")).toBeInTheDocument();
+  });
+
   it("shows local diary analysis on the insights screen", async () => {
     const user = userEvent.setup();
     const { container } = render(<App />);
