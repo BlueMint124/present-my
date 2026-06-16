@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
+import bottomNavIcons from "../assets/bottom-nav-icons.jpg";
 import type { ScreenId } from "../types";
 
-const navItems: Array<{ id: ScreenId; label: string; icon: string }> = [
-  { id: "home", label: "홈", icon: "⌂" },
-  { id: "diary", label: "일기", icon: "□" },
-  { id: "insights", label: "분석", icon: "▥" },
-  { id: "character", label: "캐릭터", icon: "◌" },
-  { id: "profile", label: "프로필", icon: "♙" },
-  { id: "expansion", label: "상점", icon: "▣" }
+const navItems: Array<{ id: ScreenId; label: string; iconPosition: string }> = [
+  { id: "home", label: "홈", iconPosition: "0% 50%" },
+  { id: "diary", label: "일기", iconPosition: "20% 50%" },
+  { id: "insights", label: "분석", iconPosition: "40% 50%" },
+  { id: "character", label: "캐릭터", iconPosition: "60% 50%" },
+  { id: "profile", label: "프로필", iconPosition: "80% 50%" },
+  { id: "expansion", label: "상점", iconPosition: "100% 50%" }
 ];
 
 type AppShellProps = {
@@ -30,7 +31,11 @@ export function AppShell({ activeScreen, onNavigate, children }: AppShellProps) 
               onClick={() => onNavigate(item.id)}
               type="button"
             >
-              <span aria-hidden="true">{item.icon}</span>
+              <span
+                aria-hidden="true"
+                className="bottom-nav__icon-asset"
+                style={{ backgroundImage: `url(${bottomNavIcons})`, backgroundPosition: item.iconPosition }}
+              />
               {item.label}
             </button>
           ))}

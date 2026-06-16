@@ -1,4 +1,5 @@
 import { useState } from "react";
+import currencyIcons from "../assets/currency-icons.jpg";
 import shopHero from "../assets/shop-hero-moodby.jpg";
 import shopItemSheet from "../assets/shop-item-sheet.jpg";
 
@@ -7,8 +8,10 @@ type ShopTab = "recommend" | "items" | "theme" | "decorate" | "package";
 type ShopItem = {
   category: ShopTab;
   description: string;
+  id: string;
   name: string;
   price: number;
+  purchasable?: boolean;
   sheetPosition: string;
   tag: string;
 };
@@ -25,6 +28,7 @@ const shopItems: ShopItem[] = [
   {
     category: "items",
     description: "무드비에게 포근한 새싹 포인트를 더해요.",
+    id: "sprout-beret",
     name: "새싹 베레모",
     price: 80,
     sheetPosition: "0% 0%",
@@ -33,14 +37,17 @@ const shopItems: ShopItem[] = [
   {
     category: "decorate",
     description: "일기 쓰는 공간에 말랑한 휴식감을 더해요.",
+    id: "cloud-cushion",
     name: "구름 쿠션",
     price: 80,
+    purchasable: true,
     sheetPosition: "50% 0%",
     tag: "배경"
   },
   {
     category: "theme",
     description: "밤 일기 화면을 따뜻하게 밝혀주는 조명.",
+    id: "warm-lamp",
     name: "따뜻한 스탠드",
     price: 120,
     sheetPosition: "100% 0%",
@@ -49,6 +56,7 @@ const shopItems: ShopItem[] = [
   {
     category: "items",
     description: "무드비의 차분한 루틴을 보여주는 머그컵.",
+    id: "heart-mug",
     name: "하트 머그",
     price: 90,
     sheetPosition: "0% 100%",
@@ -57,6 +65,7 @@ const shopItems: ShopItem[] = [
   {
     category: "decorate",
     description: "주간 업데이트 화면을 피크닉처럼 꾸며요.",
+    id: "picnic-blanket",
     name: "피크닉 담요",
     price: 110,
     sheetPosition: "50% 100%",
@@ -65,6 +74,7 @@ const shopItems: ShopItem[] = [
   {
     category: "package",
     description: "기록 보상과 공개 프로필에 어울리는 배지.",
+    id: "diary-badge",
     name: "기록 배지",
     price: 150,
     sheetPosition: "100% 100%",
@@ -74,6 +84,8 @@ const shopItems: ShopItem[] = [
 
 export function ExpansionScreen() {
   const [activeTab, setActiveTab] = useState<ShopTab>("recommend");
+  const [coinBalance, setCoinBalance] = useState(320);
+  const [ownedItems, setOwnedItems] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<ShopItem>(shopItems[1]);
   const [shopMessage, setShopMessage] = useState("미리보기 중");
   const visibleItems =
@@ -83,8 +95,30 @@ export function ExpansionScreen() {
 
   function handlePreview(item: ShopItem) {
     setSelectedItem(item);
-    setShopMessage("미리보기 중");
+    setShopMessage(ownedItems.includes(item.id) ? "보유 중" : "미리보기 중");
   }
+
+  function handlePrimaryAction() {
+    const isOwned = ownedItems.includes(selectedItem.id);
+
+    if (selectedItem.purchasable && !isOwned) {
+      if (coinBalance < selectedItem.price) {
+        setShopMessage("재화가 부족해요");
+        return;
+      }
+
+      setCoinBalance((balance) => balance - selectedItem.price);
+      setOwnedItems((items) => [...items, selectedItem.id]);
+      setShopMessage("구매 완료");
+      return;
+    }
+
+    setShopMessage(isOwned ? "착용 완료" : "미리보기 전용 UI");
+  }
+
+  const isSelectedOwned = ownedItems.includes(selectedItem.id);
+  const primaryActionLabel =
+    selectedItem.purchasable && !isSelectedOwned ? `${selectedItem.name} 구매하기` : "착용하기";
 
   return (
     <section className="app-screen shop-screen">
@@ -93,7 +127,10 @@ export function ExpansionScreen() {
           <small>발표용 UI</small>
           <h1>Moodby Cozy Shop</h1>
         </div>
-        <span className="coin-pill">◎ 320</span>
+        <span className="coin-pill">
+          <CurrencyIcon />
+          <b>{coinBalance}</b>
+        </span>
       </header>
 
       <div className="shop-tabs" aria-label="상점 카테고리">
@@ -129,7 +166,9 @@ export function ExpansionScreen() {
           <strong>{selectedItem.name}</strong>
           <small>{selectedItem.description}</small>
         </div>
-        <button type="button" onClick={() => setShopMessage("착용 완료 UI")}>착용하기</button>
+        <button aria-label={primaryActionLabel} type="button" onClick={handlePrimaryAction}>
+          {primaryActionLabel}
+        </button>
       </article>
 
       <section className="shop-section">
@@ -153,7 +192,7 @@ export function ExpansionScreen() {
               />
               <strong>{item.name}</strong>
               <small>{item.description}</small>
-              <b>◎ {item.price}</b>
+              <b><CurrencyIcon />{ownedItems.includes(item.id) ? "보유" : item.price}</b>
             </button>
           ))}
         </div>
@@ -178,5 +217,15 @@ export function ExpansionScreen() {
         </button>
       </div>
     </section>
+  );
+}
+
+function CurrencyIcon() {
+  return (
+    <i
+      aria-hidden="true"
+      className="currency-icon currency-icon--coin"
+      style={{ backgroundImage: `url(${currencyIcons})` }}
+    />
   );
 }

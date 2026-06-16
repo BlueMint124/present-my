@@ -1016,12 +1016,36 @@ button {
 }
 
 .coin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 5px 12px;
   border-radius: 999px;
   background: #f3ead9;
   color: #4c6847;
   font-size: 13px;
   font-weight: 900;
+}
+
+.coin-pill b {
+  color: inherit;
+  font-size: inherit;
+}
+
+.currency-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  filter: drop-shadow(0 4px 4px rgba(96, 70, 30, 0.16));
+  vertical-align: middle;
+}
+
+.currency-icon--coin {
+  background-position: 0% 50%;
 }
 
 .shop-header div {
@@ -1225,6 +1249,9 @@ button {
 
 .shop-item-card b,
 .shop-grid span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #638e55;
   font-size: 12px;
   font-weight: 900;
@@ -1298,9 +1325,24 @@ button {
   line-height: 1;
 }
 
+.bottom-nav__icon-asset {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: 600% 100%;
+  filter: drop-shadow(0 5px 5px rgba(68, 56, 35, 0.12));
+}
+
 .bottom-nav__item--active {
   color: var(--sage-4);
   background: var(--sage-1);
+}
+
+.bottom-nav__item--active .bottom-nav__icon-asset {
+  transform: translateY(-1px) scale(1.08);
+  filter: drop-shadow(0 7px 7px rgba(77, 112, 75, 0.22));
 }
 
 .moodby {
