@@ -78,7 +78,9 @@ describe("App navigation", () => {
     await user.click(getNavigationButtons()[5]);
 
     expect(screen.getByText("320")).toBeInTheDocument();
-    expect(document.querySelectorAll(".bottom-nav__icon-asset").length).toBe(6);
+    const navAssets = document.querySelectorAll(".bottom-nav__icon-asset");
+    expect(navAssets.length).toBe(6);
+    expect(navAssets[0]).toBeInstanceOf(SVGElement);
 
     await user.click(screen.getByRole("button", { name: "구름 쿠션 구매하기" }));
 
