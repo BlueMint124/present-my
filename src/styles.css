@@ -1225,7 +1225,7 @@ button {
   background: linear-gradient(145deg, #f1faee, #fff7e8);
 }
 
-.shop-item-card i {
+.shop-item-card .shop-item-art {
   justify-self: center;
   width: 104px;
   height: 74px;
@@ -1255,6 +1255,14 @@ button {
   color: #638e55;
   font-size: 12px;
   font-weight: 900;
+}
+
+.shop-item-card b .currency-icon {
+  width: 13px;
+  height: 13px;
+  background-size: 174% 88%;
+  background-position: 5% 50%;
+  filter: drop-shadow(0 2px 2px rgba(96, 70, 30, 0.12));
 }
 
 .shop-action-grid button {
@@ -1299,8 +1307,8 @@ button {
 .bottom-nav {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  min-height: 66px;
-  padding: 7px 8px 9px;
+  min-height: 62px;
+  padding: 6px 6px 8px;
   border-top: 1px solid rgba(219, 203, 174, 0.9);
   background: rgba(255, 254, 250, 0.96);
 }
@@ -1308,14 +1316,17 @@ button {
 .bottom-nav__item {
   display: grid;
   place-items: center;
-  gap: 3px;
+  gap: 2px;
+  min-height: 48px;
+  min-width: 0;
+  padding: 3px 1px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   background: transparent;
   color: #737268;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
-  min-width: 0;
+  line-height: 1.05;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -1327,22 +1338,22 @@ button {
 
 .bottom-nav__icon-asset {
   display: block;
-  width: 26px;
-  height: 26px;
-  border-radius: 10px;
+  width: 21px;
+  height: 21px;
+  border-radius: 9px;
   background-repeat: no-repeat;
-  background-size: 600% 100%;
-  filter: drop-shadow(0 5px 5px rgba(68, 56, 35, 0.12));
+  background-size: 720% 122%;
+  filter: drop-shadow(0 3px 4px rgba(68, 56, 35, 0.08));
 }
 
 .bottom-nav__item--active {
   color: var(--sage-4);
-  background: var(--sage-1);
+  background: rgba(140, 191, 151, 0.12);
 }
 
 .bottom-nav__item--active .bottom-nav__icon-asset {
-  transform: translateY(-1px) scale(1.08);
-  filter: drop-shadow(0 7px 7px rgba(77, 112, 75, 0.22));
+  transform: translateY(-1px) scale(1.04);
+  filter: drop-shadow(0 4px 5px rgba(77, 112, 75, 0.16));
 }
 
 .moodby {

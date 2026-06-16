@@ -188,6 +188,7 @@ export function ExpansionScreen() {
               <span className="shop-item-tag">{item.tag}</span>
               <i
                 aria-hidden="true"
+                className="shop-item-art"
                 style={{ backgroundImage: `url(${shopItemSheet})`, backgroundPosition: item.sheetPosition }}
               />
               <strong>{item.name}</strong>
