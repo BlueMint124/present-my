@@ -1,18 +1,26 @@
 import type { CharacterState } from "../types";
 
+export type CharacterAnimation = "breath" | "wave" | "smile" | "cry";
+
 type CharacterAvatarProps = {
+  animation?: CharacterAnimation;
   character: CharacterState;
   pose?: string;
   variant?: "default" | "hero" | "mini" | "phone" | "nav" | "picnic" | "profile";
 };
 
-export function CharacterAvatar({ character, pose = "front", variant = "default" }: CharacterAvatarProps) {
+export function CharacterAvatar({
+  animation = "breath",
+  character,
+  pose = "front",
+  variant = "default"
+}: CharacterAvatarProps) {
   const showProps = variant === "hero" || variant === "picnic";
 
   return (
     <div
       aria-label={`${character.name} 캐릭터`}
-      className={`moodby moodby--${variant} moodby--pose-${pose}`}
+      className={`moodby moodby--${variant} moodby--pose-${pose} moodby--${animation}`}
     >
       <div className="moodby-aura"><span /><span /><span /></div>
       <div className="moodby-shadow" />
@@ -27,6 +35,8 @@ export function CharacterAvatar({ character, pose = "front", variant = "default"
         <div className="moodby-eye moodby-eye--right" />
         <div className="moodby-brow moodby-brow--left" />
         <div className="moodby-brow moodby-brow--right" />
+        <div className="moodby-tear moodby-tear--left" />
+        <div className="moodby-tear moodby-tear--right" />
         <div className="moodby-cheek moodby-cheek--left" />
         <div className="moodby-cheek moodby-cheek--right" />
         <div className="moodby-mouth" />

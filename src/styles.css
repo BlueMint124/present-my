@@ -1,6 +1,18 @@
 :root {
-  color: #263124;
-  background: #fff8ee;
+  --cream-0: #fffdf7;
+  --cream-1: #fff7e8;
+  --cream-2: #f4ead8;
+  --sage-1: #edf7e9;
+  --sage-2: #9fc99e;
+  --sage-3: #5d9a70;
+  --sage-4: #2f5d3a;
+  --mint: #cdefdd;
+  --butter: #fed77a;
+  --coral: #ff8f7a;
+  --ink: #263124;
+  --muted: #756f63;
+  color: var(--ink);
+  background: var(--cream-1);
   font-family: Inter, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,9 +28,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 22% 18%, rgba(206, 239, 221, 0.7), transparent 28vw),
-    radial-gradient(circle at 82% 76%, rgba(254, 215, 122, 0.32), transparent 30vw),
-    linear-gradient(160deg, #fffdf7, #fff6e8);
+    radial-gradient(circle at 22% 18%, rgba(205, 239, 221, 0.76), transparent 28vw),
+    radial-gradient(circle at 82% 76%, rgba(254, 215, 122, 0.34), transparent 30vw),
+    linear-gradient(160deg, var(--cream-0), var(--cream-1));
 }
 
 button,
@@ -45,10 +57,10 @@ button {
   height: min(844px, calc(100vh - 44px));
   min-height: 720px;
   overflow: hidden;
-  border: 1px solid #ddcfb7;
+  border: 1px solid rgba(195, 174, 139, 0.68);
   border-radius: 30px;
-  background: #fffdf8;
-  box-shadow: 0 28px 72px rgba(64, 47, 25, 0.2);
+  background: var(--cream-0);
+  box-shadow: 0 30px 80px rgba(64, 47, 25, 0.2), inset 0 1px rgba(255, 255, 255, 0.9);
 }
 
 .app-content {
@@ -56,8 +68,9 @@ button {
   overflow-x: hidden;
   overflow-y: auto;
   background:
-    radial-gradient(circle at 74% 18%, rgba(206, 239, 221, 0.55), transparent 36%),
-    linear-gradient(180deg, #fffdf8, #fff8ec);
+    radial-gradient(circle at 74% 18%, rgba(205, 239, 221, 0.6), transparent 36%),
+    radial-gradient(circle at 18% 88%, rgba(254, 215, 122, 0.16), transparent 30%),
+    linear-gradient(180deg, var(--cream-0), var(--cream-1));
 }
 
 .app-screen {
@@ -69,6 +82,7 @@ button {
 }
 
 .app-screen > * {
+  max-width: 100%;
   min-width: 0;
 }
 
@@ -82,7 +96,7 @@ button {
 
 .app-header h1 {
   margin: 0;
-  color: #2f5628;
+  color: var(--sage-4);
   font-size: 20px;
   line-height: 1;
   letter-spacing: 0;
@@ -116,18 +130,22 @@ button {
 .badge-section,
 .reward-grid article,
 .shop-grid article {
-  border: 1px solid #e4d7c0;
-  border-radius: 18px;
+  border: 1px solid rgba(220, 204, 175, 0.95);
+  border-radius: 20px;
   background: rgba(255, 253, 248, 0.88);
-  box-shadow: 0 14px 30px rgba(71, 52, 28, 0.09), inset 0 1px rgba(255, 255, 255, 0.72);
+  box-shadow: 0 16px 34px rgba(71, 52, 28, 0.1), inset 0 1px rgba(255, 255, 255, 0.82);
 }
 
 .diary-summary {
   display: grid;
   grid-template-columns: 54px 1fr;
   gap: 10px;
+  width: 100%;
+  overflow: hidden;
   padding: 14px;
-  background: linear-gradient(145deg, #f4fbef, #fff8e9);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(254, 215, 122, 0.2), transparent 26%),
+    linear-gradient(145deg, #f2faef, var(--cream-1));
 }
 
 .lock-tile {
@@ -136,7 +154,7 @@ button {
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  background: #86ad86;
+  background: linear-gradient(145deg, #93ba90, #6f9d78);
   color: #fff;
   font-weight: 900;
 }
@@ -181,17 +199,17 @@ button {
   width: 72%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #508b61, #74a77a);
+  background: linear-gradient(90deg, var(--sage-4), var(--sage-2));
 }
 
 .diary-summary button,
 .primary-action {
   grid-column: 1 / -1;
-  width: 100%;
+  max-width: 100%;
   min-height: 42px;
   border: 0;
   border-radius: 999px;
-  background: linear-gradient(180deg, #6fa780, #4f8f68);
+  background: linear-gradient(180deg, #76ad84, var(--sage-3));
   color: #fff;
   font-weight: 900;
   box-shadow: inset 0 -2px rgba(42, 88, 58, 0.18), 0 8px 16px rgba(71, 113, 79, 0.16);
@@ -562,7 +580,7 @@ button {
 
 .weekly-hero {
   position: relative;
-  min-height: 298px;
+  min-height: 318px;
   margin: -18px -14px 0;
   padding: 32px 24px;
   overflow: hidden;
@@ -572,6 +590,30 @@ button {
     radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.92), transparent 16%),
     radial-gradient(circle at 87% 58%, rgba(136, 191, 158, 0.38), transparent 18%),
     linear-gradient(168deg, #dff2fd 0%, #f9e7b6 56%, #7eac69 100%);
+}
+
+.animation-controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-top: -4px;
+}
+
+.animation-controls button {
+  min-height: 36px;
+  border: 1px solid rgba(220, 204, 175, 0.95);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.78);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(71, 52, 28, 0.06);
+}
+
+.animation-controls .active {
+  border-color: rgba(93, 154, 112, 0.55);
+  background: var(--sage-1);
+  color: var(--sage-4);
 }
 
 .weekly-hero::after {
@@ -983,6 +1025,9 @@ button {
   color: #737268;
   font-size: 9px;
   font-weight: 800;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .bottom-nav__item span {
@@ -1003,6 +1048,8 @@ button {
   width: calc(170px * var(--scale));
   height: calc(177px * var(--scale));
   overflow: visible;
+  transform-origin: center bottom;
+  animation: moodby-breathe 3.2s ease-in-out infinite;
 }
 
 .moodby-aura {
@@ -1262,6 +1309,27 @@ button {
   border-radius: 50%;
 }
 
+.moodby-tear {
+  position: absolute;
+  top: calc(68px * var(--scale));
+  z-index: 3;
+  display: none;
+  width: calc(8px * var(--scale));
+  height: calc(15px * var(--scale));
+  border-radius: 999px 999px 999px 35%;
+  background: linear-gradient(180deg, #a6d6f5, #5aa9d6);
+  transform: rotate(18deg);
+}
+
+.moodby-tear--left {
+  left: calc(34px * var(--scale));
+}
+
+.moodby-tear--right {
+  right: calc(34px * var(--scale));
+  transform: scaleX(-1) rotate(18deg);
+}
+
 .moodby-arm {
   position: absolute;
   z-index: 1;
@@ -1281,6 +1349,55 @@ button {
 .moodby-arm--right {
   right: calc(8px * var(--scale));
   transform: rotate(15deg);
+}
+
+.moodby--wave .moodby-arm--right {
+  z-index: 4;
+  transform-origin: 50% 90%;
+  animation: moodby-wave 820ms ease-in-out infinite;
+}
+
+.moodby--smile .moodby {
+  animation-duration: 2.5s;
+}
+
+.moodby--smile .moodby-mouth {
+  left: calc(57px * var(--scale));
+  top: calc(70px * var(--scale));
+  width: calc(30px * var(--scale));
+  height: calc(18px * var(--scale));
+  border-bottom-width: calc(4px * var(--scale));
+}
+
+.moodby--smile .moodby-cheek {
+  opacity: 0.92;
+  transform: scale(1.15);
+}
+
+.moodby--cry {
+  animation: moodby-sniffle 1.4s ease-in-out infinite;
+}
+
+.moodby--cry .moodby-brow--left {
+  transform: rotate(-18deg);
+}
+
+.moodby--cry .moodby-brow--right {
+  transform: rotate(18deg);
+}
+
+.moodby--cry .moodby-mouth {
+  left: calc(62px * var(--scale));
+  top: calc(79px * var(--scale));
+  width: calc(18px * var(--scale));
+  height: calc(14px * var(--scale));
+  border-top: calc(3px * var(--scale)) solid #3b2d20;
+  border-bottom: 0;
+}
+
+.moodby--cry .moodby-tear {
+  display: block;
+  animation: moodby-tear 1.2s ease-in infinite;
 }
 
 .moodby-mug {
@@ -1369,8 +1486,13 @@ button {
 }
 
 @media (max-width: 520px) {
+  body {
+    overflow: hidden;
+  }
+
   .app-stage {
     display: block;
+    height: 100vh;
     padding: 0;
   }
 
@@ -1381,5 +1503,57 @@ button {
     border: 0;
     border-radius: 0;
     box-shadow: none;
+  }
+}
+
+@keyframes moodby-breathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(calc(-3px * var(--scale))) scale(1.018, 0.992);
+  }
+}
+
+@keyframes moodby-wave {
+  0%, 100% {
+    transform: rotate(18deg) translateY(0);
+  }
+  50% {
+    transform: rotate(54deg) translateY(calc(-10px * var(--scale)));
+  }
+}
+
+@keyframes moodby-sniffle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  45% {
+    transform: translateY(calc(2px * var(--scale))) rotate(-1deg);
+  }
+  70% {
+    transform: translateY(calc(1px * var(--scale))) rotate(1deg);
+  }
+}
+
+@keyframes moodby-tear {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.65) rotate(18deg);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(calc(20px * var(--scale))) scale(1) rotate(18deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moodby,
+  .moodby--wave .moodby-arm--right,
+  .moodby--cry .moodby-tear {
+    animation: none;
   }
 }
