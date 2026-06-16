@@ -75,4 +75,24 @@ describe("App navigation", () => {
     render(<App />);
     expect(screen.getByText("1 / 7일")).toBeInTheDocument();
   });
+
+  it("shows local diary analysis on the insights screen", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+    await user.clear(screen.getByRole("textbox"));
+    await user.type(
+      screen.getByRole("textbox"),
+      "발표 준비가 조금 불안했지만 친구와 이야기하면서 마음이 차분해지고 회복되는 느낌이었다."
+    );
+
+    const saveButton = container.querySelector(".app-header--center button");
+    await user.click(saveButton as HTMLButtonElement);
+
+    await user.click(getNavigationButtons()[2]);
+
+    expect(await screen.findByText(/불안을/)).toBeInTheDocument();
+    expect(screen.getByText("발표, 친구, 회복")).toBeInTheDocument();
+  });
 });

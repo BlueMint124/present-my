@@ -15,6 +15,32 @@ export type DiaryEntry = {
   tags: string[];
 };
 
+export type DiaryAnalysisSource = "local" | "gpt";
+
+export type DiaryEmotionScore = {
+  label: string;
+  percentage: number;
+};
+
+export type DiaryAnalysis = {
+  source: DiaryAnalysisSource;
+  headline: string;
+  summary: string;
+  strength: string;
+  focus: string;
+  growthNote: string;
+  keywords: string[];
+  emotionPattern: {
+    primary: DiaryEmotionScore;
+    secondary: DiaryEmotionScore;
+  };
+};
+
+export type DiaryAnalysisProvider = {
+  source: DiaryAnalysisSource;
+  analyze(entries: DiaryEntry[]): Promise<DiaryAnalysis>;
+};
+
 export type InsightMetric = {
   label: string;
   value: string;

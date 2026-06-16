@@ -129,6 +129,7 @@ button {
 .mood-panel,
 .mini-story-card,
 .insight-grid article,
+.keyword-card,
 .stats-row,
 .badge-section,
 .reward-grid article,
@@ -548,6 +549,23 @@ button {
 
 .insight-grid .coral {
   color: #e1785f;
+}
+
+.keyword-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+}
+
+.keyword-card strong {
+  color: #293326;
+  font-size: 13px;
+}
+
+.keyword-card span {
+  color: var(--sage-4);
+  font-size: 15px;
+  font-weight: 900;
 }
 
 .ratio-card {
