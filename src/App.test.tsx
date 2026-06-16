@@ -95,4 +95,32 @@ describe("App navigation", () => {
     expect(await screen.findByText(/불안을/)).toBeInTheDocument();
     expect(screen.getByText("발표, 친구, 회복")).toBeInTheDocument();
   });
+
+  it("opens emotion, keyword, and growth analysis tabs", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+    await user.clear(screen.getByRole("textbox"));
+    await user.type(
+      screen.getByRole("textbox"),
+      "발표 준비가 조금 불안했지만 친구와 이야기하면서 마음이 차분해지고 회복되는 느낌이었다."
+    );
+
+    const saveButton = container.querySelector(".app-header--center button");
+    await user.click(saveButton as HTMLButtonElement);
+    await user.click(getNavigationButtons()[2]);
+
+    await user.click(screen.getByRole("button", { name: "감정 패턴" }));
+    expect(await screen.findByText("감정 흐름 해석")).toBeInTheDocument();
+    expect(screen.getAllByText(/불안/).length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole("button", { name: "키워드" }));
+    expect(screen.getByText("키워드 맵")).toBeInTheDocument();
+    expect(screen.getAllByText(/발표/).length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole("button", { name: "성장 기록" }));
+    expect(screen.getByText("성장 기록 카드")).toBeInTheDocument();
+    expect(screen.getByText(/자기/)).toBeInTheDocument();
+  });
 });

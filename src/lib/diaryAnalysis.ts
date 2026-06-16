@@ -34,6 +34,8 @@ export const emptyDiaryAnalysis: DiaryAnalysis = {
   focus: "오늘의 한 문장",
   growthNote: "첫 기록을 남기면 무드비가 당신의 마음 흐름을 함께 정리해줄게요.",
   keywords: [],
+  keywordDetails: [],
+  growthRecords: [],
   emotionPattern: {
     primary: { label: "대기", percentage: 0 },
     secondary: { label: "대기", percentage: 0 }
@@ -74,15 +76,21 @@ function analyzeLocally(entries: DiaryEntry[]): DiaryAnalysis {
   const scoredTotal = emotionScores.reduce((total, emotion) => total + emotion.score, 0);
   const [primaryScore, secondaryScore] = normalizeEmotionScores(emotionScores, scoredTotal);
   const keywords = pickKeywords(text);
+  const keywordDetails = createKeywordDetails(text, keywords);
+  const strength = createStrength(primaryScore.label);
+  const focus = createFocus(primaryScore.label);
+  const growthNote = "기록을 이어가며 감정을 말로 정리하는 힘이 조금씩 자라고 있어요.";
 
   return {
     source: "local",
     headline: createHeadline(primaryScore.label),
     summary: createSummary(primaryScore.label, keywords, meaningfulEntries.length),
-    strength: createStrength(primaryScore.label),
-    focus: createFocus(primaryScore.label),
-    growthNote: "기록을 이어가며 감정을 말로 정리하는 힘이 조금씩 자라고 있어요.",
+    strength,
+    focus,
+    growthNote,
     keywords,
+    keywordDetails,
+    growthRecords: createGrowthRecords(strength, focus, growthNote),
     emotionPattern: {
       primary: primaryScore,
       secondary: secondaryScore
@@ -113,6 +121,34 @@ function normalizeEmotionScores(
 function pickKeywords(text: string) {
   const picked = keywordRules.filter((keyword) => text.includes(keyword));
   return [...new Set(picked)].slice(0, 3);
+}
+
+function createKeywordDetails(text: string, keywords: string[]) {
+  return keywords.map((keyword) => ({
+    keyword,
+    count: Math.max(countOccurrences(text, keyword), 1),
+    description: `${keyword} 키워드는 최근 일기에서 마음의 장면을 설명하는 단서로 나타났어요.`
+  }));
+}
+
+function createGrowthRecords(strength: string, focus: string, growthNote: string) {
+  return [
+    {
+      title: `${strength} 루틴`,
+      body: growthNote,
+      tone: "private" as const
+    },
+    {
+      title: `${focus} 연습`,
+      body: "반복되는 감정을 바로 해결하려 하기보다 이름 붙이고 바라보는 단계가 생겼어요.",
+      tone: "private" as const
+    },
+    {
+      title: "공유 가능한 한 줄",
+      body: "나는 내 마음을 기록하면서 나를 더 부드럽게 이해하는 사람입니다.",
+      tone: "shareable" as const
+    }
+  ];
 }
 
 function createHeadline(primaryEmotion: string) {

@@ -568,6 +568,96 @@ button {
   font-weight: 900;
 }
 
+.analysis-panel {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 88% 20%, rgba(245, 206, 117, 0.22), transparent 28%),
+    linear-gradient(145deg, #f7fbf0, #fff8ed);
+}
+
+.analysis-panel small {
+  color: #5b9064;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.analysis-panel h2 {
+  margin: 0;
+  color: #293326;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.analysis-panel p,
+.analysis-note p,
+.keyword-list p,
+.growth-list p {
+  margin: 0;
+  color: #6f675d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.emotion-bars,
+.keyword-list,
+.growth-list {
+  display: grid;
+  gap: 10px;
+}
+
+.emotion-bars article,
+.keyword-list article,
+.growth-list article,
+.analysis-note {
+  display: grid;
+  gap: 9px;
+  padding: 14px;
+}
+
+.emotion-bars article div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--sage-4);
+}
+
+.emotion-bars article strong,
+.analysis-note strong,
+.growth-list strong {
+  color: var(--sage-4);
+}
+
+.emotion-bars article span,
+.keyword-list span,
+.growth-list span {
+  color: #877465;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.emotion-bars article i {
+  display: block;
+  max-width: 100%;
+  height: 9px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sage-3), var(--butter));
+}
+
+.keyword-list article {
+  grid-template-columns: 1fr auto;
+}
+
+.keyword-list article p {
+  grid-column: 1 / -1;
+}
+
+.keyword-list b {
+  color: var(--sage-4);
+  font-size: 17px;
+}
+
 .ratio-card {
   display: grid;
   grid-template-columns: 1fr 104px;

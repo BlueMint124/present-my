@@ -27,6 +27,13 @@ describe("diary analysis", () => {
     expect(analysis.headline).toContain("불안을");
     expect(analysis.emotionPattern.primary.label).toBe("불안");
     expect(analysis.keywords).toEqual(expect.arrayContaining(["발표", "친구", "회복"]));
+    expect(analysis.keywordDetails[0]).toMatchObject({
+      keyword: "발표",
+      description: expect.stringContaining("일기")
+    });
+    expect(analysis.growthRecords[0]).toMatchObject({
+      title: expect.stringContaining("자기")
+    });
     expect(analysis.growthNote).toContain("기록");
   });
 

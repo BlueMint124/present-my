@@ -22,6 +22,18 @@ export type DiaryEmotionScore = {
   percentage: number;
 };
 
+export type DiaryKeywordInsight = {
+  keyword: string;
+  count: number;
+  description: string;
+};
+
+export type DiaryGrowthRecord = {
+  title: string;
+  body: string;
+  tone: "private" | "shareable";
+};
+
 export type DiaryAnalysis = {
   source: DiaryAnalysisSource;
   headline: string;
@@ -30,6 +42,8 @@ export type DiaryAnalysis = {
   focus: string;
   growthNote: string;
   keywords: string[];
+  keywordDetails: DiaryKeywordInsight[];
+  growthRecords: DiaryGrowthRecord[];
   emotionPattern: {
     primary: DiaryEmotionScore;
     secondary: DiaryEmotionScore;
