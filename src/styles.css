@@ -1018,12 +1018,12 @@ button {
 .coin-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
+  gap: 5px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: #f3ead9;
   color: #4c6847;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
 }
 
@@ -1035,17 +1035,17 @@ button {
 .currency-icon {
   display: inline-block;
   flex: 0 0 auto;
-  width: 22px;
-  height: 22px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   background-repeat: no-repeat;
-  background-size: 200% 100%;
-  filter: drop-shadow(0 4px 4px rgba(96, 70, 30, 0.16));
+  background-size: 172% 86%;
+  filter: drop-shadow(0 3px 3px rgba(96, 70, 30, 0.14));
   vertical-align: middle;
 }
 
 .currency-icon--coin {
-  background-position: 0% 50%;
+  background-position: 5% 50%;
 }
 
 .shop-header div {
