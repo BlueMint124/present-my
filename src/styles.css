@@ -909,16 +909,47 @@ button {
 
 .weekly-hero {
   position: relative;
-  min-height: 318px;
-  margin: -18px -14px 0;
-  padding: 32px 24px;
+  min-height: 348px;
+  margin: 0 -14px;
+  padding: 24px;
   overflow: hidden;
   border-radius: 0 0 24px 24px;
+  background: #f7f0df;
+  box-shadow: inset 0 -1px rgba(255, 255, 255, 0.8);
+}
+
+.character-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+  transform: scale(1.04);
+}
+
+.weekly-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    radial-gradient(circle at 28% 79%, rgba(255, 255, 255, 0.72), transparent 18%),
-    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.92), transparent 16%),
-    radial-gradient(circle at 87% 58%, rgba(184, 213, 176, 0.4), transparent 18%),
-    linear-gradient(168deg, var(--sky) 0%, #f7e3b8 56%, #8fb47d 100%);
+    linear-gradient(180deg, rgba(255, 253, 247, 0.7), rgba(255, 253, 247, 0.06) 48%, rgba(49, 69, 43, 0.08)),
+    radial-gradient(circle at 32% 58%, rgba(255, 255, 255, 0.58), transparent 31%);
+}
+
+.weekly-hero-copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 7px;
+  width: 210px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 20px;
+  background: rgba(255, 253, 248, 0.68);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px rgba(63, 53, 32, 0.08);
 }
 
 .animation-controls {
@@ -948,73 +979,45 @@ button {
 .weekly-hero::after {
   content: "";
   position: absolute;
-  left: 22px;
-  right: 22px;
+  left: 48px;
+  right: 48px;
   bottom: 0;
-  height: 76px;
+  z-index: 1;
+  height: 64px;
   border-radius: 50% 50% 0 0;
-  background: linear-gradient(180deg, rgba(255, 246, 221, 0.8), rgba(120, 165, 105, 0.4));
+  background: radial-gradient(ellipse at center, rgba(75, 99, 53, 0.24), transparent 64%);
 }
 
-.picnic-decor span:nth-child(1) {
-  left: 36px;
-  bottom: 28px;
-  width: 96px;
-  height: 38px;
-  border-radius: 18px;
-  background:
-    linear-gradient(45deg, rgba(151, 86, 54, 0.18) 25%, transparent 25% 50%, rgba(151, 86, 54, 0.18) 50% 75%, transparent 75%),
-    #f4cfa3;
-  background-size: 24px 24px;
-  transform: rotate(-7deg);
-}
-
-.picnic-decor span:nth-child(2) {
-  left: 66px;
-  bottom: 88px;
-  width: 28px;
-  height: 40px;
-  border-radius: 8px 8px 12px 12px;
-  background: linear-gradient(180deg, #6c5739, #9b7c4e);
-}
-
-.picnic-decor span:nth-child(3) {
-  right: 54px;
-  top: 94px;
-  width: 44px;
-  height: 72px;
-  border-radius: 999px 999px 0 0;
-  border-left: 7px solid #789655;
-  transform: rotate(17deg);
-}
-
-.weekly-hero h1,
-.weekly-hero h2,
+.weekly-hero-copy span,
+.weekly-hero-copy h1,
 .weekly-hero p {
   margin: 0;
 }
 
-.weekly-hero h1 {
+.weekly-hero-copy span {
+  color: #5d8f5d;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.weekly-hero-copy h1 {
   color: #263124;
-  font-size: 18px;
+  font-size: 21px;
+  line-height: 1.2;
 }
 
-.weekly-hero h2 {
-  margin-top: 10px;
-  color: #2e352b;
-  font-size: 25px;
-}
-
-.weekly-hero p {
-  margin-top: 6px;
+.weekly-hero-copy p {
   color: #5d6659;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .weekly-hero .moodby {
   position: absolute;
-  right: 24px;
-  bottom: 24px;
-  z-index: 1;
+  right: 28px;
+  bottom: 34px;
+  z-index: 2;
 }
 
 .level-card {
@@ -1023,7 +1026,7 @@ button {
   align-items: center;
   gap: 9px;
   min-height: 58px;
-  margin-top: -42px;
+  margin-top: 0;
   padding: 12px 15px;
   border: 1px solid #dfd1bb;
   border-radius: 18px;
@@ -1055,6 +1058,32 @@ button {
   gap: 12px;
 }
 
+.reward-section-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.reward-section-header span {
+  color: #6f9a66;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.reward-section-header h2 {
+  margin: 2px 0 0;
+}
+
+.reward-section-header b {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(124, 174, 132, 0.14);
+  color: var(--sage-4);
+  font-size: 10px;
+}
+
 .reward-grid,
 .shop-grid {
   display: grid;
@@ -1067,12 +1096,20 @@ button {
   display: grid;
   gap: 8px;
   justify-items: center;
-  min-height: 116px;
-  padding: 12px 8px;
+  min-height: 128px;
+  padding: 12px 8px 13px;
   text-align: center;
 }
 
-.reward-grid div,
+.reward-grid .reward-item-art {
+  width: 82px;
+  height: 58px;
+  border-radius: 18px;
+  background-repeat: no-repeat;
+  background-size: 300% 100%;
+  filter: drop-shadow(0 9px 10px rgba(74, 54, 28, 0.13));
+}
+
 .shop-grid div {
   width: 54px;
   height: 44px;
@@ -1080,12 +1117,10 @@ button {
   background: linear-gradient(135deg, #e8b579, #fff0cd);
 }
 
-.reward-grid article:nth-child(2) div,
 .shop-grid article:nth-child(2) div {
   background: linear-gradient(135deg, #64513a, #f8dfb5);
 }
 
-.reward-grid article:nth-child(3) div,
 .shop-grid article:nth-child(3) div {
   background: linear-gradient(135deg, #557346, #fff2cf);
 }
@@ -1094,6 +1129,18 @@ button {
 .shop-grid strong {
   color: #62543e;
   font-size: 12px;
+}
+
+.reward-grid small {
+  color: #817769;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.reward-section--checked .reward-grid article {
+  border-color: rgba(124, 174, 132, 0.4);
+  background:
+    linear-gradient(145deg, rgba(247, 252, 243, 0.94), rgba(255, 253, 248, 0.94));
 }
 
 .approved-badge {

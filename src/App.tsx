@@ -22,6 +22,13 @@ function AppContent() {
   const [diaryAnalysis, setDiaryAnalysis] = useState<DiaryAnalysis>(emptyDiaryAnalysis);
 
   useEffect(() => {
+    const appContent = document.querySelector(".app-content");
+    if (appContent) {
+      appContent.scrollTop = 0;
+    }
+  }, [activeScreen]);
+
+  useEffect(() => {
     let isCurrent = true;
 
     analyzeDiaryEntries(diaryEntries).then((analysis) => {

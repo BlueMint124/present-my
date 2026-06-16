@@ -52,6 +52,21 @@ describe("App navigation", () => {
     expect(document.querySelector(".shop-screen")).toBeInTheDocument();
   });
 
+  it("renders premium character assets and acknowledges unlocked items", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[3]);
+
+    expect(document.querySelector(".character-hero-bg")).toBeInstanceOf(HTMLImageElement);
+    expect(document.querySelectorAll(".reward-item-art").length).toBe(3);
+
+    await user.click(screen.getByRole("button", { name: "모두 확인했어요" }));
+
+    expect(screen.getByText("새 아이템을 보관함에 넣었어요")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "확인 완료" })).toBeDisabled();
+  });
+
   it("previews cozy shop items without real payment", async () => {
     const user = userEvent.setup();
     render(<App />);
