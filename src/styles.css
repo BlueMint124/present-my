@@ -1,16 +1,18 @@
 :root {
-  --cream-0: #fffdf7;
-  --cream-1: #fff7e8;
-  --cream-2: #f4ead8;
-  --sage-1: #edf7e9;
-  --sage-2: #9fc99e;
-  --sage-3: #5d9a70;
-  --sage-4: #2f5d3a;
-  --mint: #cdefdd;
-  --butter: #fed77a;
-  --coral: #ff8f7a;
-  --ink: #263124;
-  --muted: #756f63;
+  --cream-0: #fffefa;
+  --cream-1: #fbf3e6;
+  --cream-2: #eee0cc;
+  --sage-1: #eef7ed;
+  --sage-2: #b8d5b0;
+  --sage-3: #6da77b;
+  --sage-4: #214f34;
+  --mint: #d9f0e5;
+  --butter: #f5ce75;
+  --coral: #ef927b;
+  --apricot: #f6c99d;
+  --sky: #dbeef5;
+  --ink: #243326;
+  --muted: #756d62;
   color: var(--ink);
   background: var(--cream-1);
   font-family: Inter, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
@@ -28,8 +30,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 22% 18%, rgba(205, 239, 221, 0.76), transparent 28vw),
-    radial-gradient(circle at 82% 76%, rgba(254, 215, 122, 0.34), transparent 30vw),
+    radial-gradient(circle at 18% 16%, rgba(217, 240, 229, 0.9), transparent 27vw),
+    radial-gradient(circle at 86% 72%, rgba(246, 201, 157, 0.36), transparent 30vw),
+    radial-gradient(circle at 54% 96%, rgba(245, 206, 117, 0.18), transparent 28vw),
     linear-gradient(160deg, var(--cream-0), var(--cream-1));
 }
 
@@ -57,10 +60,10 @@ button {
   height: min(844px, calc(100vh - 44px));
   min-height: 720px;
   overflow: hidden;
-  border: 1px solid rgba(195, 174, 139, 0.68);
-  border-radius: 30px;
+  border: 1px solid rgba(190, 171, 138, 0.58);
+  border-radius: 32px;
   background: var(--cream-0);
-  box-shadow: 0 30px 80px rgba(64, 47, 25, 0.2), inset 0 1px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 34px 88px rgba(61, 48, 28, 0.18), inset 0 1px rgba(255, 255, 255, 0.96);
 }
 
 .app-content {
@@ -68,8 +71,8 @@ button {
   overflow-x: hidden;
   overflow-y: auto;
   background:
-    radial-gradient(circle at 74% 18%, rgba(205, 239, 221, 0.6), transparent 36%),
-    radial-gradient(circle at 18% 88%, rgba(254, 215, 122, 0.16), transparent 30%),
+    radial-gradient(circle at 76% 14%, rgba(217, 240, 229, 0.74), transparent 36%),
+    radial-gradient(circle at 12% 88%, rgba(246, 201, 157, 0.18), transparent 30%),
     linear-gradient(180deg, var(--cream-0), var(--cream-1));
 }
 
@@ -130,10 +133,10 @@ button {
 .badge-section,
 .reward-grid article,
 .shop-grid article {
-  border: 1px solid rgba(220, 204, 175, 0.95);
-  border-radius: 20px;
-  background: rgba(255, 253, 248, 0.88);
-  box-shadow: 0 16px 34px rgba(71, 52, 28, 0.1), inset 0 1px rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(219, 203, 174, 0.82);
+  border-radius: 22px;
+  background: rgba(255, 254, 250, 0.9);
+  box-shadow: 0 18px 38px rgba(67, 52, 31, 0.095), inset 0 1px rgba(255, 255, 255, 0.9);
 }
 
 .diary-summary {
@@ -144,8 +147,8 @@ button {
   overflow: hidden;
   padding: 14px;
   background:
-    radial-gradient(circle at 92% 12%, rgba(254, 215, 122, 0.2), transparent 26%),
-    linear-gradient(145deg, #f2faef, var(--cream-1));
+    radial-gradient(circle at 90% 10%, rgba(245, 206, 117, 0.2), transparent 26%),
+    linear-gradient(145deg, #f2f9ee, #fff8ed);
 }
 
 .lock-tile {
@@ -154,7 +157,7 @@ button {
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  background: linear-gradient(145deg, #93ba90, #6f9d78);
+  background: linear-gradient(145deg, #98c294, #669a73);
   color: #fff;
   font-weight: 900;
 }
@@ -209,7 +212,7 @@ button {
   min-height: 42px;
   border: 0;
   border-radius: 999px;
-  background: linear-gradient(180deg, #76ad84, var(--sage-3));
+  background: linear-gradient(180deg, #7db88b, var(--sage-3));
   color: #fff;
   font-weight: 900;
   box-shadow: inset 0 -2px rgba(42, 88, 58, 0.18), 0 8px 16px rgba(71, 113, 79, 0.16);
@@ -221,9 +224,9 @@ button {
   padding: 16px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 18% 76%, rgba(136, 191, 158, 0.26), transparent 21%),
-    radial-gradient(circle at 82% 18%, rgba(254, 215, 122, 0.3), transparent 22%),
-    linear-gradient(145deg, #f7fbef, #fff7e8);
+    radial-gradient(circle at 18% 76%, rgba(184, 213, 176, 0.28), transparent 21%),
+    radial-gradient(circle at 82% 18%, rgba(246, 201, 157, 0.28), transparent 22%),
+    linear-gradient(145deg, #f7fbf0, #fff8ed);
 }
 
 .scene-sky,
@@ -321,8 +324,8 @@ button {
 .mood-panel {
   padding: 14px;
   background:
-    radial-gradient(circle at 90% 10%, rgba(166, 214, 245, 0.35), transparent 30%),
-    #fff8e9;
+    radial-gradient(circle at 90% 10%, rgba(219, 238, 245, 0.55), transparent 30%),
+    #fff8ed;
 }
 
 .mini-story-card {
@@ -330,7 +333,7 @@ button {
   gap: 6px;
   padding: 15px;
   background:
-    linear-gradient(135deg, rgba(205, 239, 221, 0.82), rgba(255, 248, 234, 0.95));
+    linear-gradient(135deg, rgba(217, 240, 229, 0.9), rgba(255, 248, 237, 0.96));
 }
 
 .mini-story-card span {
@@ -374,11 +377,11 @@ button {
   height: 28px;
   margin: 0 auto;
   border-radius: 50%;
-  background: #fed77a;
+  background: var(--butter);
 }
 
 .mood-dots .warm i {
-  background: #ff8f7a;
+  background: var(--coral);
 }
 
 .prompt-card {
@@ -477,7 +480,7 @@ button {
   position: relative;
   min-height: 196px;
   padding: 17px;
-  background: linear-gradient(145deg, #f6fbf1, #fff8ea);
+  background: linear-gradient(145deg, #f6fbf1, #fff8ed);
 }
 
 .insight-hero small {
@@ -588,8 +591,8 @@ button {
   background:
     radial-gradient(circle at 28% 79%, rgba(255, 255, 255, 0.72), transparent 18%),
     radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.92), transparent 16%),
-    radial-gradient(circle at 87% 58%, rgba(136, 191, 158, 0.38), transparent 18%),
-    linear-gradient(168deg, #dff2fd 0%, #f9e7b6 56%, #7eac69 100%);
+    radial-gradient(circle at 87% 58%, rgba(184, 213, 176, 0.4), transparent 18%),
+    linear-gradient(168deg, var(--sky) 0%, #f7e3b8 56%, #8fb47d 100%);
 }
 
 .animation-controls {
@@ -748,7 +751,7 @@ button {
   width: 54px;
   height: 44px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #e5b06f, #fff2cf);
+  background: linear-gradient(135deg, #e8b579, #fff0cd);
 }
 
 .reward-grid article:nth-child(2) div,
@@ -789,8 +792,8 @@ button {
   padding: 18px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 19% 45%, rgba(205, 239, 221, 0.78), transparent 24%),
-    linear-gradient(145deg, #fffdf8, #fff8ea);
+    radial-gradient(circle at 19% 45%, rgba(217, 240, 229, 0.82), transparent 24%),
+    linear-gradient(145deg, #fffefa, #fff8ed);
 }
 
 .profile-sparkles span:nth-child(1) {
@@ -871,7 +874,7 @@ button {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #f28c70;
+  background: var(--coral);
   color: #fff;
   font-weight: 900;
 }
@@ -890,7 +893,7 @@ button {
 .coin-pill {
   padding: 5px 12px;
   border-radius: 999px;
-  background: #f5f0df;
+  background: #f3ead9;
   color: #4c6847;
   font-size: 13px;
   font-weight: 900;
@@ -903,7 +906,7 @@ button {
 .shop-tabs button {
   min-height: 46px;
   border-radius: 14px;
-  background: #f3eadb;
+  background: #f4ecdd;
   color: #566553;
   font-size: 11px;
 }
@@ -917,7 +920,7 @@ button {
   padding: 16px;
   overflow: hidden;
   border-radius: 18px;
-  background: linear-gradient(130deg, #fff4d9, #f7c979);
+  background: linear-gradient(130deg, #fff3d8, #f5c989);
 }
 
 .coin-burst span {
@@ -986,7 +989,7 @@ button {
   padding: 14px;
   border: 1px solid #e0c696;
   border-radius: 16px;
-  background: #fff2cf;
+  background: #fff1cf;
   color: #7b5b25;
   font-size: 13px;
   font-weight: 900;
@@ -1011,8 +1014,8 @@ button {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   min-height: 66px;
   padding: 7px 8px 9px;
-  border-top: 1px solid #eadcc3;
-  background: rgba(255, 253, 248, 0.96);
+  border-top: 1px solid rgba(219, 203, 174, 0.9);
+  background: rgba(255, 254, 250, 0.96);
 }
 
 .bottom-nav__item {
@@ -1036,8 +1039,8 @@ button {
 }
 
 .bottom-nav__item--active {
-  color: #3d8b5d;
-  background: #edf7e8;
+  color: var(--sage-4);
+  background: var(--sage-1);
 }
 
 .moodby {
@@ -1052,12 +1055,55 @@ button {
   animation: moodby-breathe 3.2s ease-in-out infinite;
 }
 
+.moodby-glow {
+  position: absolute;
+  left: 50%;
+  bottom: calc(7px * var(--scale));
+  width: calc(128px * var(--scale));
+  height: calc(34px * var(--scale));
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(69, 84, 48, 0.2), transparent 68%);
+  filter: blur(calc(3px * var(--scale)));
+  transform: translateX(-50%);
+}
+
+.moodby-sprite {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: calc(170px * var(--scale));
+  height: calc(146px * var(--scale));
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  filter: drop-shadow(0 calc(12px * var(--scale)) calc(14px * var(--scale)) rgba(63, 45, 25, 0.14));
+}
+
+.moodby-sprite--breath {
+  background-position: 0 0;
+}
+
+.moodby-sprite--wave {
+  background-position: 100% 0;
+}
+
+.moodby-sprite--smile {
+  background-position: 0 100%;
+}
+
+.moodby-sprite--cry {
+  background-position: 100% 100%;
+}
+
 .moodby-aura {
   position: absolute;
   inset: calc(8px * var(--scale)) calc(2px * var(--scale)) auto;
   z-index: 0;
   height: calc(92px * var(--scale));
   pointer-events: none;
+}
+
+.moodby > :not(.moodby-glow):not(.moodby-sprite) {
+  display: none;
 }
 
 .moodby-aura span {
@@ -1091,7 +1137,7 @@ button {
 }
 
 .moodby--default {
-  --scale: 0.96;
+  --scale: 1.08;
   margin: 0 auto;
 }
 
@@ -1106,27 +1152,27 @@ button {
 }
 
 .moodby--phone {
-  --scale: 0.55;
-  width: 94px;
-  height: 89px;
+  --scale: 0.68;
+  width: 116px;
+  height: 104px;
 }
 
 .moodby--nav {
-  --scale: 0.22;
+  --scale: 0.26;
   width: 30px;
   height: 30px;
 }
 
 .moodby--picnic {
-  --scale: 0.88;
-  width: 150px;
-  height: 132px;
+  --scale: 1.0;
+  width: 170px;
+  height: 148px;
 }
 
 .moodby--profile {
-  --scale: 0.55;
-  width: 86px;
-  height: 86px;
+  --scale: 0.62;
+  width: 100px;
+  height: 90px;
 }
 
 .moodby-shadow {
@@ -1357,8 +1403,17 @@ button {
   animation: moodby-wave 820ms ease-in-out infinite;
 }
 
-.moodby--smile .moodby {
+.moodby--wave .moodby-sprite {
+  transform-origin: center bottom;
+  animation: moodby-sprite-wave 900ms ease-in-out infinite;
+}
+
+.moodby--smile {
   animation-duration: 2.5s;
+}
+
+.moodby--smile .moodby-sprite {
+  animation: moodby-sprite-smile 1.8s ease-in-out infinite;
 }
 
 .moodby--smile .moodby-mouth {
@@ -1376,6 +1431,10 @@ button {
 
 .moodby--cry {
   animation: moodby-sniffle 1.4s ease-in-out infinite;
+}
+
+.moodby--cry .moodby-sprite {
+  animation: moodby-sprite-cry 1.3s ease-in-out infinite;
 }
 
 .moodby--cry .moodby-brow--left {
@@ -1524,6 +1583,36 @@ button {
   }
 }
 
+@keyframes moodby-sprite-wave {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-2deg) translateY(calc(-4px * var(--scale)));
+  }
+}
+
+@keyframes moodby-sprite-smile {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(calc(-4px * var(--scale))) scale(1.025);
+  }
+}
+
+@keyframes moodby-sprite-cry {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  45% {
+    transform: translateY(calc(2px * var(--scale))) rotate(-1.5deg);
+  }
+  72% {
+    transform: translateY(calc(1px * var(--scale))) rotate(1.5deg);
+  }
+}
+
 @keyframes moodby-sniffle {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
@@ -1552,6 +1641,7 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
   .moodby,
+  .moodby-sprite,
   .moodby--wave .moodby-arm--right,
   .moodby--cry .moodby-tear {
     animation: none;
