@@ -1,4 +1,4 @@
-# Present My
+# Moodbe
 
 발표용 자기소개 웹앱 MVP입니다.
 

@@ -1,4 +1,4 @@
-# Present My Development TODO
+# Moodbe Development TODO
 
 ## Current Status
 
@@ -35,7 +35,7 @@
 - [ ] Apply visual style from `assets/reference/present-my-ui-concept.png`
 - [ ] Define color variables: ivory, sage green, coral, butter yellow, mint, sky blue, charcoal
 - [ ] Create reusable card, pill, button, and section styles
-- [ ] Create Moodby character component or asset
+- [ ] Create Moodbe character component or asset
 - [ ] Verify the UI no longer looks like a wireframe
 
 ## Phase 3: Core Screens
@@ -62,7 +62,7 @@
   - [ ] Self-introduction draft preview
 
 - [ ] Character screen
-  - [ ] Large Moodby visual
+  - [ ] Large Moodbe visual
   - [ ] Weekly update state
   - [ ] Unlocked items
   - [ ] Badges

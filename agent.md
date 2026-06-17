@@ -1,8 +1,8 @@
-# Agent Rules for Present My
+# Agent Rules for Moodbe
 
 ## Mission
 
-Build a presentation-ready webapp MVP for `Present My`, a private diary-based self-understanding app that creates an approved public character profile.
+Build a presentation-ready webapp MVP for `Moodbe`, a private diary-based self-understanding app that creates an approved public character profile.
 
 The app is originally intended to become a mobile application later, but the current deliverable is a polished webapp for presentation.
 
@@ -28,9 +28,9 @@ The visual reference image is the UI quality target. Do not treat the earlier `u
 
 ## Visual Rules
 
-- Follow the `Present My` visual reference image.
+- Follow the `Moodbe` visual reference image.
 - Use a warm ivory base, sage green primary, and coral/yellow/mint/sky accents.
-- Make Moodby feel soft, cozy, memorable, and suitable as a mascot.
+- Make Moodbe feel soft, cozy, memorable, and suitable as a mascot.
 - Avoid generic dashboard styling.
 - Avoid gray wireframes, placeholder boxes, and overly flat layouts.
 - Avoid childish game UI; the design should be cute but polished.

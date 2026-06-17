@@ -1,7 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
+
+let writeTextMock: ReturnType<typeof vi.fn>;
 
 function getMainNavigation() {
   return screen.getByRole("navigation");
@@ -14,15 +16,31 @@ function getNavigationButtons() {
 describe("App navigation", () => {
   beforeEach(() => {
     localStorage.clear();
+    writeTextMock = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: writeTextMock
+      }
+    });
   });
 
   it("shows the mobile home dashboard by default", () => {
     render(<App />);
 
-    expect(screen.getByLabelText("Present My mobile web app")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Present My" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Moodbe mobile web app")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Moodbe" })).toBeInTheDocument();
     expect(screen.getByText("Private Diary")).toBeInTheDocument();
     expect(screen.getByText("Weekly Character Preview")).toBeInTheDocument();
+  });
+
+  it("opens the diary screen from the home diary CTA", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "일기 쓰러 가기" }));
+
+    expect(document.querySelector(".diary-screen")).toBeInTheDocument();
   });
 
   it("navigates between the core app screens", async () => {
@@ -73,7 +91,7 @@ describe("App navigation", () => {
 
     await user.click(getNavigationButtons()[5]);
 
-    expect(screen.getByRole("heading", { name: "Moodby Cozy Shop" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Moodbe Cozy Shop" })).toBeInTheDocument();
     expect(screen.getByText("발표용 UI")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "구름 쿠션 미리보기" }));
@@ -102,6 +120,25 @@ describe("App navigation", () => {
     expect(screen.getByText("240")).toBeInTheDocument();
     expect(screen.getByText("구매 완료")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "착용하기" })).toBeInTheDocument();
+  });
+
+  it("shows premium profile badges and presentation share actions", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[4]);
+
+    expect(screen.getByText("@moodbe.diary")).toBeInTheDocument();
+    expect(document.querySelectorAll(".profile-badge-art").length).toBe(4);
+
+    await user.click(screen.getByRole("button", { name: "프로필 공유하기" }));
+
+    expect(screen.getByLabelText("프로필 공유 미리보기")).toBeInTheDocument();
+    expect(screen.getByText("Moodbe 공개 프로필")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "URL 복사" }));
+
+    expect(screen.getByRole("button", { name: /URL 복사 완료/ })).toBeInTheDocument();
   });
 
   it("applies equipped shop items to home and character avatars", async () => {

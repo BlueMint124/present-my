@@ -67,7 +67,7 @@ export function ExpansionScreen({
       <header className="app-header shop-header">
         <div>
           <small>발표용 UI</small>
-          <h1>Moodby Cozy Shop</h1>
+          <h1>Moodbe Cozy Shop</h1>
         </div>
         <span className="coin-pill">
           <CurrencyIcon />

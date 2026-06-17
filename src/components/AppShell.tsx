@@ -21,7 +21,7 @@ type AppShellProps = {
 export function AppShell({ activeScreen, onNavigate, children }: AppShellProps) {
   return (
     <div className="app-stage">
-      <div className="mobile-app" aria-label="Present My mobile web app">
+      <div className="mobile-app" aria-label="Moodbe mobile web app">
         <main className="app-content">{children}</main>
         <nav className="bottom-nav" aria-label="주요 화면">
           {navItems.map((item) => (
