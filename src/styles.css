@@ -69,7 +69,8 @@ button {
 .app-content {
   min-height: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
   background:
     radial-gradient(circle at 76% 14%, rgba(217, 240, 229, 0.74), transparent 36%),
     radial-gradient(circle at 12% 88%, rgba(246, 201, 157, 0.18), transparent 30%),
@@ -87,6 +88,11 @@ button {
 .app-screen > * {
   max-width: 100%;
   min-width: 0;
+}
+
+.diary-screen {
+  align-content: start;
+  grid-auto-rows: max-content;
 }
 
 .app-header {
@@ -504,6 +510,11 @@ button {
   gap: 14px;
 }
 
+.diary-library {
+  min-height: 445px;
+  align-content: start;
+}
+
 .diary-review-card,
 .diary-detail-card {
   padding: 18px;
@@ -588,7 +599,9 @@ button {
 .diary-empty-book {
   display: grid;
   gap: 8px;
+  min-height: 286px;
   padding: 18px;
+  align-content: center;
   border: 1px dashed rgba(117, 146, 103, 0.36);
   border-radius: 20px;
   background: rgba(248, 252, 242, 0.75);
@@ -601,6 +614,8 @@ button {
 .diary-bookshelf {
   display: grid;
   gap: 10px;
+  min-height: 286px;
+  align-content: start;
   padding: 12px;
   border-radius: 24px;
   background:
