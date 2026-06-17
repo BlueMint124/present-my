@@ -1,5 +1,5 @@
 import moodbySprite from "../assets/moodby-sprite-sheet-clean.png";
-import shopItemSheet from "../assets/shop-item-sheet.jpg";
+import shopItemSheet from "../assets/shop-item-sheet-transparent.png";
 import type { ShopItem } from "../data/shopItems";
 import type { CharacterState } from "../types";
 

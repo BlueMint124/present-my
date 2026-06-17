@@ -1,7 +1,7 @@
 import { useState } from "react";
 import currencyIcons from "../assets/currency-icons.jpg";
 import shopHero from "../assets/shop-hero-moodby.jpg";
-import shopItemSheet from "../assets/shop-item-sheet.jpg";
+import shopItemSheet from "../assets/shop-item-sheet-transparent.png";
 import { shopItems, shopTabs, type ShopItem, type ShopTab } from "../data/shopItems";
 
 type ExpansionScreenProps = {

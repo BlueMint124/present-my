@@ -115,7 +115,9 @@ describe("App navigation", () => {
     expect(screen.getByText("착용 완료")).toBeInTheDocument();
 
     await user.click(getNavigationButtons()[0]);
-    expect(document.querySelector(".character-equipped-item--cloud-cushion")).toBeInTheDocument();
+    const homeEquippedItem = document.querySelector<HTMLElement>(".character-equipped-item--cloud-cushion");
+    expect(homeEquippedItem).toBeInTheDocument();
+    expect(homeEquippedItem?.style.backgroundImage).toContain("shop-item-sheet-transparent");
 
     await user.click(getNavigationButtons()[3]);
     expect(document.querySelector(".character-equipped-item--cloud-cushion")).toBeInTheDocument();
