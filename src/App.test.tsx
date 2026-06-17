@@ -190,6 +190,11 @@ describe("App navigation", () => {
 
     await user.click(getNavigationButtons()[1]);
 
+    expect(document.querySelectorAll(".diary-tool-art").length).toBe(4);
+    expect(screen.getByRole("button", { name: "사진 추가" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "기분 추가" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "태그 추가" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "음성 추가" })).toBeInTheDocument();
     expect(screen.getByText("1 / 5")).toBeInTheDocument();
     expect(screen.getByText("오늘의 기분")).toBeInTheDocument();
 

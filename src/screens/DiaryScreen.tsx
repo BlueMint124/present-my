@@ -1,4 +1,5 @@
 import { useState } from "react";
+import diaryToolSheet from "../assets/diary-tool-sheet.png";
 import { CharacterAvatar } from "../components/CharacterAvatar";
 import { characterState, diaryPrompts } from "../data/demoData";
 import type { DiaryEntry } from "../types";
@@ -6,6 +7,13 @@ import type { DiaryEntry } from "../types";
 const emptyDiaryMessage = "일기 내용을 먼저 적어주세요.";
 const incompleteDiaryMessage = "5개 질문을 모두 채워주세요.";
 const savedDiaryMessage = "일기가 저장됐어요";
+
+const attachTools = [
+  { label: "사진", position: "0% 0%" },
+  { label: "기분", position: "33.333% 0%" },
+  { label: "태그", position: "66.666% 0%" },
+  { label: "음성", position: "100% 0%" }
+];
 
 type DiaryMode = "write" | "review" | "library" | "detail";
 
@@ -160,10 +168,16 @@ export function DiaryScreen({ diaryEntries = [], onSaveDiary }: DiaryScreenProps
           {saveMessage && <p className="save-feedback" role="status">{saveMessage}</p>}
 
           <div className="attach-tools" aria-label="첨부 도구">
-            <button type="button"><span>▧</span>사진</button>
-            <button type="button"><span>◡</span>기분</button>
-            <button type="button"><span>◇</span>태그</button>
-            <button type="button"><span>♩</span>음성</button>
+            {attachTools.map((tool) => (
+              <button aria-label={`${tool.label} 추가`} key={tool.label} type="button">
+                <span
+                  aria-hidden="true"
+                  className="diary-tool-art"
+                  style={{ backgroundImage: `url(${diaryToolSheet})`, backgroundPosition: tool.position }}
+                />
+                {tool.label}
+              </button>
+            ))}
           </div>
 
           <button className="primary-action" type="button" onClick={handleNextPrompt}>
