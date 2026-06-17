@@ -3,6 +3,7 @@ import characterHeroBg from "../assets/character-hero-bg.jpg";
 import characterRewardSheet from "../assets/character-reward-sheet.jpg";
 import { CharacterAvatar, type CharacterAnimation } from "../components/CharacterAvatar";
 import { characterState } from "../data/demoData";
+import type { ShopItem } from "../data/shopItems";
 
 const rewards = [
   {
@@ -29,7 +30,11 @@ const animationOptions: Array<{ id: CharacterAnimation; label: string }> = [
   { id: "cry", label: "울기" }
 ];
 
-export function CharacterScreen() {
+type CharacterScreenProps = {
+  equippedShopItem?: ShopItem;
+};
+
+export function CharacterScreen({ equippedShopItem }: CharacterScreenProps) {
   const [animation, setAnimation] = useState<CharacterAnimation>("wave");
   const [acknowledgedRewards, setAcknowledgedRewards] = useState(false);
 
@@ -42,7 +47,7 @@ export function CharacterScreen() {
           <h1>무드비가 성장했어요!</h1>
           <p>이번 주 5번의 기록으로 Lv. 12 보상을 열었어요.</p>
         </div>
-        <CharacterAvatar animation={animation} character={characterState} variant="picnic" />
+        <CharacterAvatar animation={animation} character={characterState} equippedShopItem={equippedShopItem} variant="picnic" />
       </article>
 
       <div className="animation-controls" aria-label="캐릭터 애니메이션">

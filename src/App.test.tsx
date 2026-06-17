@@ -104,6 +104,23 @@ describe("App navigation", () => {
     expect(screen.getByRole("button", { name: "착용하기" })).toBeInTheDocument();
   });
 
+  it("applies equipped shop items to home and character avatars", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[5]);
+    await user.click(screen.getByRole("button", { name: "구름 쿠션 구매하기" }));
+    await user.click(screen.getByRole("button", { name: "착용하기" }));
+
+    expect(screen.getByText("착용 완료")).toBeInTheDocument();
+
+    await user.click(getNavigationButtons()[0]);
+    expect(document.querySelector(".character-equipped-item--cloud-cushion")).toBeInTheDocument();
+
+    await user.click(getNavigationButtons()[3]);
+    expect(document.querySelector(".character-equipped-item--cloud-cushion")).toBeInTheDocument();
+  });
+
   it("saves a private diary entry and reflects it on the home progress", async () => {
     const user = userEvent.setup();
     const { container, unmount } = render(<App />);

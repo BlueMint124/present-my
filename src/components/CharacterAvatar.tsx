@@ -1,4 +1,6 @@
 import moodbySprite from "../assets/moodby-sprite-sheet-clean.png";
+import shopItemSheet from "../assets/shop-item-sheet.jpg";
+import type { ShopItem } from "../data/shopItems";
 import type { CharacterState } from "../types";
 
 export type CharacterAnimation = "breath" | "wave" | "smile" | "cry";
@@ -6,6 +8,7 @@ export type CharacterAnimation = "breath" | "wave" | "smile" | "cry";
 type CharacterAvatarProps = {
   animation?: CharacterAnimation;
   character: CharacterState;
+  equippedShopItem?: ShopItem;
   pose?: string;
   variant?: "default" | "hero" | "mini" | "phone" | "nav" | "picnic" | "profile";
 };
@@ -13,6 +16,7 @@ type CharacterAvatarProps = {
 export function CharacterAvatar({
   animation = "breath",
   character,
+  equippedShopItem,
   pose = "front",
   variant = "default"
 }: CharacterAvatarProps) {
@@ -27,6 +31,13 @@ export function CharacterAvatar({
         className={`moodby-sprite moodby-sprite--${animation}`}
         style={{ backgroundImage: `url(${moodbySprite})` }}
       />
+      {equippedShopItem && (
+        <span
+          aria-label={`착용 아이템 ${equippedShopItem.name}`}
+          className={`character-equipped-item character-equipped-item--${equippedShopItem.id}`}
+          style={{ backgroundImage: `url(${shopItemSheet})`, backgroundPosition: equippedShopItem.sheetPosition }}
+        />
+      )}
     </div>
   );
 }

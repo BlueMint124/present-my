@@ -1,14 +1,16 @@
 import { CharacterAvatar } from "../components/CharacterAvatar";
 import { characterState } from "../data/demoData";
+import type { ShopItem } from "../data/shopItems";
 import type { DiaryEntry } from "../types";
 
 const moods = ["월", "화", "수", "목", "금", "토", "일"];
 
 type HomeScreenProps = {
   diaryEntries?: DiaryEntry[];
+  equippedShopItem?: ShopItem;
 };
 
-export function HomeScreen({ diaryEntries = [] }: HomeScreenProps) {
+export function HomeScreen({ diaryEntries = [], equippedShopItem }: HomeScreenProps) {
   const weeklyDiaryCount = Math.min(diaryEntries.length, 7);
   const weeklyProgress = `${(weeklyDiaryCount / 7) * 100}%`;
 
@@ -18,7 +20,7 @@ export function HomeScreen({ diaryEntries = [] }: HomeScreenProps) {
         <h1>Present My</h1>
         <div className="header-actions">
           <span aria-label="알림">⌾</span>
-          <CharacterAvatar character={characterState} variant="nav" />
+          <CharacterAvatar character={characterState} equippedShopItem={equippedShopItem} variant="nav" />
         </div>
       </header>
 
@@ -39,7 +41,7 @@ export function HomeScreen({ diaryEntries = [] }: HomeScreenProps) {
           <strong>Weekly Character Preview</strong>
           <small>이번 주 무드비</small>
         </div>
-        <CharacterAvatar animation="wave" character={characterState} variant="phone" />
+        <CharacterAvatar animation="wave" character={characterState} equippedShopItem={equippedShopItem} variant="phone" />
         <p>따뜻한 하루였어요. 나를 잘 챙긴 한 주예요.</p>
         <button type="button">자세히 보기</button>
       </article>

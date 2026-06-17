@@ -1670,7 +1670,52 @@ button {
   pointer-events: none;
 }
 
-.moodby > :not(.moodby-glow):not(.moodby-sprite) {
+.moodby > :not(.moodby-glow):not(.moodby-sprite):not(.character-equipped-item) {
+  display: none;
+}
+
+.character-equipped-item {
+  position: absolute;
+  left: 50%;
+  bottom: calc(-4px * var(--scale));
+  z-index: 0;
+  display: block;
+  width: calc(116px * var(--scale));
+  height: calc(82px * var(--scale));
+  border-radius: calc(20px * var(--scale));
+  background-repeat: no-repeat;
+  background-size: 300% 200%;
+  filter: drop-shadow(0 calc(8px * var(--scale)) calc(10px * var(--scale)) rgba(64, 46, 25, 0.14));
+  transform: translateX(-50%);
+}
+
+.character-equipped-item--cloud-cushion,
+.character-equipped-item--picnic-blanket {
+  bottom: calc(-3px * var(--scale));
+  width: calc(128px * var(--scale));
+  height: calc(84px * var(--scale));
+  z-index: 0;
+}
+
+.character-equipped-item--heart-mug,
+.character-equipped-item--warm-lamp {
+  left: calc(8px * var(--scale));
+  bottom: calc(12px * var(--scale));
+  width: calc(54px * var(--scale));
+  height: calc(54px * var(--scale));
+  z-index: 2;
+  transform: none;
+}
+
+.character-equipped-item--sprout-beret {
+  top: calc(-3px * var(--scale));
+  bottom: auto;
+  width: calc(80px * var(--scale));
+  height: calc(58px * var(--scale));
+  z-index: 4;
+}
+
+.moodby--nav .character-equipped-item {
   display: none;
 }
 
