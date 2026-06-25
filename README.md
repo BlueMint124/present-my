@@ -26,6 +26,7 @@ Before changing UI, review:
 - `agent.md`
 - `docs/codex-collaboration.md`
 - `docs/design-reference.md`
+- `docs/supabase-setup.md`
 - `todo.md`
 
 ## Commands

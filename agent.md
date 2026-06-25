@@ -11,6 +11,7 @@ The app is originally intended to become a mobile application later, but the cur
 Always check these before implementation:
 
 - `docs/codex-collaboration.md`
+- `docs/supabase-setup.md`
 - `docs/superpowers/specs/2026-06-13-self-introduction-app-design.md`
 - `docs/superpowers/plans/2026-06-13-present-my-webapp-implementation.md`
 - `docs/design-reference.md`

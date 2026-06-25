@@ -10,7 +10,8 @@ Every Codex working on this project should read these files before making change
 2. `docs/codex-collaboration.md`
 3. `docs/design-reference.md`
 4. `todo.md`
-5. Recent commits: `git log --oneline -8`
+5. `docs/supabase-setup.md`
+6. Recent commits: `git log --oneline -8`
 
 For UI work, also inspect the existing screen/component files and the reference image at `assets/reference/present-my-ui-concept.png`.
 
@@ -31,6 +32,7 @@ For UI work, also inspect the existing screen/component files and the reference 
 - Plain CSS in `src/styles.css`
 - Vitest + React Testing Library
 - Browser `localStorage` for demo diary persistence
+- Optional Supabase backend setup for future diary/shop/profile persistence
 - Static image assets imported from `src/assets`
 - GitHub remote with Vercel-style automatic deployment after push
 
@@ -112,9 +114,10 @@ Before making changes:
 1. Read `agent.md`.
 2. Read `docs/codex-collaboration.md`.
 3. Read `docs/design-reference.md`.
-4. Check `todo.md`.
-5. Run `git status --short`.
-6. Review recent commits with `git log --oneline -8`.
+4. Read `docs/supabase-setup.md` if touching persistence, diary storage, shop state, or profile data.
+5. Check `todo.md`.
+6. Run `git status --short`.
+7. Review recent commits with `git log --oneline -8`.
 
 Working rules:
 - Preserve diary privacy: original diary content must not appear in public profile.
@@ -132,4 +135,3 @@ When done, report:
 - Commit hash
 - Any follow-up work or known risks
 ```
-
