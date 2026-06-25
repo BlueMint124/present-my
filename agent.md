@@ -10,6 +10,7 @@ The app is originally intended to become a mobile application later, but the cur
 
 Always check these before implementation:
 
+- `docs/codex-collaboration.md`
 - `docs/superpowers/specs/2026-06-13-self-introduction-app-design.md`
 - `docs/superpowers/plans/2026-06-13-present-my-webapp-implementation.md`
 - `docs/design-reference.md`
@@ -62,6 +63,9 @@ The visual reference image is the UI quality target. Do not treat the earlier `u
 - Check desktop and mobile layouts.
 - Preserve existing planning and design docs.
 - Do not delete generated reference assets.
+- Before starting work, read `docs/codex-collaboration.md` and check recent commits so multiple Codex sessions keep the same context.
+- When finishing work, update docs or TODOs if the product direction, design rules, setup, or collaboration context changed.
+- If working with another collaborator, avoid force-pushes and avoid rewriting shared branch history unless the human owner explicitly asks.
 
 ## Presentation Priorities
 
