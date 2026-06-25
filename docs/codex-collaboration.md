@@ -11,7 +11,8 @@ Every Codex working on this project should read these files before making change
 3. `docs/design-reference.md`
 4. `todo.md`
 5. `docs/supabase-setup.md`
-6. Recent commits: `git log --oneline -8`
+6. `docs/auth0-supabase-plan.md` if touching signup, login, user identity, or ownership
+7. Recent commits: `git log --oneline -8`
 
 For UI work, also inspect the existing screen/component files and the reference image at `assets/reference/present-my-ui-concept.png`.
 
@@ -115,9 +116,10 @@ Before making changes:
 2. Read `docs/codex-collaboration.md`.
 3. Read `docs/design-reference.md`.
 4. Read `docs/supabase-setup.md` if touching persistence, diary storage, shop state, or profile data.
-5. Check `todo.md`.
-6. Run `git status --short`.
-7. Review recent commits with `git log --oneline -8`.
+5. Read `docs/auth0-supabase-plan.md` if touching signup, login, user identity, or ownership.
+6. Check `todo.md`.
+7. Run `git status --short`.
+8. Review recent commits with `git log --oneline -8`.
 
 Working rules:
 - Preserve diary privacy: original diary content must not appear in public profile.

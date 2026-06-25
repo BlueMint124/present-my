@@ -9,6 +9,7 @@ Moodbe currently runs as a deterministic presentation MVP. Supabase is prepared 
 - `src/lib/supabaseClient.ts`
 - `src/lib/supabaseRepository.ts`
 - `supabase/schema.sql`
+- `supabase/migrations/20260625_auth0_profile_link.sql`
 
 The app still defaults to local demo behavior unless `VITE_USE_SUPABASE=true` and valid Supabase credentials are provided.
 
@@ -69,3 +70,11 @@ Production direction:
 5. Move public profile cards and badges to Supabase.
 6. Add auth and tighten RLS.
 
+## 6. Auth0 Integration
+
+If signup/login is implemented with Auth0, read:
+
+- `docs/auth0-supabase-plan.md`
+- `supabase/migrations/20260625_auth0_profile_link.sql`
+
+The base schema is not enough for Auth0 ownership by itself. The Auth0 migration adds `profiles.auth0_user_id` and owner-based policies. Run it only after Supabase Third-party Auth and the Auth0 ID-token handoff are working.
