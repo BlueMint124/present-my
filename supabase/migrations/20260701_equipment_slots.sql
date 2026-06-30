@@ -24,3 +24,7 @@ set equip_slot = items.equip_slot
 from public.shop_items items
 where owned.item_id = items.id
   and owned.equip_slot is null;
+
+update public.shop_items
+set purchasable = true
+where id in ('heart-mug');

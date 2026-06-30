@@ -1,6 +1,7 @@
 import type { DiaryAnalysis, DiaryAnalysisProvider, DiaryEntry } from "../types";
 
 const emotionRules = [
+  { label: "짜증", words: ["짜증", "화가", "화났", "화남", "분노", "답답", "싫", "불쾌", "좋지", "편하지"], weight: 3 },
   { label: "불안", words: ["불안", "걱정", "긴장", "두려", "부담"], weight: 2 },
   { label: "회복", words: ["회복", "괜찮", "편안", "차분", "쉬", "위로"] },
   { label: "기쁨", words: ["좋", "기쁘", "즐거", "행복", "웃"] },
@@ -15,6 +16,9 @@ const keywordRules = [
   "준비",
   "차분",
   "불안",
+  "짜증",
+  "답답",
+  "화남",
   "가족",
   "학교",
   "일",
@@ -67,10 +71,7 @@ function analyzeLocally(entries: DiaryEntry[]): DiaryAnalysis {
   const emotionScores = emotionRules
     .map((rule) => ({
       label: rule.label,
-      score: rule.words.reduce(
-        (total, word) => total + countOccurrences(text, word) * (rule.weight ?? 1),
-        0
-      )
+      score: scoreEmotionRule(text, rule)
     }))
     .sort((a, b) => b.score - a.score);
   const scoredTotal = emotionScores.reduce((total, emotion) => total + emotion.score, 0);
@@ -156,6 +157,10 @@ function createHeadline(primaryEmotion: string) {
     return "불안을 알아차리고 마음을 돌보고 있어요.";
   }
 
+  if (primaryEmotion === "짜증") {
+    return "불편했던 마음을 정확히 알아차리고 있어요.";
+  }
+
   if (primaryEmotion === "회복") {
     return "회복의 리듬을 다시 찾고 있어요.";
   }
@@ -177,6 +182,10 @@ function createStrength(primaryEmotion: string) {
     return "자기 관찰";
   }
 
+  if (primaryEmotion === "짜증") {
+    return "감정 인식";
+  }
+
   if (primaryEmotion === "회복") {
     return "회복 감각";
   }
@@ -189,6 +198,10 @@ function createFocus(primaryEmotion: string) {
     return "긴장 완화";
   }
 
+  if (primaryEmotion === "짜증") {
+    return "자극 줄이기";
+  }
+
   if (primaryEmotion === "피로") {
     return "휴식 신호";
   }
@@ -198,4 +211,29 @@ function createFocus(primaryEmotion: string) {
 
 function countOccurrences(text: string, word: string) {
   return text.split(word).length - 1;
+}
+
+function scoreEmotionRule(text: string, rule: { label: string; words: string[]; weight?: number }) {
+  return rule.words.reduce((total, word) => {
+    const matches = rule.label === "기쁨"
+      ? countPositiveOccurrences(text, word)
+      : countOccurrences(text, word);
+
+    return total + matches * (rule.weight ?? 1);
+  }, 0);
+}
+
+function countPositiveOccurrences(text: string, word: string) {
+  const negativePatterns = [
+    `${word}지 않`,
+    `${word}지 않았`,
+    `${word}지 못`,
+    `${word}아하지 않`,
+    `${word}아하지 않았`,
+    `${word}지 않은`
+  ];
+  const rawCount = countOccurrences(text, word);
+  const negativeCount = negativePatterns.reduce((total, pattern) => total + countOccurrences(text, pattern), 0);
+
+  return Math.max(0, rawCount - negativeCount);
 }

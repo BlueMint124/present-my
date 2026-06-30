@@ -122,7 +122,7 @@ values
   ('sprout-beret', '새싹 베레모', 'items', '무드비에게 포근한 새싹 포인트를 더해요.', 'head', 80, '착용', '0% 0%', false, 3, 'sprout-beret', true),
   ('cloud-cushion', '구름 쿠션', 'decorate', '일기 쓰는 공간에 말랑한 휴식감을 더해요.', 'background-floor-front', 80, '배경', '50% 0%', true, 1, 'cloud-cushion', true),
   ('warm-lamp', '따뜻한 스탠드', 'theme', '밤 일기 화면을 따뜻하게 밝혀주는 조명.', 'background-light', 120, '테마', '100% 0%', true, 2, 'warm-lamp', true),
-  ('heart-mug', '하트 머그', 'items', '무드비의 차분한 루틴을 보여주는 머그컵.', 'hand', 90, '소품', '0% 100%', false, 2, 'heart-mug', true),
+  ('heart-mug', '하트 머그', 'items', '무드비의 차분한 루틴을 보여주는 머그컵.', 'hand', 90, '소품', '0% 100%', true, 2, 'heart-mug', true),
   ('picnic-blanket', '피크닉 담요', 'decorate', '주간 업데이트 화면을 피크닉처럼 꾸며요.', 'background-floor-back', 110, '배경', '50% 100%', false, 4, 'picnic-blanket', true),
   ('diary-badge', '기록 배지', 'package', '기록 보상과 공개 프로필에 어울리는 배지.', 'head', 150, '상징', '100% 100%', false, 5, 'diary-badge', true)
 on conflict (id) do update set

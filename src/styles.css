@@ -1846,12 +1846,12 @@ button {
 }
 
 .character-equipped-item--slot-background-light {
-  left: calc(9px * var(--scale));
-  bottom: calc(38px * var(--scale));
-  z-index: 1;
-  width: calc(66px * var(--scale));
-  height: calc(66px * var(--scale));
-  opacity: 0.9;
+  left: calc(116px * var(--scale));
+  bottom: calc(30px * var(--scale));
+  z-index: 2;
+  width: calc(76px * var(--scale));
+  height: calc(76px * var(--scale));
+  opacity: 0.96;
   filter: drop-shadow(0 calc(8px * var(--scale)) calc(12px * var(--scale)) rgba(217, 166, 83, 0.24));
   transform: none;
 }
@@ -1887,10 +1887,10 @@ button {
 }
 
 .character-equipped-item--warm-lamp {
-  left: calc(-3px * var(--scale));
-  bottom: calc(42px * var(--scale));
-  width: calc(72px * var(--scale));
-  height: calc(72px * var(--scale));
+  left: calc(118px * var(--scale));
+  bottom: calc(31px * var(--scale));
+  width: calc(78px * var(--scale));
+  height: calc(78px * var(--scale));
 }
 
 .character-equipped-item--heart-mug {

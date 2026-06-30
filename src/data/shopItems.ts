@@ -70,6 +70,7 @@ export const shopItems: ShopItem[] = [
     id: "heart-mug",
     name: "하트 머그",
     price: 90,
+    purchasable: true,
     requiredLevel: 2,
     sheetPosition: "0% 100%",
     tag: "소품"

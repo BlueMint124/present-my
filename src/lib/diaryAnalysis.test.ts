@@ -60,4 +60,20 @@ describe("diary analysis", () => {
     expect(analysis.keywords).not.toContain("일");
     expect(analysis.keywordDetails.some((keyword) => keyword.keyword.length < 2)).toBe(false);
   });
+
+  it("detects irritation instead of joy when the diary uses frustrated wording", async () => {
+    const analysis = await analyzeDiaryEntries(
+      [
+        {
+          ...baseEntry,
+          content: "오늘은 계속 짜증나고 화가 났다. 상황도 좋지 않았고 답답해서 마음이 편하지 않았다."
+        }
+      ],
+      localDiaryAnalysisProvider
+    );
+
+    expect(analysis.emotionPattern.primary.label).toBe("짜증");
+    expect(analysis.emotionPattern.primary.percentage).toBeGreaterThan(analysis.emotionPattern.secondary.percentage);
+    expect(analysis.keywords).toEqual(expect.arrayContaining(["짜증", "답답"]));
+  });
 });

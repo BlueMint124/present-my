@@ -222,6 +222,39 @@ describe("App navigation", () => {
     expect(document.querySelector(".character-equipped-item--cloud-cushion")).toBeInTheDocument();
   });
 
+  it("applies level two lamp and mug purchases as separate equipped slots", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+
+    for (const answer of ["기분 기록", "장면 기록", "나를 본 시간", "좋아한 것", "자유 기록"]) {
+      await user.type(screen.getByRole("textbox"), answer);
+      await user.click(screen.getByRole("button", { name: /다음 질문|일기 정리하기/ }));
+    }
+
+    await user.click(screen.getByRole("button", { name: "다이어리에 저장하기" }));
+    await user.click(getNavigationButtons()[5]);
+
+    await user.click(screen.getByRole("button", { name: "따뜻한 스탠드 미리보기" }));
+    await user.click(screen.getByRole("button", { name: "따뜻한 스탠드 구매하기" }));
+    await user.click(screen.getByRole("button", { name: "착용하기" }));
+
+    await user.click(screen.getByRole("button", { name: "하트 머그 미리보기" }));
+    await user.click(screen.getByRole("button", { name: "하트 머그 구매하기" }));
+    await user.click(screen.getByRole("button", { name: "착용하기" }));
+
+    await user.click(getNavigationButtons()[0]);
+
+    expect(document.querySelector(".character-equipped-item--warm-lamp")).toBeInTheDocument();
+    expect(document.querySelector(".character-equipped-item--heart-mug")).toBeInTheDocument();
+
+    await user.click(getNavigationButtons()[3]);
+
+    expect(document.querySelector(".character-equipped-item--warm-lamp")).toBeInTheDocument();
+    expect(document.querySelector(".character-equipped-item--heart-mug")).toBeInTheDocument();
+  });
+
   it("saves a private diary entry and reflects it on the home progress", async () => {
     const user = userEvent.setup();
     const { container, unmount } = render(<App />);
