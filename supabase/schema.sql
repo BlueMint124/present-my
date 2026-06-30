@@ -32,6 +32,7 @@ create table if not exists public.shop_items (
   name text not null,
   category text not null,
   description text not null,
+  equip_slot text not null default 'head',
   price integer not null check (price >= 0),
   tag text not null,
   sheet_position text not null,
@@ -45,10 +46,15 @@ create table if not exists public.shop_items (
 create table if not exists public.profile_shop_items (
   profile_id uuid not null references public.profiles(id) on delete cascade,
   item_id text not null references public.shop_items(id) on delete cascade,
+  equip_slot text,
   is_equipped boolean not null default false,
   purchased_at timestamptz not null default now(),
   primary key (profile_id, item_id)
 );
+
+create unique index if not exists profile_shop_items_equipped_slot_idx
+  on public.profile_shop_items (profile_id, equip_slot)
+  where is_equipped = true and equip_slot is not null;
 
 create table if not exists public.public_profile_cards (
   id uuid primary key default gen_random_uuid(),
@@ -103,6 +109,7 @@ insert into public.shop_items (
   name,
   category,
   description,
+  equip_slot,
   price,
   tag,
   sheet_position,
@@ -112,16 +119,17 @@ insert into public.shop_items (
   is_active
 )
 values
-  ('sprout-beret', '새싹 베레모', 'items', '무드비에게 포근한 새싹 포인트를 더해요.', 80, '착용', '0% 0%', false, 3, 'sprout-beret', true),
-  ('cloud-cushion', '구름 쿠션', 'decorate', '일기 쓰는 공간에 말랑한 휴식감을 더해요.', 80, '배경', '50% 0%', true, 1, 'cloud-cushion', true),
-  ('warm-lamp', '따뜻한 스탠드', 'theme', '밤 일기 화면을 따뜻하게 밝혀주는 조명.', 120, '테마', '100% 0%', true, 2, 'warm-lamp', true),
-  ('heart-mug', '하트 머그', 'items', '무드비의 차분한 루틴을 보여주는 머그컵.', 90, '소품', '0% 100%', false, 2, 'heart-mug', true),
-  ('picnic-blanket', '피크닉 담요', 'decorate', '주간 업데이트 화면을 피크닉처럼 꾸며요.', 110, '배경', '50% 100%', false, 4, 'picnic-blanket', true),
-  ('diary-badge', '기록 배지', 'package', '기록 보상과 공개 프로필에 어울리는 배지.', 150, '상징', '100% 100%', false, 5, 'diary-badge', true)
+  ('sprout-beret', '새싹 베레모', 'items', '무드비에게 포근한 새싹 포인트를 더해요.', 'head', 80, '착용', '0% 0%', false, 3, 'sprout-beret', true),
+  ('cloud-cushion', '구름 쿠션', 'decorate', '일기 쓰는 공간에 말랑한 휴식감을 더해요.', 'background-floor-front', 80, '배경', '50% 0%', true, 1, 'cloud-cushion', true),
+  ('warm-lamp', '따뜻한 스탠드', 'theme', '밤 일기 화면을 따뜻하게 밝혀주는 조명.', 'background-light', 120, '테마', '100% 0%', true, 2, 'warm-lamp', true),
+  ('heart-mug', '하트 머그', 'items', '무드비의 차분한 루틴을 보여주는 머그컵.', 'hand', 90, '소품', '0% 100%', false, 2, 'heart-mug', true),
+  ('picnic-blanket', '피크닉 담요', 'decorate', '주간 업데이트 화면을 피크닉처럼 꾸며요.', 'background-floor-back', 110, '배경', '50% 100%', false, 4, 'picnic-blanket', true),
+  ('diary-badge', '기록 배지', 'package', '기록 보상과 공개 프로필에 어울리는 배지.', 'head', 150, '상징', '100% 100%', false, 5, 'diary-badge', true)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
   description = excluded.description,
+  equip_slot = excluded.equip_slot,
   price = excluded.price,
   tag = excluded.tag,
   sheet_position = excluded.sheet_position,

@@ -161,6 +161,29 @@ describe("App navigation", () => {
     expect(screen.getByText("200")).toBeInTheDocument();
   });
 
+  it("keeps the character level card in sync with the shop level", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+
+    for (const answer of ["기분 기록", "장면 기록", "나를 본 시간", "좋아한 것", "자유 기록"]) {
+      await user.type(screen.getByRole("textbox"), answer);
+      await user.click(screen.getByRole("button", { name: /다음 질문|일기 정리하기/ }));
+    }
+
+    await user.click(screen.getByRole("button", { name: "다이어리에 저장하기" }));
+    await user.click(getNavigationButtons()[5]);
+
+    expect(screen.getByText("Lv. 2")).toBeInTheDocument();
+    expect(screen.getByText("20 / 150 XP")).toBeInTheDocument();
+
+    await user.click(getNavigationButtons()[3]);
+
+    expect(screen.getByText("Lv. 2")).toBeInTheDocument();
+    expect(screen.getByText("20 / 150")).toBeInTheDocument();
+  });
+
   it("shows premium profile badges and presentation share actions", async () => {
     const user = userEvent.setup();
     render(<App />);

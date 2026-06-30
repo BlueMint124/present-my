@@ -10,7 +10,7 @@ import { analyzeDiaryEntries, emptyDiaryAnalysis } from "./lib/diaryAnalysis";
 import { appendDiaryEntry, loadDiaryEntries } from "./lib/diaryStorage";
 import { equipShopItem, grantDiaryExperience, purchaseShopItem, type PurchaseResult } from "./lib/playerProgress";
 import { loadPlayerProgress, persistPlayerProgress } from "./lib/playerProgressStorage";
-import { findShopItem, type ShopItem } from "./data/shopItems";
+import { findEquippedShopItems, findShopItem, type ShopItem } from "./data/shopItems";
 import type { DiaryAnalysis, DiaryEntry, ScreenId } from "./types";
 
 export default function App() {
@@ -68,23 +68,30 @@ function AppContent() {
   }
 
   function handleEquipShopItem(itemId: string) {
-    setPlayerProgress((progress) => equipShopItem(progress, itemId));
+    const item = findShopItem(itemId);
+
+    if (!item) {
+      return;
+    }
+
+    setPlayerProgress((progress) => equipShopItem(progress, item));
   }
 
-  const equippedShopItem = findShopItem(playerProgress.equippedShopItemId);
+  const equippedShopItems = findEquippedShopItems(playerProgress.equippedShopItemIds);
 
   return (
     <AppShell activeScreen={activeScreen} onNavigate={setActiveScreen}>
       {activeScreen === "home" && (
-        <HomeScreen diaryEntries={diaryEntries} equippedShopItem={equippedShopItem} onNavigate={setActiveScreen} />
+        <HomeScreen diaryEntries={diaryEntries} equippedShopItems={equippedShopItems} onNavigate={setActiveScreen} />
       )}
       {activeScreen === "diary" && <DiaryScreen diaryEntries={diaryEntries} onSaveDiary={handleSaveDiary} />}
       {activeScreen === "insights" && <InsightsScreen analysis={diaryAnalysis} />}
-      {activeScreen === "character" && <CharacterScreen equippedShopItem={equippedShopItem} />}
+      {activeScreen === "character" && (
+        <CharacterScreen equippedShopItems={equippedShopItems} playerProgress={playerProgress} />
+      )}
       {activeScreen === "profile" && <PublicProfileScreen />}
       {activeScreen === "expansion" && (
         <ExpansionScreen
-          equippedShopItemId={playerProgress.equippedShopItemId}
           onEquipShopItem={handleEquipShopItem}
           onPurchaseShopItem={handlePurchaseShopItem}
           playerProgress={playerProgress}

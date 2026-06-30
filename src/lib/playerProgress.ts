@@ -1,9 +1,10 @@
 import type { ShopItem } from "../data/shopItems";
+import type { ShopEquipSlot } from "../data/shopItems";
 import type { DiaryEntry } from "../types";
 
 export type PlayerProgress = {
   coinBalance: number;
-  equippedShopItemId: string | null;
+  equippedShopItemIds: Partial<Record<ShopEquipSlot, string>>;
   experience: number;
   level: number;
   ownedShopItemIds: string[];
@@ -14,7 +15,7 @@ export type PurchaseResult = "success" | "owned" | "insufficient-funds" | "level
 
 export const DEFAULT_PLAYER_PROGRESS: PlayerProgress = {
   coinBalance: 320,
-  equippedShopItemId: null,
+  equippedShopItemIds: {},
   experience: 0,
   level: 1,
   ownedShopItemIds: [],
@@ -78,13 +79,16 @@ export function purchaseShopItem(
   };
 }
 
-export function equipShopItem(progress: PlayerProgress, itemId: string): PlayerProgress {
-  if (!progress.ownedShopItemIds.includes(itemId)) {
+export function equipShopItem(progress: PlayerProgress, item: ShopItem): PlayerProgress {
+  if (!progress.ownedShopItemIds.includes(item.id)) {
     return progress;
   }
 
   return {
     ...progress,
-    equippedShopItemId: itemId
+    equippedShopItemIds: {
+      ...progress.equippedShopItemIds,
+      [item.equipSlot]: item.id
+    }
   };
 }

@@ -1,5 +1,5 @@
 import type { DiaryEntry } from "../types";
-import type { ShopItem } from "../data/shopItems";
+import { findShopItem, type ShopItem } from "../data/shopItems";
 import type { PlayerProgress } from "./playerProgress";
 import { supabase } from "./supabaseClient";
 
@@ -16,6 +16,7 @@ type ShopItemRow = {
   asset_key: string | null;
   category: ShopItem["category"];
   description: string;
+  equip_slot: ShopItem["equipSlot"];
   id: string;
   is_active: boolean;
   name: string;
@@ -35,6 +36,8 @@ type ProfileProgressRow = {
 };
 
 type OwnedShopItemRow = {
+  equip_slot: ShopItem["equipSlot"] | null;
+  is_equipped: boolean;
   item_id: string;
 };
 
@@ -95,7 +98,7 @@ export async function fetchShopItems(): Promise<ShopItem[]> {
 
   const { data, error } = await supabase
     .from("shop_items")
-    .select("id, name, category, description, price, tag, sheet_position, purchasable, required_level, asset_key, is_active")
+    .select("id, name, category, description, equip_slot, price, tag, sheet_position, purchasable, required_level, asset_key, is_active")
     .eq("is_active", true)
     .order("price", { ascending: true });
 
@@ -119,7 +122,7 @@ export async function fetchPlayerProgress(profileId: string): Promise<PlayerProg
       .maybeSingle(),
     supabase
       .from("profile_shop_items")
-      .select("item_id")
+      .select("item_id, is_equipped, equip_slot")
       .eq("profile_id", profileId)
   ]);
 
@@ -144,7 +147,7 @@ export async function updatePlayerProgress(profileId: string, progress: PlayerPr
   const { data, error } = await supabase
     .from("profiles")
     .update({
-      avatar_item_id: progress.equippedShopItemId,
+      avatar_item_id: Object.values(progress.equippedShopItemIds)[0] ?? null,
       coin_balance: progress.coinBalance,
       experience: progress.experience,
       level: progress.level,
@@ -178,7 +181,7 @@ export async function upsertOwnedShopItem(profileId: string, itemId: string) {
   }
 }
 
-export async function equipOwnedShopItem(profileId: string, itemId: string) {
+export async function equipOwnedShopItem(profileId: string, item: ShopItem) {
   if (!supabase) {
     return;
   }
@@ -186,7 +189,8 @@ export async function equipOwnedShopItem(profileId: string, itemId: string) {
   const { error: clearError } = await supabase
     .from("profile_shop_items")
     .update({ is_equipped: false })
-    .eq("profile_id", profileId);
+    .eq("profile_id", profileId)
+    .eq("equip_slot", item.equipSlot);
 
   if (clearError) {
     throw clearError;
@@ -195,8 +199,9 @@ export async function equipOwnedShopItem(profileId: string, itemId: string) {
   const { error: equipError } = await supabase
     .from("profile_shop_items")
     .upsert({
+      equip_slot: item.equipSlot,
       is_equipped: true,
-      item_id: itemId,
+      item_id: item.id,
       profile_id: profileId
     });
 
@@ -204,7 +209,7 @@ export async function equipOwnedShopItem(profileId: string, itemId: string) {
     throw equipError;
   }
 
-  await updateEquippedProfileItem(profileId, itemId);
+  await updateEquippedProfileItem(profileId, item.id);
 }
 
 async function updateEquippedProfileItem(profileId: string, itemId: string) {
@@ -261,6 +266,7 @@ function mapShopItemRow(row: ShopItemRow): ShopItem {
   return {
     category: row.category,
     description: row.description,
+    equipSlot: row.equip_slot,
     id: row.id,
     name: row.name,
     price: row.price,
@@ -272,9 +278,29 @@ function mapShopItemRow(row: ShopItemRow): ShopItem {
 }
 
 function mapProfileProgressRow(row: ProfileProgressRow, ownedItems: OwnedShopItemRow[] = []): PlayerProgress {
+  const equippedShopItemIds = ownedItems.reduce<PlayerProgress["equippedShopItemIds"]>((slots, ownedItem) => {
+    if (!ownedItem.is_equipped) {
+      return slots;
+    }
+
+    const item = findShopItem(ownedItem.item_id);
+    const slot = ownedItem.equip_slot ?? item?.equipSlot;
+
+    if (slot) {
+      slots[slot] = ownedItem.item_id;
+    }
+
+    return slots;
+  }, {});
+  const legacyItem = findShopItem(row.avatar_item_id);
+
+  if (legacyItem && !equippedShopItemIds[legacyItem.equipSlot]) {
+    equippedShopItemIds[legacyItem.equipSlot] = legacyItem.id;
+  }
+
   return {
     coinBalance: row.coin_balance,
-    equippedShopItemId: row.avatar_item_id,
+    equippedShopItemIds,
     experience: row.experience,
     level: row.level,
     ownedShopItemIds: ownedItems.map((item) => item.item_id),

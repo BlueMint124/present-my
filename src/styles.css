@@ -1775,7 +1775,7 @@ button {
 
 .moodby-sprite {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: block;
   width: calc(170px * var(--scale));
   height: calc(146px * var(--scale));
@@ -1816,41 +1816,92 @@ button {
   position: absolute;
   left: 50%;
   bottom: calc(-4px * var(--scale));
-  z-index: 0;
+  z-index: 2;
   display: block;
   width: calc(116px * var(--scale));
   height: calc(82px * var(--scale));
-  border-radius: calc(20px * var(--scale));
+  border-radius: calc(18px * var(--scale));
   background-repeat: no-repeat;
   background-size: 300% 200%;
-  filter: drop-shadow(0 calc(8px * var(--scale)) calc(10px * var(--scale)) rgba(64, 46, 25, 0.14));
+  filter: drop-shadow(0 calc(7px * var(--scale)) calc(9px * var(--scale)) rgba(64, 46, 25, 0.13));
   transform: translateX(-50%);
 }
 
-.character-equipped-item--cloud-cushion,
-.character-equipped-item--picnic-blanket {
-  bottom: calc(-3px * var(--scale));
-  width: calc(128px * var(--scale));
-  height: calc(84px * var(--scale));
-  z-index: 0;
+.character-equipped-item--slot-background-floor-back {
+  left: 50%;
+  bottom: calc(-10px * var(--scale));
+  z-index: 1;
+  width: calc(154px * var(--scale));
+  height: calc(96px * var(--scale));
+  opacity: 0.94;
 }
 
-.character-equipped-item--heart-mug,
-.character-equipped-item--warm-lamp {
-  left: calc(8px * var(--scale));
-  bottom: calc(12px * var(--scale));
-  width: calc(54px * var(--scale));
-  height: calc(54px * var(--scale));
+.character-equipped-item--slot-background-floor-front {
+  left: 50%;
+  bottom: calc(-16px * var(--scale));
   z-index: 2;
+  width: calc(138px * var(--scale));
+  height: calc(90px * var(--scale));
+  opacity: 0.98;
+}
+
+.character-equipped-item--slot-background-light {
+  left: calc(9px * var(--scale));
+  bottom: calc(38px * var(--scale));
+  z-index: 1;
+  width: calc(66px * var(--scale));
+  height: calc(66px * var(--scale));
+  opacity: 0.9;
+  filter: drop-shadow(0 calc(8px * var(--scale)) calc(12px * var(--scale)) rgba(217, 166, 83, 0.24));
   transform: none;
 }
 
-.character-equipped-item--sprout-beret {
-  top: calc(-3px * var(--scale));
-  bottom: auto;
-  width: calc(80px * var(--scale));
+.character-equipped-item--slot-hand {
+  left: calc(7px * var(--scale));
+  bottom: calc(24px * var(--scale));
+  z-index: 5;
+  width: calc(58px * var(--scale));
   height: calc(58px * var(--scale));
-  z-index: 4;
+  transform: rotate(-4deg);
+}
+
+.character-equipped-item--slot-head {
+  left: 50%;
+  top: calc(-11px * var(--scale));
+  bottom: auto;
+  z-index: 6;
+  width: calc(82px * var(--scale));
+  height: calc(60px * var(--scale));
+}
+
+.character-equipped-item--cloud-cushion {
+  bottom: calc(-18px * var(--scale));
+  width: calc(144px * var(--scale));
+  height: calc(94px * var(--scale));
+}
+
+.character-equipped-item--picnic-blanket {
+  bottom: calc(-12px * var(--scale));
+  width: calc(166px * var(--scale));
+  height: calc(104px * var(--scale));
+}
+
+.character-equipped-item--warm-lamp {
+  left: calc(-3px * var(--scale));
+  bottom: calc(42px * var(--scale));
+  width: calc(72px * var(--scale));
+  height: calc(72px * var(--scale));
+}
+
+.character-equipped-item--heart-mug {
+  left: calc(12px * var(--scale));
+  bottom: calc(22px * var(--scale));
+}
+
+.character-equipped-item--diary-badge {
+  top: calc(-13px * var(--scale));
+  width: calc(76px * var(--scale));
+  height: calc(56px * var(--scale));
 }
 
 .moodby--nav .character-equipped-item {

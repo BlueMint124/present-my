@@ -4,6 +4,7 @@ import characterRewardSheet from "../assets/character-reward-sheet.jpg";
 import { CharacterAvatar, type CharacterAnimation } from "../components/CharacterAvatar";
 import { characterState } from "../data/demoData";
 import type { ShopItem } from "../data/shopItems";
+import { getRequiredExperienceForLevel, type PlayerProgress } from "../lib/playerProgress";
 
 const rewards = [
   {
@@ -31,12 +32,15 @@ const animationOptions: Array<{ id: CharacterAnimation; label: string }> = [
 ];
 
 type CharacterScreenProps = {
-  equippedShopItem?: ShopItem;
+  equippedShopItems?: ShopItem[];
+  playerProgress: PlayerProgress;
 };
 
-export function CharacterScreen({ equippedShopItem }: CharacterScreenProps) {
+export function CharacterScreen({ equippedShopItems = [], playerProgress }: CharacterScreenProps) {
   const [animation, setAnimation] = useState<CharacterAnimation>("wave");
   const [acknowledgedRewards, setAcknowledgedRewards] = useState(false);
+  const requiredExperience = getRequiredExperienceForLevel(playerProgress.level);
+  const levelProgress = `${Math.min(100, (playerProgress.experience / requiredExperience) * 100)}%`;
 
   return (
     <section className="app-screen character-screen">
@@ -45,9 +49,9 @@ export function CharacterScreen({ equippedShopItem }: CharacterScreenProps) {
         <div className="weekly-hero-copy">
           <span>Weekly Update</span>
           <h1>무드비가 성장했어요!</h1>
-          <p>이번 주 5번의 기록으로 Lv. 12 보상을 열었어요.</p>
+          <p>이번 주 기록으로 Lv. {playerProgress.level} 보상을 열었어요.</p>
         </div>
-        <CharacterAvatar animation={animation} character={characterState} equippedShopItem={equippedShopItem} variant="picnic" />
+        <CharacterAvatar animation={animation} character={characterState} equippedShopItems={equippedShopItems} variant="picnic" />
       </article>
 
       <div className="animation-controls" aria-label="캐릭터 애니메이션">
@@ -64,9 +68,9 @@ export function CharacterScreen({ equippedShopItem }: CharacterScreenProps) {
       </div>
 
       <article className="level-card">
-        <b>Lv. 12</b>
-        <span><i /></span>
-        <small>320 / 500</small>
+        <b>Lv. {playerProgress.level}</b>
+        <span><i style={{ width: levelProgress }} /></span>
+        <small>{playerProgress.experience} / {requiredExperience}</small>
       </article>
 
       <section className={acknowledgedRewards ? "reward-section reward-section--checked" : "reward-section"}>

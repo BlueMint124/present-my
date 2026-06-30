@@ -1,8 +1,15 @@
 export type ShopTab = "recommend" | "items" | "theme" | "decorate" | "package";
+export type ShopEquipSlot =
+  | "head"
+  | "hand"
+  | "background-floor-back"
+  | "background-floor-front"
+  | "background-light";
 
 export type ShopItem = {
   category: ShopTab;
   description: string;
+  equipSlot: ShopEquipSlot;
   id: string;
   name: string;
   price: number;
@@ -23,6 +30,7 @@ export const shopTabs: Array<{ id: ShopTab; label: string }> = [
 export const shopItems: ShopItem[] = [
   {
     category: "items",
+    equipSlot: "head",
     description: "무드비에게 포근한 새싹 포인트를 더해요.",
     id: "sprout-beret",
     name: "새싹 베레모",
@@ -33,6 +41,7 @@ export const shopItems: ShopItem[] = [
   },
   {
     category: "decorate",
+    equipSlot: "background-floor-front",
     description: "일기 쓰는 공간에 말랑한 휴식감을 더해요.",
     id: "cloud-cushion",
     name: "구름 쿠션",
@@ -44,6 +53,7 @@ export const shopItems: ShopItem[] = [
   },
   {
     category: "theme",
+    equipSlot: "background-light",
     description: "밤 일기 화면을 따뜻하게 밝혀주는 조명.",
     id: "warm-lamp",
     name: "따뜻한 스탠드",
@@ -55,6 +65,7 @@ export const shopItems: ShopItem[] = [
   },
   {
     category: "items",
+    equipSlot: "hand",
     description: "무드비의 차분한 루틴을 보여주는 머그컵.",
     id: "heart-mug",
     name: "하트 머그",
@@ -65,6 +76,7 @@ export const shopItems: ShopItem[] = [
   },
   {
     category: "decorate",
+    equipSlot: "background-floor-back",
     description: "주간 업데이트 화면을 피크닉처럼 꾸며요.",
     id: "picnic-blanket",
     name: "피크닉 담요",
@@ -75,6 +87,7 @@ export const shopItems: ShopItem[] = [
   },
   {
     category: "package",
+    equipSlot: "head",
     description: "기록 보상과 공개 프로필에 어울리는 배지.",
     id: "diary-badge",
     name: "기록 배지",
@@ -87,4 +100,10 @@ export const shopItems: ShopItem[] = [
 
 export function findShopItem(itemId?: string | null) {
   return shopItems.find((item) => item.id === itemId);
+}
+
+export function findEquippedShopItems(equippedShopItemIds: Partial<Record<ShopEquipSlot, string>> = {}) {
+  return Object.values(equippedShopItemIds)
+    .map((itemId) => findShopItem(itemId))
+    .filter((item): item is ShopItem => Boolean(item));
 }

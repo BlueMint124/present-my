@@ -8,7 +8,7 @@ export type CharacterAnimation = "breath" | "wave" | "smile" | "cry";
 type CharacterAvatarProps = {
   animation?: CharacterAnimation;
   character: CharacterState;
-  equippedShopItem?: ShopItem;
+  equippedShopItems?: ShopItem[];
   pose?: string;
   variant?: "default" | "hero" | "mini" | "phone" | "nav" | "picnic" | "profile";
 };
@@ -16,7 +16,7 @@ type CharacterAvatarProps = {
 export function CharacterAvatar({
   animation = "breath",
   character,
-  equippedShopItem,
+  equippedShopItems = [],
   pose = "front",
   variant = "default"
 }: CharacterAvatarProps) {
@@ -31,13 +31,14 @@ export function CharacterAvatar({
         className={`moodby-sprite moodby-sprite--${animation}`}
         style={{ backgroundImage: `url(${moodbySprite})` }}
       />
-      {equippedShopItem && (
+      {equippedShopItems.map((equippedShopItem) => (
         <span
           aria-label={`착용 아이템 ${equippedShopItem.name}`}
-          className={`character-equipped-item character-equipped-item--${equippedShopItem.id}`}
+          className={`character-equipped-item character-equipped-item--slot-${equippedShopItem.equipSlot} character-equipped-item--${equippedShopItem.id}`}
+          key={equippedShopItem.id}
           style={{ backgroundImage: `url(${shopItemSheet})`, backgroundPosition: equippedShopItem.sheetPosition }}
         />
-      )}
+      ))}
     </div>
   );
 }

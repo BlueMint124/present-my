@@ -6,14 +6,12 @@ import { shopItems, shopTabs, type ShopItem, type ShopTab } from "../data/shopIt
 import { getRequiredExperienceForLevel, type PlayerProgress, type PurchaseResult } from "../lib/playerProgress";
 
 type ExpansionScreenProps = {
-  equippedShopItemId?: string | null;
   onEquipShopItem: (itemId: string) => void;
   onPurchaseShopItem: (item: ShopItem) => PurchaseResult;
   playerProgress: PlayerProgress;
 };
 
 export function ExpansionScreen({
-  equippedShopItemId,
   onEquipShopItem,
   onPurchaseShopItem,
   playerProgress
@@ -71,8 +69,9 @@ export function ExpansionScreen({
 
   const isSelectedOwned = playerProgress.ownedShopItemIds.includes(selectedItem.id);
   const isSelectedLocked = isLevelLocked(selectedItem);
+  const isSelectedEquipped = playerProgress.equippedShopItemIds[selectedItem.equipSlot] === selectedItem.id;
   const primaryActionLabel =
-    equippedShopItemId === selectedItem.id
+    isSelectedEquipped
       ? "착용 중"
       : isSelectedLocked
         ? `Lv. ${selectedItem.requiredLevel} 필요`
@@ -138,7 +137,7 @@ export function ExpansionScreen({
         </div>
         <button
           aria-label={primaryActionLabel}
-          disabled={equippedShopItemId === selectedItem.id || isSelectedLocked}
+          disabled={isSelectedEquipped || isSelectedLocked}
           type="button"
           onClick={handlePrimaryAction}
         >
@@ -171,7 +170,7 @@ export function ExpansionScreen({
               <b>
                 {isLevelLocked(item)
                   ? `Lv. ${item.requiredLevel}`
-                  : equippedShopItemId === item.id
+                  : playerProgress.equippedShopItemIds[item.equipSlot] === item.id
                     ? "착용 중"
                     : playerProgress.ownedShopItemIds.includes(item.id)
                       ? "보유"
