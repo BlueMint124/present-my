@@ -34,6 +34,7 @@ For UI work, also inspect the existing screen/component files and the reference 
 - Vitest + React Testing Library
 - Browser `localStorage` for demo diary persistence
 - Optional Supabase backend setup for future diary/shop/profile persistence
+- Shop progression uses profile-level coin, XP, level, owned items, and equipped item state
 - Static image assets imported from `src/assets`
 - GitHub remote with Vercel-style automatic deployment after push
 

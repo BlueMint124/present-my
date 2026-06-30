@@ -7,6 +7,7 @@ export type ShopItem = {
   name: string;
   price: number;
   purchasable?: boolean;
+  requiredLevel?: number;
   sheetPosition: string;
   tag: string;
 };
@@ -26,6 +27,7 @@ export const shopItems: ShopItem[] = [
     id: "sprout-beret",
     name: "새싹 베레모",
     price: 80,
+    requiredLevel: 3,
     sheetPosition: "0% 0%",
     tag: "착용"
   },
@@ -36,6 +38,7 @@ export const shopItems: ShopItem[] = [
     name: "구름 쿠션",
     price: 80,
     purchasable: true,
+    requiredLevel: 1,
     sheetPosition: "50% 0%",
     tag: "배경"
   },
@@ -45,6 +48,8 @@ export const shopItems: ShopItem[] = [
     id: "warm-lamp",
     name: "따뜻한 스탠드",
     price: 120,
+    purchasable: true,
+    requiredLevel: 2,
     sheetPosition: "100% 0%",
     tag: "테마"
   },
@@ -54,6 +59,7 @@ export const shopItems: ShopItem[] = [
     id: "heart-mug",
     name: "하트 머그",
     price: 90,
+    requiredLevel: 2,
     sheetPosition: "0% 100%",
     tag: "소품"
   },
@@ -63,6 +69,7 @@ export const shopItems: ShopItem[] = [
     id: "picnic-blanket",
     name: "피크닉 담요",
     price: 110,
+    requiredLevel: 4,
     sheetPosition: "50% 100%",
     tag: "배경"
   },
@@ -72,6 +79,7 @@ export const shopItems: ShopItem[] = [
     id: "diary-badge",
     name: "기록 배지",
     price: 150,
+    requiredLevel: 5,
     sheetPosition: "100% 100%",
     tag: "상징"
   }

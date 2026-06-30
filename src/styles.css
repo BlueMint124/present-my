@@ -1366,6 +1366,58 @@ button {
   font-size: inherit;
 }
 
+.shop-progress-card {
+  display: grid;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 1px solid rgba(128, 164, 112, 0.36);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 86% 20%, rgba(246, 199, 109, 0.2), transparent 32%),
+    linear-gradient(145deg, rgba(248, 255, 242, 0.96), rgba(255, 248, 234, 0.95));
+  box-shadow: 0 14px 26px rgba(77, 94, 57, 0.08);
+}
+
+.shop-progress-card div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shop-progress-card strong {
+  color: #3f6d48;
+  font-size: 18px;
+}
+
+.shop-progress-card small {
+  color: #857660;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.shop-progress-card > span {
+  display: block;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(224, 211, 188, 0.82);
+}
+
+.shop-progress-card i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #72a36f, #f4ca68);
+}
+
+.shop-progress-card p {
+  margin: 0;
+  color: #70675c;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
 .currency-icon {
   display: inline-block;
   flex: 0 0 auto;

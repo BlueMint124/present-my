@@ -9,6 +9,9 @@ create table if not exists public.profiles (
   public_handle text unique,
   avatar_item_id text,
   coin_balance integer not null default 320 check (coin_balance >= 0),
+  level integer not null default 1 check (level >= 1),
+  experience integer not null default 0 check (experience >= 0),
+  total_diary_entries integer not null default 0 check (total_diary_entries >= 0),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -33,6 +36,9 @@ create table if not exists public.shop_items (
   tag text not null,
   sheet_position text not null,
   purchasable boolean not null default false,
+  required_level integer not null default 1 check (required_level >= 1),
+  asset_key text,
+  is_active boolean not null default true,
   created_at timestamptz not null default now()
 );
 
@@ -54,11 +60,21 @@ create table if not exists public.public_profile_cards (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.experience_events (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references public.profiles(id) on delete cascade,
+  diary_entry_id uuid references public.diary_entries(id) on delete set null,
+  event_type text not null,
+  experience_delta integer not null check (experience_delta > 0),
+  created_at timestamptz not null default now()
+);
+
 alter table public.profiles enable row level security;
 alter table public.diary_entries enable row level security;
 alter table public.shop_items enable row level security;
 alter table public.profile_shop_items enable row level security;
 alter table public.public_profile_cards enable row level security;
+alter table public.experience_events enable row level security;
 
 -- Presentation MVP policies.
 -- These are intentionally permissive for anon demo reads/writes.
@@ -79,14 +95,29 @@ create policy "demo public profile read" on public.public_profile_cards for sele
 create policy "demo public profile write" on public.public_profile_cards for insert with check (true);
 create policy "demo public profile update" on public.public_profile_cards for update using (true) with check (true);
 
-insert into public.shop_items (id, name, category, description, price, tag, sheet_position, purchasable)
+create policy "demo experience events read" on public.experience_events for select using (true);
+create policy "demo experience events insert" on public.experience_events for insert with check (true);
+
+insert into public.shop_items (
+  id,
+  name,
+  category,
+  description,
+  price,
+  tag,
+  sheet_position,
+  purchasable,
+  required_level,
+  asset_key,
+  is_active
+)
 values
-  ('sprout-beret', '새싹 베레모', 'items', '무드비에게 포근한 새싹 포인트를 더해요.', 80, '착용', '0% 0%', false),
-  ('cloud-cushion', '구름 쿠션', 'decorate', '일기 쓰는 공간에 말랑한 휴식감을 더해요.', 80, '배경', '50% 0%', true),
-  ('warm-lamp', '따뜻한 스탠드', 'theme', '밤 일기 화면을 따뜻하게 밝혀주는 조명.', 120, '테마', '100% 0%', false),
-  ('heart-mug', '하트 머그', 'items', '무드비의 차분한 루틴을 보여주는 머그컵.', 90, '소품', '0% 100%', false),
-  ('picnic-blanket', '피크닉 담요', 'decorate', '주간 업데이트 화면을 피크닉처럼 꾸며요.', 110, '배경', '50% 100%', false),
-  ('diary-badge', '기록 배지', 'package', '기록 보상과 공개 프로필에 어울리는 배지.', 150, '상징', '100% 100%', false)
+  ('sprout-beret', '새싹 베레모', 'items', '무드비에게 포근한 새싹 포인트를 더해요.', 80, '착용', '0% 0%', false, 3, 'sprout-beret', true),
+  ('cloud-cushion', '구름 쿠션', 'decorate', '일기 쓰는 공간에 말랑한 휴식감을 더해요.', 80, '배경', '50% 0%', true, 1, 'cloud-cushion', true),
+  ('warm-lamp', '따뜻한 스탠드', 'theme', '밤 일기 화면을 따뜻하게 밝혀주는 조명.', 120, '테마', '100% 0%', true, 2, 'warm-lamp', true),
+  ('heart-mug', '하트 머그', 'items', '무드비의 차분한 루틴을 보여주는 머그컵.', 90, '소품', '0% 100%', false, 2, 'heart-mug', true),
+  ('picnic-blanket', '피크닉 담요', 'decorate', '주간 업데이트 화면을 피크닉처럼 꾸며요.', 110, '배경', '50% 100%', false, 4, 'picnic-blanket', true),
+  ('diary-badge', '기록 배지', 'package', '기록 보상과 공개 프로필에 어울리는 배지.', 150, '상징', '100% 100%', false, 5, 'diary-badge', true)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
@@ -94,4 +125,7 @@ on conflict (id) do update set
   price = excluded.price,
   tag = excluded.tag,
   sheet_position = excluded.sheet_position,
-  purchasable = excluded.purchasable;
+  purchasable = excluded.purchasable,
+  required_level = excluded.required_level,
+  asset_key = excluded.asset_key,
+  is_active = excluded.is_active;

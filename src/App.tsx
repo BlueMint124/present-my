@@ -8,6 +8,8 @@ import { InsightsScreen } from "./screens/InsightsScreen";
 import { PublicProfileScreen } from "./screens/PublicProfileScreen";
 import { analyzeDiaryEntries, emptyDiaryAnalysis } from "./lib/diaryAnalysis";
 import { appendDiaryEntry, loadDiaryEntries } from "./lib/diaryStorage";
+import { equipShopItem, grantDiaryExperience, purchaseShopItem, type PurchaseResult } from "./lib/playerProgress";
+import { loadPlayerProgress, persistPlayerProgress } from "./lib/playerProgressStorage";
 import { findShopItem, type ShopItem } from "./data/shopItems";
 import type { DiaryAnalysis, DiaryEntry, ScreenId } from "./types";
 
@@ -21,9 +23,7 @@ function AppContent() {
   const [activeScreen, setActiveScreen] = useState<ScreenId>("home");
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(() => loadDiaryEntries());
   const [diaryAnalysis, setDiaryAnalysis] = useState<DiaryAnalysis>(emptyDiaryAnalysis);
-  const [coinBalance, setCoinBalance] = useState(320);
-  const [ownedShopItemIds, setOwnedShopItemIds] = useState<string[]>([]);
-  const [equippedShopItemId, setEquippedShopItemId] = useState<string | null>(null);
+  const [playerProgress, setPlayerProgress] = useState(() => loadPlayerProgress());
 
   useEffect(() => {
     const appContent = document.querySelector(".app-content");
@@ -46,25 +46,32 @@ function AppContent() {
     };
   }, [diaryEntries]);
 
+  useEffect(() => {
+    persistPlayerProgress(playerProgress);
+  }, [playerProgress]);
+
   function handleSaveDiary(entry: DiaryEntry) {
     setDiaryEntries(appendDiaryEntry(entry));
+    setPlayerProgress((progress) => grantDiaryExperience(progress, entry));
   }
 
-  function handlePurchaseShopItem(item: ShopItem) {
-    if (ownedShopItemIds.includes(item.id)) {
-      return true;
-    }
+  function handlePurchaseShopItem(item: ShopItem): PurchaseResult {
+    let result: PurchaseResult = "success";
 
-    if (coinBalance < item.price) {
-      return false;
-    }
+    setPlayerProgress((progress) => {
+      const purchase = purchaseShopItem(progress, item);
+      result = purchase.result;
+      return purchase.progress;
+    });
 
-    setCoinBalance((balance) => balance - item.price);
-    setOwnedShopItemIds((items) => [...items, item.id]);
-    return true;
+    return result;
   }
 
-  const equippedShopItem = findShopItem(equippedShopItemId);
+  function handleEquipShopItem(itemId: string) {
+    setPlayerProgress((progress) => equipShopItem(progress, itemId));
+  }
+
+  const equippedShopItem = findShopItem(playerProgress.equippedShopItemId);
 
   return (
     <AppShell activeScreen={activeScreen} onNavigate={setActiveScreen}>
@@ -77,11 +84,10 @@ function AppContent() {
       {activeScreen === "profile" && <PublicProfileScreen />}
       {activeScreen === "expansion" && (
         <ExpansionScreen
-          coinBalance={coinBalance}
-          equippedShopItemId={equippedShopItemId}
-          onEquipShopItem={setEquippedShopItemId}
+          equippedShopItemId={playerProgress.equippedShopItemId}
+          onEquipShopItem={handleEquipShopItem}
           onPurchaseShopItem={handlePurchaseShopItem}
-          ownedShopItemIds={ownedShopItemIds}
+          playerProgress={playerProgress}
         />
       )}
     </AppShell>

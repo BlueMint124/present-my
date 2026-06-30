@@ -1,23 +1,22 @@
 import { useState } from "react";
 import currencyIcons from "../assets/currency-icons.jpg";
 import shopHero from "../assets/shop-hero-moodby.jpg";
-import shopItemSheet from "../assets/shop-item-sheet-transparent.png";
+import shopItemSheet from "../assets/shop-equipment-sheet.png";
 import { shopItems, shopTabs, type ShopItem, type ShopTab } from "../data/shopItems";
+import { getRequiredExperienceForLevel, type PlayerProgress, type PurchaseResult } from "../lib/playerProgress";
 
 type ExpansionScreenProps = {
-  coinBalance: number;
   equippedShopItemId?: string | null;
   onEquipShopItem: (itemId: string) => void;
-  onPurchaseShopItem: (item: ShopItem) => boolean;
-  ownedShopItemIds: string[];
+  onPurchaseShopItem: (item: ShopItem) => PurchaseResult;
+  playerProgress: PlayerProgress;
 };
 
 export function ExpansionScreen({
-  coinBalance,
   equippedShopItemId,
   onEquipShopItem,
   onPurchaseShopItem,
-  ownedShopItemIds
+  playerProgress
 }: ExpansionScreenProps) {
   const [activeTab, setActiveTab] = useState<ShopTab>("recommend");
   const [selectedItem, setSelectedItem] = useState<ShopItem>(shopItems[1]);
@@ -29,14 +28,26 @@ export function ExpansionScreen({
 
   function handlePreview(item: ShopItem) {
     setSelectedItem(item);
-    setShopMessage(ownedShopItemIds.includes(item.id) ? "보유 중" : "미리보기 중");
+    setShopMessage(isLevelLocked(item) ? "레벨이 부족해요" : playerProgress.ownedShopItemIds.includes(item.id) ? "보유 중" : "미리보기 중");
   }
 
   function handlePrimaryAction() {
-    const isOwned = ownedShopItemIds.includes(selectedItem.id);
+    const isOwned = playerProgress.ownedShopItemIds.includes(selectedItem.id);
+
+    if (isLevelLocked(selectedItem)) {
+      setShopMessage("레벨이 부족해요");
+      return;
+    }
 
     if (selectedItem.purchasable && !isOwned) {
-      if (!onPurchaseShopItem(selectedItem)) {
+      const purchaseResult = onPurchaseShopItem(selectedItem);
+
+      if (purchaseResult === "level-locked") {
+        setShopMessage("레벨이 부족해요");
+        return;
+      }
+
+      if (purchaseResult === "insufficient-funds") {
         setShopMessage("재화가 부족해요");
         return;
       }
@@ -54,26 +65,43 @@ export function ExpansionScreen({
     setShopMessage("미리보기 전용 UI");
   }
 
-  const isSelectedOwned = ownedShopItemIds.includes(selectedItem.id);
+  function isLevelLocked(item: ShopItem) {
+    return (item.requiredLevel ?? 1) > playerProgress.level;
+  }
+
+  const isSelectedOwned = playerProgress.ownedShopItemIds.includes(selectedItem.id);
+  const isSelectedLocked = isLevelLocked(selectedItem);
   const primaryActionLabel =
     equippedShopItemId === selectedItem.id
       ? "착용 중"
+      : isSelectedLocked
+        ? `Lv. ${selectedItem.requiredLevel} 필요`
       : selectedItem.purchasable && !isSelectedOwned
         ? `${selectedItem.name} 구매하기`
         : "착용하기";
+  const requiredExperience = getRequiredExperienceForLevel(playerProgress.level);
 
   return (
     <section className="app-screen shop-screen">
       <header className="app-header shop-header">
         <div>
-          <small>발표용 UI</small>
+          <small>성장형 상점</small>
           <h1>Moodbe Cozy Shop</h1>
         </div>
         <span className="coin-pill">
           <CurrencyIcon />
-          <b>{coinBalance}</b>
+          <b>{playerProgress.coinBalance}</b>
         </span>
       </header>
+
+      <article className="shop-progress-card">
+        <div>
+          <strong>Lv. {playerProgress.level}</strong>
+          <small>{playerProgress.experience} / {requiredExperience} XP</small>
+        </div>
+        <span><i style={{ width: `${Math.min(100, (playerProgress.experience / requiredExperience) * 100)}%` }} /></span>
+        <p>일기를 기록하면 경험치가 쌓이고, 레벨에 따라 새로운 아이템이 열려요.</p>
+      </article>
 
       <div className="shop-tabs" aria-label="상점 카테고리">
         {shopTabs.map((tab) => (
@@ -108,7 +136,12 @@ export function ExpansionScreen({
           <strong>{selectedItem.name}</strong>
           <small>{selectedItem.description}</small>
         </div>
-        <button aria-label={primaryActionLabel} disabled={equippedShopItemId === selectedItem.id} type="button" onClick={handlePrimaryAction}>
+        <button
+          aria-label={primaryActionLabel}
+          disabled={equippedShopItemId === selectedItem.id || isSelectedLocked}
+          type="button"
+          onClick={handlePrimaryAction}
+        >
           {primaryActionLabel}
         </button>
       </article>
@@ -135,7 +168,15 @@ export function ExpansionScreen({
               />
               <strong>{item.name}</strong>
               <small>{item.description}</small>
-              <b><CurrencyIcon />{equippedShopItemId === item.id ? "착용 중" : ownedShopItemIds.includes(item.id) ? "보유" : item.price}</b>
+              <b>
+                {isLevelLocked(item)
+                  ? `Lv. ${item.requiredLevel}`
+                  : equippedShopItemId === item.id
+                    ? "착용 중"
+                    : playerProgress.ownedShopItemIds.includes(item.id)
+                      ? "보유"
+                      : <><CurrencyIcon />{item.price}</>}
+              </b>
             </button>
           ))}
         </div>

@@ -58,8 +58,9 @@ Supabase expects the literal `role` claim. Supabase's Auth0 guide recommends usi
 ## Required Supabase Setup
 
 1. Run `supabase/schema.sql` first for the base schema.
-2. In Supabase Dashboard, add Third-party Auth integration for Auth0.
-3. After the Auth0 login flow is working, run:
+2. If the project already used the older schema, run `supabase/migrations/20260625_shop_progression.sql`.
+3. In Supabase Dashboard, add Third-party Auth integration for Auth0.
+4. After the Auth0 login flow is working, run:
 
 ```sql
 -- paste contents of supabase/migrations/20260625_auth0_profile_link.sql
@@ -156,4 +157,3 @@ Report back with changed files, verification results, and any Auth0/Supabase das
 
 - Supabase Auth0 third-party auth guide: https://supabase.com/docs/guides/auth/third-party/auth0
 - Auth0 React SDK docs: https://auth0.com/docs/libraries/auth0-react
-

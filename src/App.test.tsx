@@ -92,7 +92,7 @@ describe("App navigation", () => {
     await user.click(getNavigationButtons()[5]);
 
     expect(screen.getByRole("heading", { name: "Moodbe Cozy Shop" })).toBeInTheDocument();
-    expect(screen.getByText("발표용 UI")).toBeInTheDocument();
+    expect(screen.getByText("성장형 상점")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "구름 쿠션 미리보기" }));
 
@@ -120,6 +120,45 @@ describe("App navigation", () => {
     expect(screen.getByText("240")).toBeInTheDocument();
     expect(screen.getByText("구매 완료")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "착용하기" })).toBeInTheDocument();
+  });
+
+  it("shows level-gated shop items before enough diary experience", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[5]);
+
+    expect(screen.getByText("Lv. 1")).toBeInTheDocument();
+    expect(screen.getByText("0 / 100 XP")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "따뜻한 스탠드 미리보기" }));
+
+    expect(screen.getByRole("button", { name: "Lv. 2 필요" })).toBeDisabled();
+    expect(screen.getByText("레벨이 부족해요")).toBeInTheDocument();
+  });
+
+  it("grants diary experience and unlocks level-gated shop purchases", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(getNavigationButtons()[1]);
+
+    for (const answer of ["기분 기록", "장면 기록", "나를 본 시간", "좋아한 것", "자유 기록"]) {
+      await user.type(screen.getByRole("textbox"), answer);
+      await user.click(screen.getByRole("button", { name: /다음 질문|일기 정리하기/ }));
+    }
+
+    await user.click(screen.getByRole("button", { name: "다이어리에 저장하기" }));
+    await user.click(getNavigationButtons()[5]);
+
+    expect(screen.getByText("Lv. 2")).toBeInTheDocument();
+    expect(screen.getByText("20 / 150 XP")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "따뜻한 스탠드 미리보기" }));
+    await user.click(screen.getByRole("button", { name: "따뜻한 스탠드 구매하기" }));
+
+    expect(screen.getByText("구매 완료")).toBeInTheDocument();
+    expect(screen.getByText("200")).toBeInTheDocument();
   });
 
   it("shows premium profile badges and presentation share actions", async () => {
@@ -154,7 +193,7 @@ describe("App navigation", () => {
     await user.click(getNavigationButtons()[0]);
     const homeEquippedItem = document.querySelector<HTMLElement>(".character-equipped-item--cloud-cushion");
     expect(homeEquippedItem).toBeInTheDocument();
-    expect(homeEquippedItem?.style.backgroundImage).toContain("shop-item-sheet-transparent");
+    expect(homeEquippedItem?.style.backgroundImage).toContain("shop-equipment-sheet");
 
     await user.click(getNavigationButtons()[3]);
     expect(document.querySelector(".character-equipped-item--cloud-cushion")).toBeInTheDocument();

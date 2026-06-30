@@ -9,6 +9,7 @@ Moodbe currently runs as a deterministic presentation MVP. Supabase is prepared 
 - `src/lib/supabaseClient.ts`
 - `src/lib/supabaseRepository.ts`
 - `supabase/schema.sql`
+- `supabase/migrations/20260625_shop_progression.sql`
 - `supabase/migrations/20260625_auth0_profile_link.sql`
 
 The app still defaults to local demo behavior unless `VITE_USE_SUPABASE=true` and valid Supabase credentials are provided.
@@ -48,6 +49,7 @@ The schema includes:
 - `shop_items`
 - `profile_shop_items`
 - `public_profile_cards`
+- `experience_events`
 
 ## 4. MVP Security Note
 
@@ -69,6 +71,11 @@ Production direction:
 4. Move shop owned/equipped state to Supabase.
 5. Move public profile cards and badges to Supabase.
 6. Add auth and tighten RLS.
+
+For an existing Supabase project that already ran an older `schema.sql`, run migrations in this order:
+
+1. `supabase/migrations/20260625_shop_progression.sql`
+2. `supabase/migrations/20260625_auth0_profile_link.sql` only after Auth0 token handoff works
 
 ## 6. Auth0 Integration
 
