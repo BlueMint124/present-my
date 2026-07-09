@@ -30,9 +30,11 @@ Create `.env.local` from `.env.example`:
 VITE_SUPABASE_URL=https://your-project-ref.supabase.co
 VITE_SUPABASE_ANON_KEY=your-public-anon-key
 VITE_USE_SUPABASE=false
+VITE_USE_SUPABASE_AUTH=false
 ```
 
 Use `VITE_USE_SUPABASE=true` only when the schema is created and you are ready to test backend reads/writes.
+Use `VITE_USE_SUPABASE_AUTH=true` only after the Google provider is configured in Supabase Auth.
 
 ## 3. Create Database Tables
 
@@ -63,7 +65,30 @@ Production direction:
 - Allow public profile reads only for approved cards.
 - Keep raw diary content private.
 
-## 5. Suggested Migration Order
+## 5. Supabase Auth + Google Login
+
+The app now includes a small Supabase Auth status bar that is hidden by default in demo mode.
+
+Dashboard setup:
+
+1. Open Supabase Dashboard > Authentication > Providers.
+2. Enable Google.
+3. Add the Google OAuth client ID and client secret from Google Cloud Console.
+4. Add local and deployed redirect URLs in Supabase Authentication > URL Configuration:
+   - `http://127.0.0.1:5173`
+   - deployed Vercel URL later
+5. In `.env.local`, set:
+
+```bash
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=your-public-anon-key
+VITE_USE_SUPABASE=true
+VITE_USE_SUPABASE_AUTH=true
+```
+
+The first auth milestone only handles Google login/logout and session display. Nickname onboarding, immutable account codes, and profile bootstrap are the next step.
+
+## 6. Suggested Migration Order
 
 1. Keep existing localStorage diary flow as fallback.
 2. Add profile bootstrap.
@@ -77,9 +102,9 @@ For an existing Supabase project that already ran an older `schema.sql`, run mig
 1. `supabase/migrations/20260625_shop_progression.sql`
 2. `supabase/migrations/20260625_auth0_profile_link.sql` only after Auth0 token handoff works
 
-## 6. Auth0 Integration
+## 7. Auth0 Integration
 
-If signup/login is implemented with Auth0, read:
+Auth0 was prepared as an earlier alternative. The current recommended path for Moodbe is Supabase Auth + Google because it keeps auth and database row ownership in one platform. If signup/login is implemented with Auth0 instead, read:
 
 - `docs/auth0-supabase-plan.md`
 - `supabase/migrations/20260625_auth0_profile_link.sql`

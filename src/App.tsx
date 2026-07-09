@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AppShell } from "./components/AppShell";
+import { AuthStatusBar } from "./components/AuthStatusBar";
 import { CharacterScreen } from "./screens/CharacterScreen";
 import { DiaryScreen } from "./screens/DiaryScreen";
 import { ExpansionScreen } from "./screens/ExpansionScreen";
@@ -11,6 +12,7 @@ import { appendDiaryEntry, loadDiaryEntries } from "./lib/diaryStorage";
 import { equipShopItem, grantDiaryExperience, purchaseShopItem, type PurchaseResult } from "./lib/playerProgress";
 import { loadPlayerProgress, persistPlayerProgress } from "./lib/playerProgressStorage";
 import { findEquippedShopItems, findShopItem, type ShopItem } from "./data/shopItems";
+import { useSupabaseAuth } from "./hooks/useSupabaseAuth";
 import type { DiaryAnalysis, DiaryEntry, ScreenId } from "./types";
 
 export default function App() {
@@ -24,6 +26,7 @@ function AppContent() {
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>(() => loadDiaryEntries());
   const [diaryAnalysis, setDiaryAnalysis] = useState<DiaryAnalysis>(emptyDiaryAnalysis);
   const [playerProgress, setPlayerProgress] = useState(() => loadPlayerProgress());
+  const auth = useSupabaseAuth();
 
   useEffect(() => {
     const appContent = document.querySelector(".app-content");
@@ -81,6 +84,14 @@ function AppContent() {
 
   return (
     <AppShell activeScreen={activeScreen} onNavigate={setActiveScreen}>
+      <AuthStatusBar
+        authEnabled={auth.authEnabled}
+        error={auth.error}
+        isLoading={auth.isLoading}
+        onSignIn={auth.signIn}
+        onSignOut={auth.signOut}
+        user={auth.user}
+      />
       {activeScreen === "home" && (
         <HomeScreen diaryEntries={diaryEntries} equippedShopItems={equippedShopItems} onNavigate={setActiveScreen} />
       )}
