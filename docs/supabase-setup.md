@@ -54,6 +54,16 @@ The schema includes:
 - `public_profile_cards`
 - `experience_events`
 
+CLI setup is also initialized in `supabase/config.toml`. If applying migrations from the terminal, use:
+
+```bash
+npx supabase login --token <supabase-access-token>
+npx supabase link --project-ref <project-ref>
+npx supabase db push
+```
+
+Codex cannot complete `supabase login` without a `SUPABASE_ACCESS_TOKEN`, because the desktop terminal is non-interactive.
+
 ## 4. MVP Security Note
 
 The included RLS policies are demo-friendly so the presentation webapp can be tested without auth. Before production, replace them with authenticated user policies.
