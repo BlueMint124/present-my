@@ -34,6 +34,7 @@ For UI work, also inspect the existing screen/component files and the reference 
 - Vitest + React Testing Library
 - Browser `localStorage` for demo diary persistence
 - Optional Supabase backend setup for future diary/shop/profile persistence
+- Supabase Auth + Google is the recommended login path. Logged-in users bootstrap `profiles` by `auth_user_id`, complete nickname onboarding, then app data is tied to `profiles.id`.
 - Shop progression uses profile-level coin, XP, level, owned items, and equipped item state
 - Static image assets imported from `src/assets`
 - GitHub remote with Vercel-style automatic deployment after push
@@ -62,6 +63,12 @@ For UI work, also inspect the existing screen/component files and the reference 
   - `docs: add codex collaboration guide`
 - Do not use destructive commands such as `git reset --hard`, force-push, or checkout-overwrite unless the owner explicitly approves.
 - If another collaborator has pushed new commits, pull/rebase carefully and resolve conflicts by preserving both intents whenever possible.
+
+## Current Auth/Data Split
+
+- B role owns nickname onboarding, Google profile display, and immutable `account_code` UX.
+- Main app role owns passing the resolved `profiles.id` into diary, shop purchase/equip, XP, level, and coin persistence.
+- Demo/local mode must continue working when `VITE_USE_SUPABASE_AUTH=false`.
 
 ## Context Handoff Format
 

@@ -162,6 +162,143 @@ button {
   object-fit: cover;
 }
 
+.profile-onboarding-screen {
+  align-content: start;
+  gap: 16px;
+}
+
+.onboarding-hero {
+  display: grid;
+  gap: 9px;
+  min-height: 188px;
+  padding: 22px 20px;
+  align-content: end;
+  overflow: hidden;
+  border: 1px solid rgba(190, 213, 184, 0.82);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 82% 20%, rgba(245, 206, 117, 0.32), transparent 30%),
+    radial-gradient(circle at 18% 18%, rgba(217, 240, 229, 0.82), transparent 34%),
+    linear-gradient(145deg, #f7fbf0, #fff7e8);
+  box-shadow: 0 18px 38px rgba(67, 52, 31, 0.09), inset 0 1px rgba(255, 255, 255, 0.92);
+}
+
+.onboarding-hero span {
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(121, 171, 132, 0.16);
+  color: var(--sage-4);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.onboarding-hero h1 {
+  max-width: 280px;
+  margin: 0;
+  color: var(--sage-4);
+  font-size: 26px;
+  line-height: 1.18;
+}
+
+.onboarding-hero p,
+.account-code-card small,
+.onboarding-card label span {
+  margin: 0;
+  color: #6f675d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.onboarding-card {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(219, 203, 174, 0.82);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(219, 238, 245, 0.34), transparent 28%),
+    rgba(255, 254, 250, 0.92);
+  box-shadow: 0 18px 38px rgba(67, 52, 31, 0.095), inset 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.onboarding-profile {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.onboarding-profile img,
+.onboarding-profile b {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(145deg, var(--sage-2), var(--sage-3));
+  color: white;
+  font-size: 18px;
+  object-fit: cover;
+}
+
+.onboarding-profile strong,
+.account-code-card strong {
+  display: block;
+  color: var(--sage-4);
+  font-size: 16px;
+}
+
+.onboarding-profile small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.onboarding-card label {
+  display: grid;
+  gap: 7px;
+}
+
+.onboarding-card input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(224, 212, 192, 0.86);
+  border-radius: 16px;
+  background: #fffefb;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+}
+
+.account-code-card {
+  display: grid;
+  gap: 5px;
+  padding: 13px 14px;
+  border: 1px solid rgba(125, 184, 139, 0.32);
+  border-radius: 18px;
+  background: rgba(238, 247, 237, 0.72);
+}
+
+.account-code-card span {
+  color: #5b9064;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.onboarding-feedback {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(239, 146, 123, 0.12);
+  color: #ad5949;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .diary-screen {
   align-content: start;
   grid-auto-rows: max-content;

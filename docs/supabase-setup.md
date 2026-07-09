@@ -11,6 +11,7 @@ Moodbe currently runs as a deterministic presentation MVP. Supabase is prepared 
 - `supabase/schema.sql`
 - `supabase/migrations/20260625_shop_progression.sql`
 - `supabase/migrations/20260625_auth0_profile_link.sql`
+- `supabase/migrations/20260709_profile_onboarding.sql`
 
 The app still defaults to local demo behavior unless `VITE_USE_SUPABASE=true` and valid Supabase credentials are provided.
 
@@ -86,21 +87,28 @@ VITE_USE_SUPABASE=true
 VITE_USE_SUPABASE_AUTH=true
 ```
 
-The first auth milestone only handles Google login/logout and session display. Nickname onboarding, immutable account codes, and profile bootstrap are the next step.
+The Google auth flow now supports profile bootstrap:
+
+- First login creates or reuses one `profiles` row by `auth_user_id`.
+- Google name/email/avatar are copied into the profile row.
+- The user must complete a nickname onboarding screen before entering the app.
+- `account_code` is generated once by the client and treated as an immutable account identifier.
+- After onboarding, diary entries, XP/level/coins, purchases, and equipped items use `profiles.id`.
 
 ## 6. Suggested Migration Order
 
-1. Keep existing localStorage diary flow as fallback.
-2. Add profile bootstrap.
-3. Save diary entries to Supabase when enabled.
-4. Move shop owned/equipped state to Supabase.
+1. Keep existing localStorage diary flow as fallback. Done.
+2. Add Google profile bootstrap and nickname onboarding. Done.
+3. Save diary entries to Supabase for logged-in profiles. Done.
+4. Move shop owned/equipped state to Supabase for logged-in profiles. Done.
 5. Move public profile cards and badges to Supabase.
-6. Add auth and tighten RLS.
+6. Tighten RLS from demo policies to authenticated owner policies.
 
 For an existing Supabase project that already ran an older `schema.sql`, run migrations in this order:
 
 1. `supabase/migrations/20260625_shop_progression.sql`
 2. `supabase/migrations/20260625_auth0_profile_link.sql` only after Auth0 token handoff works
+3. `supabase/migrations/20260709_profile_onboarding.sql` when using Supabase Auth + Google
 
 ## 7. Auth0 Integration
 

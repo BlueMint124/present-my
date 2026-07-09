@@ -5,8 +5,15 @@ create extension if not exists "pgcrypto";
 
 create table if not exists public.profiles (
   id uuid primary key default gen_random_uuid(),
+  auth_user_id uuid unique,
+  auth_provider text not null default 'google',
+  email text,
+  avatar_url text,
+  nickname text,
+  account_code text unique,
   display_name text not null default 'Moodbe User',
   public_handle text unique,
+  onboarding_completed boolean not null default false,
   avatar_item_id text,
   coin_balance integer not null default 320 check (coin_balance >= 0),
   level integer not null default 1 check (level >= 1),
@@ -15,6 +22,14 @@ create table if not exists public.profiles (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+create unique index if not exists profiles_auth_user_id_idx
+  on public.profiles(auth_user_id)
+  where auth_user_id is not null;
+
+create unique index if not exists profiles_account_code_idx
+  on public.profiles(account_code)
+  where account_code is not null;
 
 create table if not exists public.diary_entries (
   id uuid primary key default gen_random_uuid(),
