@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { getAuthDisplayName, signInWithGoogle, signOutOfMoodbe } from "./auth";
+import { getAuthDisplayName, getAuthRedirectUrl, signInWithGoogle, signOutOfMoodbe } from "./auth";
 
 describe("auth helpers", () => {
   it("starts Supabase Google OAuth with the current app origin", async () => {
@@ -18,6 +18,10 @@ describe("auth helpers", () => {
         redirectTo: "http://localhost:3000"
       }
     });
+  });
+
+  it("uses an explicit auth redirect URL when the deployment provides one", () => {
+    expect(getAuthRedirectUrl("http://localhost:3000", "https://moodbe.vercel.app/")).toBe("https://moodbe.vercel.app");
   });
 
   it("signs out through the Supabase auth client", async () => {

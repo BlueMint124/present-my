@@ -32,6 +32,7 @@ VITE_SUPABASE_URL=https://your-project-ref.supabase.co
 VITE_SUPABASE_ANON_KEY=your-public-anon-key
 VITE_USE_SUPABASE=false
 VITE_USE_SUPABASE_AUTH=false
+VITE_AUTH_REDIRECT_URL=
 ```
 
 Use `VITE_USE_SUPABASE=true` only when the schema is created and you are ready to test backend reads/writes.
@@ -95,6 +96,7 @@ VITE_SUPABASE_URL=https://your-project-ref.supabase.co
 VITE_SUPABASE_ANON_KEY=your-public-anon-key
 VITE_USE_SUPABASE=true
 VITE_USE_SUPABASE_AUTH=true
+VITE_AUTH_REDIRECT_URL=https://your-vercel-domain.vercel.app
 ```
 
 The Google auth flow now supports profile bootstrap:
@@ -104,6 +106,13 @@ The Google auth flow now supports profile bootstrap:
 - The user must complete a nickname onboarding screen before entering the app.
 - `account_code` is generated once by the client and treated as an immutable account identifier.
 - After onboarding, diary entries, XP/level/coins, purchases, and equipped items use `profiles.id`.
+
+If Google login redirects to a local URL after deployment, check Supabase Dashboard > Authentication > URL Configuration:
+
+- Set `Site URL` to the production Vercel URL.
+- Add the production Vercel URL to `Redirect URLs`.
+- Add local development URLs only as additional URLs, not as the production site URL.
+- In Vercel, set `VITE_AUTH_REDIRECT_URL` to the same production URL and redeploy.
 
 ## 6. Suggested Migration Order
 

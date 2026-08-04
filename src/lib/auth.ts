@@ -38,6 +38,14 @@ export function getAuthUserFromSession(session: Session | null) {
   return session?.user ? toMoodbeAuthUser(session.user) : null;
 }
 
+export function getAuthRedirectUrl(
+  currentOrigin = window.location.origin,
+  configuredRedirectUrl = import.meta.env.VITE_AUTH_REDIRECT_URL
+) {
+  const redirectUrl = configuredRedirectUrl?.trim() || currentOrigin;
+  return redirectUrl.endsWith("/") ? redirectUrl.slice(0, -1) : redirectUrl;
+}
+
 export async function signInWithGoogle(authClient: SupabaseAuthLike | null = supabase) {
   if (!authClient) {
     return;
@@ -46,7 +54,7 @@ export async function signInWithGoogle(authClient: SupabaseAuthLike | null = sup
   const { error } = await authClient.auth.signInWithOAuth?.({
     provider: "google",
     options: {
-      redirectTo: window.location.origin
+      redirectTo: getAuthRedirectUrl()
     }
   }) ?? { error: null };
 
